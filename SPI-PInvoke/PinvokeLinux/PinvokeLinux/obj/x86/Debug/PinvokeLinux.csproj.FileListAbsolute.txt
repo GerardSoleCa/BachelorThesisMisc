@@ -1,0 +1,6 @@
+D:\Gerard\Dropbox\TFC\codi\SPI-PInvoke\PinvokeLinux\PinvokeLinux\bin\Debug\PinvokeLinux.exe
+D:\Gerard\Dropbox\TFC\codi\SPI-PInvoke\PinvokeLinux\PinvokeLinux\bin\Debug\PinvokeLinux.pdb
+D:\Gerard\Dropbox\TFC\codi\SPI-PInvoke\PinvokeLinux\PinvokeLinux\obj\x86\Debug\PinvokeLinux.exe
+D:\Gerard\Dropbox\TFC\codi\SPI-PInvoke\PinvokeLinux\PinvokeLinux\obj\x86\Debug\PinvokeLinux.pdb
+Z:\tfc\PinvokeLinux.exe
+Z:\tfc\PinvokeLinux.pdb

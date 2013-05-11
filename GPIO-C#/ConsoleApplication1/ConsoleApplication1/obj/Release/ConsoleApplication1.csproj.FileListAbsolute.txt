@@ -1,0 +1,9 @@
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\ConsoleApplication1.exe.config
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\ConsoleApplication1.exe.manifest
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\ConsoleApplication1.application
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\ConsoleApplication1.exe
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\ConsoleApplication1.pdb
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.exe.manifest
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.application
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.exe
+d:\gerard\documents\visual studio 2012\Projects\ConsoleApplication1\ConsoleApplication1\obj\Release\ConsoleApplication1.pdb

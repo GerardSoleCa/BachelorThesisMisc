@@ -1,0 +1,6 @@
+D:\Gerard\Dropbox\TFC\codi\POLL Tests\gpio_event_pinvoke\gpio_event_pinvoke\bin\Debug\gpio_event_pinvoke.exe
+D:\Gerard\Dropbox\TFC\codi\POLL Tests\gpio_event_pinvoke\gpio_event_pinvoke\bin\Debug\gpio_event_pinvoke.pdb
+D:\Gerard\Dropbox\TFC\codi\POLL Tests\gpio_event_pinvoke\gpio_event_pinvoke\obj\x86\Debug\gpio_event_pinvoke.exe
+D:\Gerard\Dropbox\TFC\codi\POLL Tests\gpio_event_pinvoke\gpio_event_pinvoke\obj\x86\Debug\gpio_event_pinvoke.pdb
+Z:\tfc\gpio_event_pinvoke.exe
+Z:\tfc\gpio_event_pinvoke.pdb

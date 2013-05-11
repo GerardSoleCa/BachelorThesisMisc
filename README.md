@@ -1,2 +1,2 @@
-BachelorThesisMisc
+Bachelor Thesis Misc
 ==================

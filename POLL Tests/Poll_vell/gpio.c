@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
@@ -19,13 +18,13 @@
  * gpio_fd_open
  ****************************************************************/
 
- int gpio_fd_open(unsigned int gpio)
- {
+int gpio_fd_open(unsigned int gpio)
+{
   int fd, len;
   char buf[MAX_BUF];
 
   len = snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", gpio);
-
+ 
   fd = open(buf, O_RDONLY | O_NONBLOCK );
   if (fd < 0) {
     perror("gpio/fd_open");
@@ -36,82 +35,71 @@
 /****************************************************************
  * gpio_fd_close
  ****************************************************************/
- int gpio_fd_close(int fd)
- {
+
+int gpio_fd_close(int fd)
+{
   return close(fd);
 }
 
-uint64_t compute_time(){
-    time_t current_time;
-    char* c_time_string;
- 
-    /* Obtain current time as seconds elapsed since the Epoch. */
-    current_time = time(NULL);
+typedef void (*callback)(char* str);
 
-    printf("currenttime: %lf\n", ((double)current_time-25569.0)*86400.0);
-    return ((uint64_t)((double)current_time-25569.0)*86400.0);
- 
-    /*if (current_time == ((time_t)-1))
-    {
-        (void) fprintf(stderr, "Failure to compute the current time.");
-    }*/
- 
-    /* Convert to local time format. */
-   /* c_time_string = ctime(&current_time);
- 
-    if (c_time_string == NULL)
-    {
-        (void) fprintf(stderr, "Failure to convert the current time.");
-    }*/
- 
-    /* Print to stdout. */
-   /* (void) printf("Current time is %s", c_time_string);*/
-}
-
-
-uint64_t start_polling(int pin){
+void start_polling(int pin, callback call){
   struct pollfd fdset[1];
-  int nfds = 1;
+  int nfds = 2;
   int gpio_fd, timeout, rc;
   char *buf[MAX_BUF];
   int len;
-  uint64_t t;
 
-  //int count=0;
+  int count=0;
 
   gpio_fd = gpio_fd_open(pin);
 
   timeout = POLL_TIMEOUT;
-
-  //while (count <2) {
+ 
+  while (1) {
     memset((void*)fdset, 0, sizeof(fdset));
 
     fdset[0].fd = gpio_fd;
     fdset[0].events = POLLPRI;
 
-    read(fdset[0].fd,&buf,64);
     rc = poll(fdset, nfds, timeout);      
 
     if (rc < 0) {
       printf("\nSomething fails!\n");
     }
-
+      
     if (rc == 0) {
       printf(".");
     }
-
-    if (fdset[0].revents & POLLPRI && rc > 0) {
+            
+    if (fdset[0].revents & POLLPRI) {
       len = read(fdset[0].fd, buf, MAX_BUF);
-      t = compute_time();
       //printf("\nGPIO %d interrupted\n", pin);
-      //call("GPIO INTERRUPTED");
-      
+      call("GPIO INTERRUPTED");
     }
     fflush(stdout);
-    //printf("%i\n", count);
-    //count++;
-  //}
-    return t;
+    printf("%i\n", count);
+    count++;
+  }
 
   gpio_fd_close(gpio_fd);
 }
+
+/****************************************************************
+ * Main
+ ****************************************************************/
+/*int main(int argc, char **argv, char **envp)
+{
+  if (argc < 2) {
+    printf("Usage: gpio-int <gpio-pin>\n\n");
+    printf("Waits for a change in the GPIO pin voltage level or input on stdin\n");
+    exit(-1);
+  }
+
+  gpio = atoi(argv[1]);
+
+  start_polling(gpio);
+
+  
+  return 0;
+}*/

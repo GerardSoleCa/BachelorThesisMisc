@@ -43,14 +43,14 @@
 
 uint64_t compute_time(){
     time_t current_time;
-    char* c_time_string;
+    //char* c_time_string;
  
     /* Obtain current time as seconds elapsed since the Epoch. */
     current_time = time(NULL);
 
-    printf("currenttime: %lf\n", ((double)current_time-25569.0)*86400.0);
-    return ((uint64_t)((double)current_time-25569.0)*86400.0);
- 
+    //printf("currenttime: %lf\n", ((double)current_time-25569.0)*86400.0);
+    //return ((uint64_t)((double)current_time-25569.0)*86400.0);
+    return (long) current_time;
     /*if (current_time == ((time_t)-1))
     {
         (void) fprintf(stderr, "Failure to compute the current time.");
@@ -75,7 +75,7 @@ uint64_t start_polling(int pin){
   int gpio_fd, timeout, rc;
   char *buf[MAX_BUF];
   int len;
-  uint64_t t;
+  long t;
 
   //int count=0;
 

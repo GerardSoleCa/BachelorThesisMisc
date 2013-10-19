@@ -1,0 +1,221 @@
+\documentclass[a4paper,12pt,catalan,final]{epsc_tfc_pfc}
+%% a4paper: mida paper. No tocar
+%% 12pt: mida de la font. No tocar
+
+%%  - OPCIONS A CONFIGURAR:
+%%     - Estat del document: final o draft
+%%       NOTA: Draft no inserta les figures i indica quan el text sobrepassa els marges.
+
+%%  - IDIOMES QUE S'USARAN EN EL DOCUMENT: catalan, spanish, english, french...
+%%    NOTA: per canviar d'idioma al mig del document usar:
+%%          \selectlanguage{nom_idioma}
+\usepackage[catalan,english]{babel}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% PAQUETS LATEX RECOMANABLES A UTILITZAR
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% NOTA: es possible que algunes distribuicions Linux o Windows 
+%%%       no portin aquests paquets instal·lats per defecte.
+
+%% El paquet isolatin1 és extramadament útil. 
+%% Permet escriure els accents directament amb l'editor de texte
+%% sense haver de fer coses com per exemple: introducci\'o
+\usepackage[latin1]{inputenc}             
+
+%% Símbols matemàtics de la American Mathematical Society
+\usepackage{amssymb,amsmath, amsfonts}  
+
+%% El paquet array proporciona eines molt útils a l'hora de fer 
+%% equacions amb matrius
+\usepackage{array}             
+
+%% Permet fer taules fusionant cel·les de files consecutives
+%\usepackage{multirow}          
+
+%% Permet canviar els colors del document
+%\usepackage{color,colortbl}
+
+\usepackage{float}
+
+\restylefloat{table}
+
+\usepackage{textcomp}
+
+%\url
+\usepackage{url}
+
+\begin{document}
+\pagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% IDIOMA PRINCIPAL DEL DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\selectlanguage{english}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PORTADA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Portada generada automàticament a partir del fitxer de dades
+\portada
+
+%% RESUM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTA: la longitud passada com a parametre d'entrada 
+%       s'ha d'ajustar ``a ull'' fins que el requadre del resum ocupi tota la pagina 
+\begin{resum}{10cm}
+Aquest document conté les pautes del format de presentació del treball o projecte de final de carrera. En tot cas, cal tenir en compte el que estableix la ``Normativa del treball de fi de carrera (TFC) i del projecte de fi de carrera (PFC)'' aprovada per la Comissió Permanent de l'EPSC, especialment l'apartat ``Requeriments del treball''.
+\end{resum}
+
+%% OVERVIEW
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTA: la longitud passada com a parametre d'entrada 
+%       s'ha d'ajustar ``a ull'' fins que el requadre del resum ocupi tota la pagina 
+\begin{overview}{11cm}
+This document contains guidelines for writing your TFC/PFC. However, you should also take into consideration the standards established in the document Normativa del treball de fi de carrera (TFC) i del projecte de fi de carrera (PFC), paying special attention to the section Requeriments del treball, as this document has been approved by the EPSC Standing Committee
+\end{overview}
+
+%% DEDICATORIA (opcional)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{dedicatoria}
+Escriure aquí opcionalment la dedicatòria.
+\end{dedicatoria}
+
+%% INDEX de continguts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty} 
+\tableofcontents
+\cleardoublepage
+
+%% INDEX de figures (opcional, comentar les 3 linies si no es desitja)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+\listoffigures
+\cleardoublepage
+
+%% INDEX de taules (opcional, comentar les 3 linies si no es desitja)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+\listoftables
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%                    INTRODUCCIÓ                          %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTA: El text passat com a parametre d'entrada 
+%%       és ''introducció'' amb l'idioma en que es redacti el projecte
+\pagestyle{fancy} 
+
+\begin{intro}{Introduction} 
+The aim of this thesis is port an existing operating system called Micro Framework developed by Microsoft. Micro Framework is the smallest version of .NET for very resource-constrained devices. This port should let applications using this framework run on any Linux device capable of use Input/Output ports and SPI, UART communication standards.
+There is no official implementation of this framework for complete operating systems, in example, Windows or Linux.
+
+The reason of this port is try to migrate a Wireless Sensor Network (WSN) Gateway that currently uses MicroFramework and Netduino Plus which is a constrained-device. But this gateway it's getting out of system resources, so in order to keep the existing code a solution has been proposed, make able to run this software on a Linux device.
+
+In this case, the deployment device will be a RaspberryPi which is a low end computer similar to a Pentium II in terms of computing power. This computer offers a set of interesting things in terms of this thesis, basically it has exposed Input/Output ports as a GPIO. Over this GPIOs it's possible to use SPI, I$^{2}$C and UART communication buses.
+
+After achieving this, there is a second goal which consists of help and test the development of a code translating tool called AlterNative which is being developed by Alex Albalá and Juan López. This translator is capable to get a source code from a C\# binary and translate it to C++ trying to get better performance than C\#. On the other hand, taking the benefit of the C++, the translated code should be able to execute between different operating systems (Windows, Linux and MacOSX and also mobile devices as Android).
+
+\end{intro}
+
+\pagestyle{fancy} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% INCLOURE A PARTIR D'AQUÍ TOTS ELS CAPÍTOLS DE LA MEMORIA   %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{chapters/microframework}
+%\include{chapters/marea}
+%\include{chapters/network}
+%\include{chapters/protocol}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  BIBLIOGRAFIA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Per la bibliografia hi ha 2 opcions: generarla amb la utilitat BibTeX 
+%%%                                      o fer-la ''a ma''
+%%% NOTA: podeu trobar facilment informació sobre BibTeX a:
+%%%  http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+
+
+%%% OPCIO 1: BibTeX -> descomentar les dues línies
+%%% a)  Estil de bibliografia\\
+%\bibliographystyle{unsrt}  
+%%% b) Indicar els fitxers que contenen la bibliografia
+%\bibliography{bibliography2}  
+
+%%% OPCIO 2: bibliografia manual
+%%%
+%%% L'argument d'entrada es el numero de referencies que s'inclouen
+\begin{thebibliography}{9}
+
+%% Llibres:  Autor/s (cognoms i inicials dels noms), títol del llibre (en cursiva), editor, ciutat i any de publicació. Quan es cita el capítol d'un llibre s'ha d'indicar el títol del capítol (entre cometes), el títol del llibre (en cursiva) i els números de pàgines amb la primera i la darrera incloses.
+%%  Exemple de capitol en llibre
+
+\bibitem{cite:middleware}
+Schmidt, D.C. and Schantz, R.E., "Middleware for Distributed System - Evolving the Common Structure for Network-centric Applications", {\it Encyclopedia of Software Eng.}, Wiley \& Sons, New York, 2001. Also available at \url{http://www.agentgroup.unimore.it/didattica/ingss/Lec_Middleware/Schmidt_Middleware.pdf}
+
+\bibitem{cite:mom}
+Bagula, A.B., Denko, M.K. and Zennaro, M., "Middleware for Mobile and Pervasive Services", Chap. 7 in {\it Handbook of mobile systems applications and services}, Taylor and Francis Group, Kumar, A. and Xie, B., pp. 248-249, Boca Raton (FL), 2012. 
+
+\bibitem{cite:oom}
+Khan, S., Qureshi, K. and Rashid, H., "Performance Comparison of ICE, HORB, CORBA and Dot 
+NET Remoting Middleware Technologies", {\it International Journal of Computer Applications}, 3(11), 15-18 (2010). Also available at \url{http://www.ijcaonline.org/volume3/number11/pxc3871105.pdf}
+
+\bibitem{cite:marea}
+López, J., Royo, P., Barrado, C., Pastor, E., "Applying marea middleware to UAS communications", {\it  In Proceedings of the AIAA Infotech@Aerospace Conference and AIAA Unmanned Unlimited Conference 2009}, Seattle (WH). Also available at \url{http://upcommons.upc.edu/e-prints/bitstream/2117/9248/1/infotech09.pdf}
+
+\bibitem{cite:thesis-soa-avionics}
+López, J., "Service Oriented Architecture for Embedded (Avionics) Applications", {\it  The PhD Program on Computer Architecture Technical School of Castelldefels Technical University of Catalonia}, Barcelona, 2011. Also available at \url{https://dl.dropbox.com/u/2857619/thesis-small.pdf}
+
+\bibitem{cite:delegate}  
+Kiely, D., "Delegates Tutorial" in {\it The Microsoft Developer Network (MSDN)}. Available at \url{http://msdn.microsoft.com/en-us/library/aa288459(v=vs.71).aspx}
+
+\bibitem{cite:serialization} 
+Albahari, J. and Albahari B., "Serialization", Chap. 17 in {\it C\# 5.0 in a Nutshell: The definitive reference},
+O`REILLY, Roumeliotis, R., pp. 691-728, Sebastopol (CA), 2012.
+
+\bibitem{cite:performance-sockets} 
+Kiely, D., "Get Closer to the Wire with High-Performance Sockets in .NET" in {\it The Microsoft Developer Network (MSDN) Magazine}. Available at \url{http://msdn.microsoft.com/es-es/magazine/cc300760(en-us).aspx}
+
+\bibitem{cite:backporting}
+Books Llc, Source Wikipedia, "Software Quality: Software Crisis, Kludge, Second-System Effect, Workaround, Reliability Engineering, Fault-Tolerant System", Books Llc, Memphis (Tennessee), 2011.
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%                           APENDIXS                         %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{empty}  % no tocar
+
+%% Descomentar una de les dues línies següents, en funció de:
+%%  a) els apendixs s'encuadernaran apart (amb portada) 
+%%  b) els apendixs s'enquadernen amb el mateix projecte (sense portada). 
+%% Recordeu que si tot el document (amb apèndixs) excedeix les 100 pagines 
+%% s'ha d'enquadernar a part
+\appendix\ambportada
+%\appendix\senseportada
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% INCLOURE A PARTIR D'AQUI TOTS ELS CAPÍTOLS DELS APENDIXS   %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{chapters/appendices/tools}
+\chapter{Exemple de prova d'un apèndix}
+Text de prova
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% i  aixo es tot! ;)
+\end{document}
+
+
+
+
+

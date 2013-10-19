@@ -1,0 +1,100 @@
+\chapter{Tools}\label{C:Tools}
+
+\section{Source control tools}\label{S:Tools-control}
+\subsection{Git}\label{SS:Tools-Git}
+\subsection{GitHub}\label{SS:Tools-GitHub}
+\subsection{Git source control provider extension}\label{SS:Tools-GitSource}
+
+\section{Package management system}\label{S:Tools-pms}
+
+\subsection{NuGet}\label{SS:Tools-NuGet}
+
+NuGet is a free, open source developer focused package management system for the .NET platform intent on simplifying the process of incorporating third party libraries into a .NET application during development.
+
+\subsection{Packages}\label{SS:Tools-packages}
+
+\subsubsection{Log4net}\label{SSS:Tools-log4net}
+
+Log4net, a port of the popular Java library log4j, is an open source library that allows .NET applications to log output to a variety of sources (e.g., console, files or SMTP). The information is logged via one or more loggers which provide a the following five logging levels: 
+
+\begin{itemize}
+\item \textbf{Debug}   
+\item \textbf{Information} 
+\item \textbf{Warnings}
+\item \textbf{Error} 
+\item \textbf{Fatal} 
+\end{itemize}
+
+\subsubsection{NUnit}\label{SSS:Tools-Nunit}
+
+NUnit, a port from JUnit, is a unit-testing framework for all .NET languages. It is written entirely in C\# and has been completely redesigned to take advantage of many .NET language features, for example custom attributes and other reflection related capabilities. 
+
+NUnit does not support Visual Studio integration. Instead of this it provides an external program compiled either as a console app or a GUI. This program is able to runs and execute the unit tests from an assembly.
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.45]{pictures/appendices/tools/NuGetGUI}
+  \caption{MAREA unit tests executed by NUnit GUI application\label{fig:tools-NUnitGUI}}
+\end{center}\end{figure}
+
+This framework has been especially used to test encoder layer functionalities. The listing \ref{lst:NUnit-test} shows an example of a unit test to serialize and deserialize a double with two diferent pair of parameters.
+
+\begin{lstlisting}[language=CSharp, caption={MAREA encoder layer unit test: serialization and deserialization of a double}, classoffset=2,morekeywords={SetUp,TestCase,PerformanceTimer,ResultsManager,Description,AdaptedMareaCoder,CoderTestsConstants,Results,Console,Assert},label={lst:NUnit-test}]
+ private byte[] seralizedData = null;
+ private long start, serializeTicks, deserializeTicks;
+ private long  clock_freq = PerformanceTimer.Clock_freq();
+  
+ [SetUp]
+ public void RunAfterAnyTest()
+ {
+  serializeTicks = 0;
+  deserializeTicks = 0;
+ }
+  
+ [TestCase(0.100000234523, 0), NUnit.Framework.Description("Coder(double, System.Double)")]
+ [TestCase(double.MaxValue,0)]
+ public void TestDoubleM2(double oDouble, double rDouble)
+ {
+  for (int i = 0; i < CoderTestsConstants.CODIFICATIONS; i++)
+  {
+   start = PerformanceTimer.Ticks();
+   seralizedData = AdaptedMareaCoder.Send(oDouble);
+   serializeTicks += PerformanceTimer.TicksDifference(start);
+
+   start = PerformanceTimer.Ticks();
+   rDouble = (double)AdaptedMareaCoder.Receive(seralizedData);
+   deserializeTicks += PerformanceTimer.TicksDifference(start);
+  } 
+
+  Console.WriteLine(CoderTestsConstants.MAREA2);
+  Results results = ResultsManager.GetResults(serializeTicks, deserializeTicks, clock_freq, 				
+  CoderTestsConstants.CODIFICATIONS, seralizedData.Length, rDouble.GetType().FullName);
+	
+  if (oDouble == rDouble)
+  {
+   Assert.True(true);
+   Console.WriteLine(CoderTestsConstants.OK_STATE);
+   Console.WriteLine(results.ToString());
+  }
+  else
+  {
+   Console.WriteLine(CoderTestsConstants.KO_STATE);
+   Assert.True(false);
+  }
+ }
+\end{lstlisting}
+
+\subsubsection{Nuget Server}\label{SSS:Tools-NuGet-server}
+
+\section{Cross platform tools}\label{S:Tools-control}
+\subsection{Mono}\label{SS:Tools-Mono}
+\subsection{Alter Native}\label{SS:Tools-Alternative}
+
+
+
+
+
+
+
+

@@ -8,7 +8,11 @@ This company is working on two different projects that combine together, the fir
 As explained before, AlterAid has two relevant products, aaaida which is the unifying social network that shows or even analyzes
 the data uploaded there. Then comes HomeSense, a Wireles Healthcare Sensor Platform, which is interesting on terms of sensing and daily life control. HomeSense idea is be capable of pick information using distributed sensors around a house and then upload to aaaida.
 
-With a case of use, will be much easy to understand how this platform works, how is used and which is its orientation.
+\subsection{Aaaida}\label{SS:Aaaida-proposal}
+
+
+\subsection{HomeSense}\label{SS:HomeSense-proposal}
+
 
 \subsection{Case of use}\label{SS:Case-Of-Use}
 Alice is a young teenager whose grandfather, Bob, is ill and she wants to know if all is fine in Bob's home life. Alice will sign up in http://www.aaaida.com, there she will create a bond called Bob. A bond is a entity that represents a person, this entity can be configured with different measures. Then Alice will create 2 measures, the first one will be blood pressure while the other one will be bob's house.
@@ -17,21 +21,28 @@ Apart from this, Alice will buy a product from AlterAid, called HomeSense, which
 This application will facilitate the linking between Alice account and Bob's bond, in addition, Alice will be able to setup a internet link to HomeSense using grandfather's Internet or a GSM connection to some mobile phone provider.
 Once the system is configured and working, Alice will be able to take care of Bob's home life, for example if he must take a pill at the morning, she can control at least if the medicine cabinet has been opened. Or if all doors are closed if Bob is out of home.
 
-\subsection{Aaaida skeleton}\label{SS:Aaaida-Skeleton}
-Actually aaaida is being developed using Grails, which is a framework that uses Groovy on top of the Java Virtual Machine.
-Grails is a Model-View-Controller(MVC) framework, a MVC pattern in this case fits pretty well:
-\begin{itemize}
-\item{\textbf{Model:} Entities corresponding to Users, Bonds, Measures, Values, Advertisements and Applications.}
-\item{\textbf{View:} Basically is the website interface where people can see advertisments (new data) and configure bonds and measures.}
-\item{\textbf{Controller:} Is the logic of aaaida, it connects to the graph database, processes data and route requests to the endpoints that render views.}
-\end{itemize}
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.75]{pictures/proposal/aaaida-use-case}
+  \caption{MAREA 2 network layer architecture \label{fig:network-architecture}}
+\end{center}\end{figure}
 
-Apart from this, and in terms of this thesis more relevant, aaaida has an open API working with the RFC6749 (OAuth 2.0).
+%\subsection{Aaaida skeleton}\label{SS:Aaaida-Skeleton}
+%Actually aaaida is being developed using Grails, which is a framework that uses Groovy on top of the Java Virtual Machine.
+%Grails is a Model-View-Controller(MVC) framework, a MVC pattern in this case fits pretty well:
+%\begin{itemize}
+%\item{\textbf{Model:} Entities corresponding to Users, Bonds, Measures, Values, Advertisements and Applications.}
+%\item{\textbf{View:} Basically is the website interface where people can see advertisments (new data) and configure bonds and measures.}
+%\item{\textbf{Controller:} Is the logic of aaaida, it connects to the graph database, processes data and route requests to the endpoints that render views.}
+%\end{itemize}
 
-\subsection{HomeSense skeleton}\label{SS:HomeSense-Skeleton}
-HomeSense
+%Apart from this, and in terms of this thesis more relevant, aaaida has an open API working with the RFC6749 (OAuth 2.0).
+
+%\subsection{HomeSense skeleton}\label{SS:HomeSense-Skeleton}
+%HomeSense
 
 \section{AlterNative}\label{S:AlterNative}
 blablabla AlterNative
 
-\section{Thesis Proposal}\label{S:IOSharp}
+\section{Thesis Proposal}\label{S:Thesis-Proposal}

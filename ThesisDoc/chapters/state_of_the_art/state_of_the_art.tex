@@ -1,34 +1,36 @@
 \chapter{State of the art}\label{C:State-Art}
 
-This chapter sketches out briefly the state of the art of the embedded operating systems and its capabilities. Then according to this thesis will be explained what is the current operating system running on the bottom of HomeSense and finally why has been chosen the RaspberryPi as the target device of this thesis.
+This chapter sketches out briefly the state of the art of the embedded operating systems and its capabilities. Then according to this thesis it will be explained what is the current operating system running on bottom of HomeSense and finally why has been chosen the RaspberryPi as the target device.
 
 \section{Embedded Systems}\label{S:Embedded-Systems}
-Embedded Systems now a days are taking relevance again with the Internet of the Things, environment sensing, Wireless Sensor Networks and all the coming technologies that require low power consumption, small size, mobility environments etc.
+Embedded Systems now a days are taking relevance again with the Internet of the Things, environment sensing, Wireless Sensor Networks and all new coming technologies that require low power consumption, small size, mobility environments, ...
 
-In Embedded Systems or Resource Constrained System it's interesting to take a look into the Hardware platform and its capabilities, and nowadays it 
+In Embedded Systems or Resource Constrained Systems it is interesting to take a look into the Hardware platform and its capabilities, the differences between platforms, and also which tools or unique features offers to developers.
 
+An operating system (OS) offers an interface with the hardware to make it independent from the applications that the device runs, making easy the interactions between hardware and the programs running on the machine.
 
-An operating system (OS) offers an interface with the hardware to make it independent from the applications that the device runs, making easy the interactions between hardware or other running programs.
+An OS is an important program that makes easy to develop applications, but it is important to maintain the features that the processor offers, avoiding performance or capabilities degradation. 
+This bachelor thesis is focused on constrained-resource devices, where the processing capabilities and memory resources are limited, is fundamental to respect the above criteria.
 
-An OS is an important program that makes easy to develop applications, but it is important to maintain the features that the processor offers, avoiding performance or capabilities degradation. As this bachelor thesis is focused on constrained-resource devices, where the processing capabilities and memory resources are limited, is fundamental to respect the above criteria.
-
-In general, there are three types of operating system architectures based on how applications are executed:
+\subsection{Operating Systems Architectures}\label{Operating-Systems-Architectures}
+In general, there are three types of operating system architectures for embedded devices, which are based on how applications are executed or included into the OS.
 
 \begin{itemize}
-\item \textbf{Monolithic:} The OS and the applications are combined in a single program, being an end to end task without the possibility to include new functions without rewriting much of the code.
+\item \textbf{Monolithic:} The OS and the applications are combined into a single program. Normally in this situations the embedded device runs in the same process the OS and the program written to it. This type of architecture makes difficult to include new functions without rewriting much of the code.
 
-\item \textbf{Modular:} The OS is running as a standalone program in the processor and has de ability to load programs to it self as modules. In terms of the development, it's possible to develop applications without writing in the core of the OS.
+\item \textbf{Modular:} The OS is running as a standalone program in the processor and has de ability to load programs to it self as modules. In terms of the development, it's possible to develop applications without writing in the core of the OS. Normally using modules developers can expand the capabilities of its software.
 
-\item \textbf{Virtual-Machine:} The OS creates an abstraction layer of its underlying hardware, this abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. 
+\item \textbf{Virtual-Machine:} The OS creates an abstraction layer of its underlying hardware, this abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. Although using virtual-machine devices simplifies the development on multiple devices, the performance of the platform normally will be reduced and in Real Time environments it isn't recommended to use it.
 \end{itemize}
 
-
+\subsection{Embedded Operating Systems}\label{Embedded-Operating-Systems}
+There is a wide range of Embedded Operating Systems each of them has strengths and weaknesses, below different OS are described and compared.
+ 
 \begin{itemize}
-\item \textbf{TinyOS:} asdf asdf asdf.
+\item \textbf{TinyOS} is a popular open source OS for wireless constrained devices, many of them used in wireless sensor networks. It provides software abstractions from the underlying hardware. It is focused on wireless communications offering stacks for 802.15.4 and ZigBee. It also supports secure networking and implements a RPL taking in mind the forthcoming routing protocol for low power and lossy networks.
+However, TinyOS changes how programs should be developed, it intended to use non-blocking programming which means that it isn't prepared for long processing functions. For example, when TinyOS called to send a message the function will return immediately and after a while the send will be processed and after then, TinyOS will make a callback to a function, for example send()'s callback will be sendDone().
 
-\item \textbf{FreeRTOS:} asdf asdf asdf.
-
-\item \textbf{uC/OS II:} asdf asdf asdf.
+\item \textbf{FreeRTOS} is a free real-time OS that supports over 34 architectures and it is being developed by professionals under strict quality controls and robustness. Is used from toys to aircraft navigation and it is interesting for its real-time qualities. It has a very small memory footprint (RAM usage) and very fast execution, based on hard real-time interruptions performed by queues and semaphores. Apart from this, there are not constraints on the maximum number of tasks neither the priority levels that can be used on tasks. 
 
 \item \textbf{Contiki:} asdf asdf asdf.
 
@@ -39,16 +41,6 @@ In general, there are three types of operating system architectures based on how
 
 \section{Micro Framework .NET}\label{S:MicroFramework}
 
-Complexity and heterogeneity drawbacks of distributed systems could be solved or relived using a middleware. Middleware is a system software that resides between the applications and the underlying operating systems, network protocol stacks, and hardware, which provides facilities in order to build and use distributed systems \cite{cite:middleware}.
-
-This type of software provides a transparent and abstract vision of the low-level details (e.g. network communication, encoding, concurrency, protocol handling, etc.) facilitating end user programming. Middlweware typically provides two different types of transparency to distributed systems:
-
-\begin{itemize}
-\item \textbf{Access transparency:} Hides differences between remote and local operations like data representation and invocation mechanisms.
-
-\item \textbf{Location transparency:} Hides where the components reside. The  different components could be 
-redistributed (e.g. moved between computers) without changing any of the other components.
-\end{itemize}
 
 \subsection{NETMF enabled devices}\label{SS:MicroFramework-Devices}
 
@@ -60,14 +52,6 @@ Among this, there are more powerful devices that can run and execute simple grap
 \subsection{Software Development Kit}\label{SS:MicroFramework-SDK}
 As Micro Framework is similar to an operating system it has
 
-\begin{itemize}
-\item \textbf{4.3:} This asynchronous indirect communication model uses a queue in order to exchange messages. The messages from the producer are stored into the consumer's queue after being sent. In this type of model, persistent queues are used when the reliability is required in front of performance. Quality of service (QoS) policies are also a good solution to provide reliability.
-
-\item \textbf{4.2:} In this direct communication model, the messages are sent directly to the interested parts through publish/subscribe pattern. In this pattern, the different parts register interest in receiving messages on a particular message topic. After the subscription, the consumer will receive any message corresponding to the subscribed topic.
-
-\end{itemize}
-
-BlaBlaBla both blablabla
 
 \subsection{Visual Studio}\label{SS:MicroFramework-IDE}
 

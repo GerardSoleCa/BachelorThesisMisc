@@ -27,35 +27,41 @@ In general, there are three types of operating system architectures for embedded
 There is a wide range of Embedded Operating Systems each of them has strengths and weaknesses, below different OS are described and compared.
  
 \begin{itemize}
-\item \textbf{TinyOS} is a popular open source OS for wireless constrained devices, many of them used in wireless sensor networks. It provides software abstractions from the underlying hardware. It is focused on wireless communications offering stacks for 802.15.4 and ZigBee. It also supports secure networking and implements a RPL taking in mind the forthcoming routing protocol for low power and lossy networks.
+\item \textbf{TinyOS} is a popular open source OS for wireless constrained devices, many of them used in wireless sensor networks. It provides software abstractions from the underlying hardware. It is focused on wireless communications offering stacks for 6LoWPAN and ZigBee. It also supports secure networking and implements a RPL taking in mind the forthcoming routing protocol for low power and lossy networks.
+\\
 However, TinyOS changes how programs should be developed, it intended to use non-blocking programming which means that it isn't prepared for long processing functions. For example, when TinyOS called to send a message the function will return immediately and after a while the send will be processed and after then, TinyOS will make a callback to a function, for example send()'s callback will be sendDone().
 
 \item \textbf{FreeRTOS} is a free real-time OS that supports over 34 architectures and it is being developed by professionals under strict quality controls and robustness. Is used from toys to aircraft navigation and it is interesting for its real-time qualities. It has a very small memory footprint (RAM usage) and very fast execution, based on hard real-time interruptions performed by queues and semaphores. Apart from this, there are not constraints on the maximum number of tasks neither the priority levels that can be used on tasks. 
 
-\item \textbf{Contiki:} asdf asdf asdf.
+\item \textbf{Contiki} is similar to TinyOS in terms of portability between platforms and its code is open source. It also offers features similar to standard operating systems like threading, timers, file system and command line shell and uses modular architecture, loading or unloading programs from its kernel. Contiki is build on top of the Internet Standards supporting IPv4 and IPv6 and also the new low-power internet protocols which includes 6LoWPAN, RPL and CoAP.
+\\
+Contiki uses protothreads which are designed for event-driven systems running on top of constrained devices, which is the case of Contiki's kernel. It provides blocking without having a real multi-threading system or a stack-switching.
 
-\item \textbf{Micro Framework .NET:} asdf asdf asdf.
+\item \textbf{Micro Framework .NET} is a solution provided by Microsoft for constrained devices which cannot execute the full .NET stack. It is Virtual-Machine based operating system that a small implementation of the CLR making available to execute a small set of .NET classes. Its memory footprint is about 300KB and supports the common embedded peripherals like EEPROM, GPIO, SPI, UART, USB, ...
+\\
+One of its interesting features is that offers the advantages of .NET language using Visual Studio and it also offers real-time debugging directly on the device.
 \end{itemize}
 
 
 
-\section{Micro Framework .NET}\label{S:MicroFramework}
+\section{Micro Framework .NET}\label{S:MicroFramework-dotNet}
+MicroFramwork, is also known as NETMF, had its roots in a project called \textbf{Smart Personal Objects Technology (SPOT)}. The first devices implementing the SPOT technology where smart-watches from Fossil and Suunto in 2004 and after them became kettles, weather stations and for traffic and map updates in Garmin devices. Microsoft wanted to create a technology for everyday devices so they launched together with SPOT the MSN Direct which was a set of network services capable of delivering information to the SPOT devices using FM radio broadcast signals.
+\\
+In 2008 the production of SPOT watches was discontinued and in 2009 Microsoft released the source code of Micro Framework under Apache 2.0 license making availably to the community and shortly after this release the MSN Direct services where ceased.
 
+\subsection{Devices using Micro Framework}\label{SS:MicroFramework-Devices}
+Since Microsoft released the Micro Framework source code, different companies had created different devices supporting .NET code and this stack.
+\\
+There are two major vendors producing chips and development kits for this software. Secret Labs produces the netduino family which consists of the standard netduino, a netduino plus which is an enriched version. This one has better processor and memory, it includes an ethernet port and uses micro sd cards to provide storage. One of the interesting this of this two boards is the layout of the board, it is totally compatible with most of the arduino shields in the market.
+Secret Labs has another board called netduino go, which is similar to netduino plus but without storage, ethernet and it does not use the typical arduino layout, so a globus module is required to use arduino shields.
+\\
+GHI Electronics is another hardware manufacturer that has designed and released different boards implementing Micro Framework or modules which its target platform is Micro Framework. GHI has a very wide range of products for example FEZ Cerbuino Bee and FEZ Cerbuino NET which are similar to the netduino plus in terms of performance. One interesting thing of FEZ devices over netduino is the possibility of load native code (C/Assembly) for real-time requirements which it is really interesting. For example HomeSense could run its Mesh driver in C and perform better than it performs using C\#.
+\\
+\\
+In addition to the mentioned manufacturers, Microsoft Research in Cambridge has defined a hardware reference platform called .NET Gadgeteer which defines how boards and modules must be in order to allow rapid prototyping of projects. Gadgeteer boards and modules share the same layout and connector schemes.
+\subsection{Linux port of Micro Framework}\label{SS:MicroFramework-Devices}
 
-\subsection{NETMF enabled devices}\label{SS:MicroFramework-Devices}
-
-MicroFramework can run on CLR enabled devices that are MicroFramework compilant with it's specifications. In this bachelor thesis a Netduino Plus (from XXXXXLabs) has been used to test, understand and code sample code in order to know how Microframework works. Apart from this Netduino there are other devices like the cerbuino,which are also capable to run CLR code.
-
-Among this, there are more powerful devices that can run and execute simple graphics programs.
-
-
-\subsection{Software Development Kit}\label{SS:MicroFramework-SDK}
-As Micro Framework is similar to an operating system it has
-
-
-\subsection{Visual Studio}\label{SS:MicroFramework-IDE}
-
-\section{RaspberryPi and MicroFramework}\label{S:RaspberryPi-NETMF}
+\section{CLR on RaspberryPi}\label{S:CLR-RaspberryPi}
 Before starting with the development a search was done in order to know if there was any project involving the port of the MicroFramework to Linux devices using, for example, Mono. Nothing was found.
 There is currently one implementation of MicroFramework for Linux, but it only works in a resource-constrained device called Edy Linux.
 

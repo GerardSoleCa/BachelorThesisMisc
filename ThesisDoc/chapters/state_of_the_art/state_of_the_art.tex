@@ -58,10 +58,24 @@ Secret Labs has another board called netduino go, which is similar to netduino p
 GHI Electronics is another hardware manufacturer that has designed and released different boards implementing Micro Framework or modules which its target platform is Micro Framework. GHI has a very wide range of products for example FEZ Cerbuino Bee and FEZ Cerbuino NET which are similar to the netduino plus in terms of performance. One interesting thing of FEZ devices over netduino is the possibility of load native code (C/Assembly) for real-time requirements which it is really interesting. For example HomeSense could run its Mesh driver in C and perform better than it performs using C\#.
 \\
 \\
-In addition to the mentioned manufacturers, Microsoft Research in Cambridge has defined a hardware reference platform called .NET Gadgeteer which defines how boards and modules must be in order to allow rapid prototyping of projects. Gadgeteer boards and modules share the same layout and connector schemes.
-\subsection{Linux port of Micro Framework}\label{SS:MicroFramework-Devices}
+In addition to the mentioned manufacturers, Microsoft Research in Cambridge has defined a hardware reference platform called .NET Gadgeteer which defines how boards and modules must be in order to allow rapid prototyping of projects. Gadgeteer boards and modules share the same layout and connector schemes and are open to any company that wants to build products using those schematics.
 
-\section{CLR on RaspberryPi}\label{S:CLR-RaspberryPi}
+\subsection{NETMF on Linux}\label{S:NETMF-Linux}
+
+After doing some research about implementations of Micro Framework on other devices or running on top of other operating systems such as Linux. It was found a project that is currently porting NETMF to Linux, but for a very specific device called Eddy.
+\\
+Eddy is an ARM embedded device board which uses Linux, the port named above has been made as a demonstration of writing NETMF applications using a port on top of other operating systems. One of the majors problems of this port is that some drivers are not working at all, for example UART, SPI and I2C which are 3 interesting I/O protocols and ports for HomeSense.
+\\
+Although this port is for the Eddy board, it can be ported to other devices using the appropriate cross-toolchain, anyway it seems that there is a lack of possibilities to run Micro Framework code in other devices or operating systems.
+
+\subsection{NETMF on RaspberryPi}\label{S:NETMF-RPI}
+
+If it is hard to find an implementation of NETMF in Linux it will be harder to find an implementation for RaspberryPi. In other words, people in GHI forums are asking for NETMF ports for RaspberryPi but no one exists.
+\\
+aqui nombrar altres implementacions en C# que acostumen a ser bastant escaces també
+
+
+\section{Micro Framework in other devices}\label{S:NETMF-and-RaspberryPi}
 Before starting with the development a search was done in order to know if there was any project involving the port of the MicroFramework to Linux devices using, for example, Mono. Nothing was found.
 There is currently one implementation of MicroFramework for Linux, but it only works in a resource-constrained device called Edy Linux.
 
@@ -73,3 +87,4 @@ RaspberryPi has many implementations in different languages involving its IO por
 \end{itemize}
 
 Although the XXX library is really interesting according to it's description of functionality, it doesn't 
+

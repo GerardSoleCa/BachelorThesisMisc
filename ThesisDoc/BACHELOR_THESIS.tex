@@ -9,7 +9,7 @@
 %%  - IDIOMES QUE S'USARAN EN EL DOCUMENT: catalan, spanish, english, french...
 %%    NOTA: per canviar d'idioma al mig del document usar:
 %%          \selectlanguage{nom_idioma}
-\usepackage[catalan,english]{babel}
+\usepackage[english,catalan]{babel}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -25,7 +25,12 @@
 \usepackage[latin1]{inputenc}             
 
 %% Símbols matemàtics de la American Mathematical Society
-\usepackage{amssymb,amsmath, amsfonts}  
+\usepackage{amssymb,amsmath,amsfonts}
+
+%% Glossaries
+\usepackage{titlesec}
+\usepackage[nonumberlist,section=chapter]{glossaries}
+\makeglossaries
 
 %% El paquet array proporciona eines molt útils a l'hora de fer 
 %% equacions amb matrius
@@ -126,12 +131,20 @@ After achieving this, there is a second goal which consists of help and test the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% INCLOURE A PARTIR D'AQUÍ TOTS ELS CAPÍTOLS DE LA MEMORIA   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% First include Glossary to be used in the following chapters
+\include{chapters/glossary/glossary}
+
+%% Include the chapters
 \include{chapters/proposal/proposal}
 \include{chapters/state_of_the_art/state_of_the_art}
-\include{chapters/microframework/microframework}
-%\include{chapters/marea}
-%\include{chapters/network}
-%\include{chapters/protocol}
+\include{chapters/iosharp/iosharp}
+\include{chapters/iosharp-examples/iosharp-examples}
+
+%% Remove the final dot and print the glossaries
+\renewcommand*{\glspostdescription}{}
+\printglossaries
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%  BIBLIOGRAFIA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,6 +164,7 @@ After achieving this, there is a second goal which consists of help and test the
 %%% OPCIO 2: bibliografia manual
 %%%
 %%% L'argument d'entrada es el numero de referencies que s'inclouen
+\renewcommand{\bibname}{REFERENCES}
 \begin{thebibliography}{9}
 
 %% Llibres:  Autor/s (cognoms i inicials dels noms), títol del llibre (en cursiva), editor, ciutat i any de publicació. Quan es cita el capítol d'un llibre s'ha d'indicar el títol del capítol (entre cometes), el títol del llibre (en cursiva) i els números de pàgines amb la primera i la darrera incloses.
@@ -206,9 +220,6 @@ Books Llc, Source Wikipedia, "Software Quality: Software Crisis, Kludge, Second-
 %%%%%% INCLOURE A PARTIR D'AQUI TOTS ELS CAPÍTOLS DELS APENDIXS   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{chapters/appendices/tools}
-\chapter{Exemple de prova d'un apèndix}
-Text de prova
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -216,6 +227,7 @@ Text de prova
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % i  aixo es tot! ;)
+\cleardoublepage
 \end{document}
 
 

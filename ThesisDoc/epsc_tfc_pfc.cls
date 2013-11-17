@@ -89,6 +89,7 @@
 \RequirePackage{tocloft}  %% controls typografic design of the TOC, LOF etc...
 \RequirePackage{pslatex}  %% Arial
 \RequirePackage{helvet}
+%\RequirePackage[nonumberlist]{glossaries}
 
 \renewcommand{\familydefault}{\sfdefault}  %% sans-serif is default
 

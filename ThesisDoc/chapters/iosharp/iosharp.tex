@@ -1,0 +1,59 @@
+\chapter{IOSharp}\label{C:IOSharp development}
+
+In this chapter it will be explained how was defined and architected, designed and implemented the core of IOSharp disaggregating the different parts and explaining each one.
+\\
+\\
+First of all the design of the project explaining the two major approaches, then the implementation is explained enumerating different IO ports and how they are used in this library. Finally, in order to deploy the project to a device it is required to write a port mapping which depends strictly to the target device.
+
+\section{Planning development}\label{S:Design}
+At project start, the development was focused on a tiny Linux board called RaspberryPi. This board has been designed by RaspberryPi Fundation in England and the aim of this board is introduce kids around the world to the computer science. It provides tools for programming in different languages, but it has been conceived for Python.
+
+\subsection{Focused on RaspberryPi}\label{SS:}
+\subsection{Focused on Linux in General}\label{SS:}
+Since the design of IOSharp was focused on reach any device capable of execute C\# and not only the RasperryPi the best solution could be use 
+
+\section{Implementation}\label{S:Implementation}
+\subsection{GPIO}\label{SS:GPIO}
+In order to implement the GPIO ports in NETMF it will be used the IOPorts.cs file which contain the structure for Input, Output, Tristate and Interrupt ports, the first three will be explained in this section whereas the interrupt port will have a dedicated one.
+\\
+Below is explained the different options on implementing GPIOs in Linux, which has been chosen and how has been implemented in this project.
+
+\subsubsection{Implementation Options}\label{SSS:Implementation-Options}
+GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input. Normally embedded systems work with ports at 3.3V, other devices had low power supply like 2V. And it is not strange that many of them are tolerant to 5V in input.
+\\
+In case of the Netduino and RaspberryPi the ports on both devices run at 3.3V and also the different test hardware modules used in this thesis.
+\\
+\\
+The GPIOs in Linux can be controlled in several ways, the most common and simple is use the userspace which stands for a set of directories with readable and writeable files representing the ports of the MCU or CPU. On the other hand the Linux kernel also provides a library and a module in order to control the different pins.
+\\
+The decision must be done between this two systems, in order to use any of this solutions the GPIO must be activated in kernel, many desktop Linux distributions have GPIO disabled and that's why the kernel must be recompiled enabling this feature. Basically GPIOs and SYSFS must be activated on kernel configuration, after compiling and installing the new kernel both methods will be enabled.
+\\
+In case of Linux operating systems designated for embedded devices, for example the RaspberryPi or CubieBoard, will have the Input/Output Ports enabled by default.
+\\
+One of the most curious things that where found at studding this possibilities was that Android is capable to use this ports. Although it cannot seem an interesting feature nowadays android is everywhere and can run in many devices, so is another reason to try to fetch this this sector in future versions of this software.
+
+\subsubsection{Using GPIO from SYSFS}\label{SSS:GPIO-SYSFS}
+Since each solution can be used in this project and both are available in any Linux OS when the kernel is properly compiled the chosen option was control the GPIO through the SYSFS in order to simplify both the development and the testing.
+\\
+Use the Input/Output ports using the userspace is really simple and that one of the biggest reasons, the easiness of testing and debugging the functionality. It is easier to read or write a file in order to test if the control of the GPIOs is successful rather than debugging a C function embedded in a library.
+\\
+\\
+As it was said before, in userspace the control of the GPIOs is carried by several files and directories located under \textit{/sys/class/gpio} directory. In this directory there are two files which are called export and unexport, the first one is used to enable a GPIO while the second one will be used to disable it. After enabling a GPIO a new folder will be created representing the enabled port, for instance if port 2 is enabled, a folder called gpio2 will be created. Inside this new folder there will be several files, the direction file describes how port should work, if the desired function is as an input port an "in" must be written in the file whereas "out" must be write for an output port. After setting the port direction the value file comes in which will do the functions of reading the port in case of input ports, or write 0 or 1 through it if the port is described as an output. To do this, just read this file to read an incoming value, or write 1 for active-high or 0 for active-low.
+
+\subsubsection{Implementing in NETMF}\label{SSS:Implementing-GPIO-NETMF}
+As it was said at the beginning this implementation has been used over the skeleton of the \textit{IOPorts.cs} file from NETMF.
+
+\gls{NETMF}\\
+\gls{NETMF2}
+
+
+\subsection{Interrupt}\label{SS:RaspberryPi-NETMF}
+\subsection{SPI}\label{SS:RaspberryPi-NETMF}
+\subsection{UART}\label{SS:RaspberryPi-NETMF}
+
+
+\section{Port Mapping}\label{S:Port-Mapping}
+\subsection{HardwareProvider}\label{SS:HardwareProvider}
+
+
+

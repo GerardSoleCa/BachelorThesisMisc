@@ -27,9 +27,11 @@
 %% Símbols matemàtics de la American Mathematical Society
 \usepackage{amssymb,amsmath,amsfonts}
 
-%% Glossaries
 \usepackage{titlesec}
-\usepackage[nonumberlist,section=chapter]{glossaries}
+
+%% Glossaries
+%\usepackage[nonumberlist,section=chapter]{glossaries}
+\usepackage{glossaries}
 \makeglossaries
 
 %% El paquet array proporciona eines molt útils a l'hora de fer 
@@ -142,7 +144,7 @@ After achieving this, there is a second goal which consists of help and test the
 \include{chapters/iosharp-examples/iosharp-examples}
 
 %% Remove the final dot and print the glossaries
-\renewcommand*{\glspostdescription}{}
+%\renewcommand*{\glspostdescription}{}
 \printglossaries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

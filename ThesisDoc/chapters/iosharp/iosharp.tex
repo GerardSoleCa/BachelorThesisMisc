@@ -39,7 +39,7 @@ In case of Linux operating systems designated for embedded devices, for example 
 \\
 One of the most curious things that where found at studding this possibilities was that Android is capable to use this ports. Although it cannot seem an interesting feature nowadays android is everywhere and can run in many devices, so is another reason to try to fetch this this sector in future versions of this software.
 
-\subsubsection{Using GPIO from SYSFS}\label{SSS:GPIO-SYSFS}
+\subsubsection{Using GPIO from SYSFS}\label{SSS:IOSharp-GPIO-SYSFS}
 Since each solution can be used in this project and both are available in any Linux OS when the kernel is properly compiled the chosen option was control the GPIO through the SYSFS in order to simplify both the development and the testing.
 \\
 Use the Input/Output ports using the userspace is really simple and that one of the biggest reasons, the easiness of testing and debugging the functionality. It is easier to read or write a file in order to test if the control of the GPIOs is successful rather than debugging a C function embedded in a library.
@@ -60,10 +60,73 @@ For GPIO implementation Output, Input and Tristate ports will be required, below
   \includegraphics[width=1\textwidth]{pictures/iosharp/gpio}
   \caption{UML Diagram of NETMF Port and its inheritance \label{fig:gpio-uml}}
 \end{center}\end{figure}
+
 As is shown each Port type inherit from Port object which implements the methods to enable or disable a port (Port and Dispose methods), Read which is used to obtain the current state of the port i.e read an input value or know in which state is configured the output port. Finally it also has a ReservePin and as its name says, it is used to reserve a pin for future usage. Taking a look on the left box it can be seen the InputPort which inherits from Port. It does not have any special method and its constructor suppers to Port class. On the right side there is an OutputPort also inheriting from Port which implements a new method called Write that its used to write a state through the port, active high or active low. TristatePort also inherits from OutputPort, a NETMF TristatePort is a type of port capable of commuting between input or output port, i.e with a TristatePort is possible to control 2 leds which one of them is connected in pull-up and the other one in pull-down, so with this TristatePort is possible to light one, the other, if it is configured as an output port either on active high or low, or turning the TristatePort to an input port will avoid the lightning of any led.
 
-\subsection{Interrupt}\label{SS:RaspberryPi-NETMF}
-After implementing the GPIO and taking in mind the needs for HomeSense an interrupt system was needed for the future \gls{SPI}  code block. Although the \gls{BCM2835} supports native interruptions via \gls{IRQ} at the time of this project the RaspberryPi did not support GPIO interruptions from the Linux Kernel using the \gls{IRQ}.
+\subsection{Interrupt}\label{SS:IOSharp-Interrupt}
+After implementing the GPIO and taking in mind the requirement of HomeSense an interrupt system was needed for the future \gls{SPI}  code block. Although the \gls{BCM2835} supports native interruptions via \gls{IRQ} at the time of this project the RaspberryPi did not support GPIO interruptions from the Linux Kernel using \gls{IRQ}, but when this thesis was being written this interrupt types where implemented. It was decided to maintain the current implementation to avoid problems of the same kind in other platforms and devices.
+
+\subsubsection{Designing the Interruptions}\label{SSS:IOSharp-Interrupt-Design}
+The interruption system will be written in C because of the simplicity to detect an interruption on a GPIO port, after doing some research a solution was found which uses a C function called poll, this is commonly used by developers that want to intercept GPIO interruptions in Linux environments where IRQ interruptions from GPIO are not available. The poll function is configured to wait certain events on a \gls{FD} obtained from the GPIO file enabled on the SYSFS in a similar way as it was explained in the \ref{SS:GPIO} GPIO section. The poll is configured to wait the execution of the file until the POLLPRI event is detected. This event will be triggered by the OS when the file had urgent data to be read and the poll function will collect this event and then will continue executing code block which basically will read the state of the port (active high or active low).
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/iosharp/interrupt-uml}
+  \caption{UML Diagram of NETMF Interrupt Port \label{fig:interrupt-uml}}
+\end{center}\end{figure}
+
+\subsubsection{Platform Invocation Services}\label{SSS:IOSharp-Interrupt-PInvoke}
+In C\# is possible to invoke external libraries which they do not have to be written in the same language, in this case the library has been written in C and then compiled into a shared library making it available to any program suitable for it, IOSharp in this case.
+\\
+The Platform Invocation Services is the methodology that has been chosen to do this external calls to written libraries. This calls are known as P/Invokes and are used to call unmanaged code from managed code. \textcolor{red}{For the Interrupt port and its P/Invoke a dynamic library will be written in C and then used along the project, first off all, an explanation of the differences between the libraries and load methods will be exposed}
+
+\textcolor{red}{Explicar aqui que fa el pinvoke, shared i static libraries, una crida del codi}
+\\
+\\
+
+
+\begin{itemize}
+  \item 
+  \textbf{Static Library}
+  \\
+  This kind of library is that one that is imported while programming, and when the source code is the library is linked statically in the generated binary, this means that the compiler takes the library functions used along the program and then are embedded statically to the compiled binary, in this way, the functions are fiscally located with the program. 
+\\
+For example, imagine that you create a library with 3 functions, called \verb!get_password()!, \verb!generate_token()! and \verb!hash(char[] plain())!,  but in the current project you only use two of this functions, which are \verb!get_password()! and \verb!get_token()!. When the compiler builds the project code will only take the functions from the library that are currently used in the program and then insert them into the binary. At this point, deleting that library won't affect the generated binary, and it will be able to use it without any dependency problems related to missing libraries (dependencies).
+\\
+The typical files for this type is .lib for Windows and .a for UNIX systems.
+  
+  \item
+  \textbf{Dynamic Library}
+  \\
+  In order to avoid the replication of libraries that occurs in static ones, the dynamic libraries were created. This type of libraries is normally used along the operating systems to let applications use the offered functions and APIs written from the OS. In this case, and instead of the functional way of static libraries, any function from the library will be embedded on the generated binary, in this case is important to check that the dependencies are well satisfied when the binary is used, because a missing dependency will break the execution.
+
+In this case, the usual extension files are .dll for Windows and .so for UNIX. But .so files are also used in Windows, especially in web browsers, which use this types of library to load browser plugins such us Flash.
+
+There are two subtypes of dynamic libraries which are explained below:
+  \begin{itemize}
+    \item 
+    \textbf{Dynamically Linked}
+  	\\
+  	These libraries must be available at compiling/link phase, because the compiler will verify that the function exists and that it is used properly. The libraries will be loaded at start time of the program. In this case, all the functions are mapped into the code.
+    \item
+    \textbf{Dynamically Loaded}
+    \\
+    Instead of the previous library, the dynamic loading is used by programs to load or unload libraries and use its functions at run time. When the program needs to use a function it loads the library, then it uses the required functions and finally the library is unloaded again.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Pros and cons}
+\\
+The main problem of using static libraries is that the compiled binary takes much more memory and the library is embedded in every program that needs some functions from that library. But, on the other hand, using static libraries the access to its functions by programs is much fast than dynamic ones. Using them also avoids dependency problems, because the dependencies are embedded instead of being located in the file system like dynamic ones.
+\\
+Regarding the dynamic libraries, they help to avoid replications and memory consumption, and also help to maintain the library updated in all programs that use them, although this can seem pretty good, it can have two bad effects into the generated program. First of all, if the library is missing in the system, the program will not run or will crash in execution time. Secondly, if the library is updated but some methods are changed, the program will crash because the non-existing function, and it will be necessary to readjust the code again, recompile and redistribute it.
+\\
+\\
+P/Invokes in .NET make use of dynamic loaded libraries in order to use the functions from the libraries. The implementation difficulty of P/Invokes increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int! is really easy to make a P/Invoke whereas object parameters are much difficult because they must be passed to unmanaged code which sometimes can be impossible to do.
+
+
+\subsubsection{Final implementation}\label{SSS:IOSharp-Interrupt-Implementation}
 
 \begin{figure}[H]\begin{center}
  \centering

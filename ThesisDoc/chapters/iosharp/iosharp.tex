@@ -67,7 +67,9 @@ As is shown each Port type inherit from Port object which implements the methods
 After implementing the GPIO and taking in mind the requirement of HomeSense an interrupt system was needed for the future \gls{SPI}  code block. Although the \gls{BCM2835} supports native interruptions via \gls{IRQ} at the time of this project the RaspberryPi did not support GPIO interruptions from the Linux Kernel using \gls{IRQ}, but when this thesis was being written this interrupt types where implemented. It was decided to maintain the current implementation to avoid problems of the same kind in other platforms and devices.
 
 \subsubsection{Designing the Interruptions}\label{SSS:IOSharp-Interrupt-Design}
-The interruption system will be written in C because of the simplicity to detect an interruption on a GPIO port, after doing some research a solution was found which uses a C function called poll, this is commonly used by developers that want to intercept GPIO interruptions in Linux environments where IRQ interruptions from GPIO are not available. The poll function is configured to wait certain events on a \gls{FD} obtained from the GPIO file enabled on the SYSFS in a similar way as it was explained in the \ref{SS:GPIO} GPIO section. The poll is configured to wait the execution of the file until the POLLPRI event is detected. This event will be triggered by the OS when the file had urgent data to be read and the poll function will collect this event and then will continue executing code block which basically will read the state of the port (active high or active low).
+The interruption system will be written in C because of the simplicity to detect an interruption on a GPIO port, after doing some research a solution was found which uses a C function called poll, this is commonly used by developers that want to intercept GPIO interruptions in Linux environments where IRQ interruptions from GPIO are not available. The poll function is configured to wait certain events on a \gls{FD} obtained from the GPIO file enabled on the SYSFS in a similar way as it was explained in the \ref{SS:GPIO} GPIO section. The poll is configured to wait the execution of the file until the POLLPRI event is detected. This event will be triggered by the OS when the file had urgent data to be read and the poll function will collect this event and then will continue executing code block which basically will read the state of the port (active high or active low). As it is really important to notify the running program of an interruption on the port, a delegate will be used, this delegate is configured by the developer on the \verb!OnInterrupt! using NETMF and basically it contains three parameters which are the port, the state and the time of the event.
+\\
+The interruptions can be disabled at any time and the port can also be disposed.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -79,12 +81,7 @@ The interruption system will be written in C because of the simplicity to detect
 \subsubsection{Platform Invocation Services}\label{SSS:IOSharp-Interrupt-PInvoke}
 In C\# is possible to invoke external libraries which they do not have to be written in the same language, in this case the library has been written in C and then compiled into a shared library making it available to any program suitable for it, IOSharp in this case.
 \\
-The Platform Invocation Services is the methodology that has been chosen to do this external calls to written libraries. This calls are known as P/Invokes and are used to call unmanaged code from managed code. \textcolor{red}{For the Interrupt port and its P/Invoke a dynamic library will be written in C and then used along the project, first off all, an explanation of the differences between the libraries and load methods will be exposed}
-
-\textcolor{red}{Explicar aqui que fa el pinvoke, shared i static libraries, una crida del codi}
-\\
-\\
-
+The Platform Invocation Services is the methodology that has been chosen to do this external calls to written libraries. This calls are known as P/Invokes and are used to call unmanaged code from managed code. 
 
 \begin{itemize}
   \item 
@@ -123,10 +120,73 @@ The main problem of using static libraries is that the compiled binary takes muc
 Regarding the dynamic libraries, they help to avoid replications and memory consumption, and also help to maintain the library updated in all programs that use them, although this can seem pretty good, it can have two bad effects into the generated program. First of all, if the library is missing in the system, the program will not run or will crash in execution time. Secondly, if the library is updated but some methods are changed, the program will crash because the non-existing function, and it will be necessary to readjust the code again, recompile and redistribute it.
 \\
 \\
-P/Invokes in .NET make use of dynamic loaded libraries in order to use the functions from the libraries. The implementation difficulty of P/Invokes increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int! is really easy to make a P/Invoke whereas object parameters are much difficult because they must be passed to unmanaged code which sometimes can be impossible to do.
+P/Invokes in .NET makes use of dynamic loaded libraries in order to use the contained functions. The implementation difficulty of P/Invokes increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int!, \verb!long!, \verb!byte!, etc is really simple to make a P/Invoke call, but when passing object parameters things get much difficult because they must be passed to unmanaged code which sometimes can be impossible to do without using structs as interchange objects.
+\\
+\\
+Below is shown the important parts of the implementation of the library and how P/Invoke is done in C\#.
 
+\begin{lstlisting}[language=C, caption={IOSharp.c - Polling function}]
+uint64_t start_polling(int pin) {
+    struct pollfd fdset;
+    int nfds = 1;
+    int gpio_fd, timeout, rc;
+    char * buf[MAX_BUF], c;
+    int len, count, i;
+    long t;
+
+    // Get the File Descriptor for the GPIO Port. See function on the Library.
+    gpio_fd = gpio_fd_open(pin);
+
+    // Clear any initial pending interrupts
+    ioctl(gpio_fd, FIONREAD, & count);
+    for (i = 0; i < count; ++i)
+        read(gpio_fd, & c, 1);
+
+    // Fill fdset which is a struct for pollfd which is used to describe the polling system.
+    // In this case the File Descriptor for the GPIO port is entered, and then the POLLPRI (Data Urgent to Read) is configured as the event type.
+    fdset.fd = gpio_fd;
+    fdset.events = POLLPRI;
+
+    read(fdset.fd, & buf, 64);
+
+    // Start polling the File Descriptor. POLL_TIMEOUT variable contains (-1) which stands for infinite blocking until event.
+    rc = poll( & fdset, 1, POLL_TIMEOUT);
+
+    // Close the GPIO Port. See function on the Library.
+    gpio_fd_close(gpio_fd);
+    return t;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C, caption={IOSharp.h - Header file for the library}]
+#ifndef IOSHARP_H_INCLUDED
+#define IOSHARP_H_INCLUDED
+
+// Define the polling function
+uint64_t start_polling(int pin);
+
+#endif
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption={GPIOManager.cs - P/Invoke section}]
+// The function which calls the external function
+private void Listen(object obj) {
+    ThreadHelper th = (ThreadHelper) obj;
+    while (true) {
+        int pin = (int) th.Pin;
+        // Call the function. See down.
+        ulong cback = GPIOManager.start_polling(pin);
+        th.Callback(4, (uint) 0, DateTime.Now);
+    }
+}
+
+// External function represents a function on an external library, in this case the library is the libIOSharp-c.so. The function naming and functions parameters are equal to the original function, but taking into account that a ulong in C# is a uint64_t on C.
+[DllImport("libIOSharp-c.so", CallingConvention = CallingConvention.StdCall)]
+public static extern ulong start_polling(int gpio);
+\end{lstlisting}
 
 \subsubsection{Final implementation}\label{SSS:IOSharp-Interrupt-Implementation}
+After defining and writing the library, and studding how to make calls to native functions it was time to code de final implementation making work together, the library and the IOSharp code. In this case, the program flow is shown on Figure \ref{fig:interrupt-schema}. The Interrupt Port inherits from Input Port as Figure \ref{fig:interrupt-schema} shows.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -134,6 +194,29 @@ P/Invokes in .NET make use of dynamic loaded libraries in order to use the funct
   \includegraphics[width=1\textwidth]{pictures/iosharp/interrupt-schema}
   \caption{Representation of the Interrupt Port flow \label{fig:interrupt-schema}}
 \end{center}\end{figure}
+
+The idea is to do the exact same steps like the other ports do, the GPIO enabling is done by the Port implementation which is the base class for Input Port, then the port type is set to be an Interrupt Port, after this is important to configure the triggering. NETMF boards usually supports four kinds of interruptions whereas Linux supports a few less, in the following table is shown which are supported. It is important to know that the Edges are the point where the port changes from one state to another one, and the Level is used for to trigger interruptions where there is a continuity on a certain state.
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Trigger Type} & {\bf Micro Framework} & {\bf Linux}  \\ \hline \hline
+InterruptNone        & X    & X       \\ \hline
+InterruptEdgeLow        & X    & X       \\ \hline
+InterruptEdgeHigh        & X    & X       \\ \hline
+InterruptEdgeBoth        & X    & X       \\ \hline
+InterruptEdgeLevelHigh        & X    &        \\ \hline
+InterruptEdgeLevelLow        & X    &        \\ \hline
+\end{tabular}
+\caption{Interrupt Trigger Types}
+\label{T:Interrupt-Trigger-Types}
+\end{center}
+\end{table}
+
+Like the GPIO the triggering is configured on the SYSFS on a file called edge located inside of the enabled GPIO folder, this file can be configured on three different ways without counting on None interruptions. In order to configure EdgeLow interruptions the word \textit{falling} must be written, in case of EdgeHigh will be used \textit{rising} and finally \textit{both} is used for EdgeBoth.
+\\
+Once the triggering is configured IOSharp will wait for a delegate to be configured by the user in which will receive the interrupt events, once a delegate is passed to the OnInterrupt a thread will be assigned to the task of polling a GPIO using the library previously explained. This thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated passed by the user is called and in this way the interruption event is passed straight to the program which uses IOSharp. Finally the interrupt port can be disabled as the other ones.
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
 Once the port interruptions where working it was possible to start designing and implementing the SPI code block for IOSharp.

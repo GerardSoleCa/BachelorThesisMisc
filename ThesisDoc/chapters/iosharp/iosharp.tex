@@ -5,7 +5,7 @@ In this chapter it will be explained how was defined and architected, designed a
 \\
 First of all it will be explained the project design explaining which two options where at project definition, then the implementation is explained for the different IO ports and communication standards used in this project. Finally, it will be explained how is done the port mapping to work between different boards and devices.
 
-\section{Planning the development}\label{S:Design}
+\section{Planning the development}\label{S:IOSharp-Design}
 At project start, the development was focused on a tiny Linux board called RaspberryPi. This device was designed by RaspberryPi Foundation in England taking in mind the kids around the world and helping them to provide cheap tools to be introduced in computer science. It is an interesting board for its features, offering basic IO using the provided GPIOs, it also provides a SPI module for peripheral communication, an I$^{2}$C and UART interface also for transmissions between external components and the device itself.
 \\
 In addition to the interfaces mentioned above, it also has some desktop interesting features like USB ports which practically can accept any device that works on Linux for instance a WiFi, Bluetooth, ZigBee or any stick for wireless transmissions, HDMI for graphics and user interface and Ethernet for network communications. Apart from this IO characteristics, it also mounts a decent ARMv6 (CPU) running at 700MHz on stock frequency and being overclocked to 1GHz without problems. Together with the CPU 512MB of RAM are provided which is enough for normal desktop usage (surfing, emailing and office) and for embedded projects.
@@ -13,9 +13,15 @@ In addition to the interfaces mentioned above, it also has some desktop interest
 \\
 After choosing the target device, two implementing options where designed and analysed. Each one has its own benefits and problems that are going to be explained in the following sections. As an introduction to the options that were considered where the use of the specific tools and libraries for the RaspberryPi and its CPU, this should help on achieving high efficiency when deployed on the device. On the other hand, trying to develop the project as widely as possible to give the chance of running under any Linux (or similar operating systems like Unix or Android) avoiding the exclusion of other devices.
 
-\subsection{Focused on RaspberryPi}\label{SS:}
-\subsection{Focused on Linux in General}\label{SS:}
-Since the design of IOSharp was focused on reach any device capable of execute C\# and not only the RasperryPi the best solution could be use 
+\subsection{Focused on RaspberryPi}\label{SS:IOSharp-RPI}
+Initially IOSharp was started taking in mind the Raspberry Pi computer, a library written on native C was found. Using this library let native control over all the features provided by its CPU including a wide range of pins for the GPIO, different protocol communications like \gls{SPI} and \gls{UART} and other features like \gls{PWM} in some pins.
+\\
+This methodology is interesting when is important to achieve high performance on the execution of the programs that make use of its hardware, in this case the modules of the CPU are used on a low-level way by changing its registers. This normally let the programs run faster, but in principle this is not required for HomeSense usage, although later in this thesis it will be explained that the performance of HomeSense has not been as it should be.
+\\
+The library written for the bcm2835 is the one that should be used in case of this methodology is chosen. The idea is to make calls from C\# to this library using a specific call methodology that will be explained on future sections on this thesis.
+
+\subsection{Focused on Linux in General}\label{SS:IOSharp-Linux}
+Since the design of IOSharp was focused on reach any device capable of execute C\# and not only the RasperryPi the best solution was to build this library in a way that doing a minimal set of changes the portability statement was accomplished.
 
 \section{Implementation}\label{S:Implementation}
 Remember that as it was explained on the introduction, the goal of this thesis is deploy and run successfully the HomeSense platform on a RaspberryPi. Taking in mind this, some modules where required to develop in order to accomplish with this requirement. In this case the GPIO, Interrupts, SPI and UART need to work in order to use the different components of HomeSense.
@@ -219,12 +225,38 @@ Like the GPIO the triggering is configured on the SYSFS on a file called edge lo
 Once the triggering is configured IOSharp will wait for a delegate to be configured by the user in which will receive the interrupt events, once a delegate is passed to the OnInterrupt a thread will be assigned to the task of polling a GPIO using the library previously explained. This thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated passed by the user is called and in this way the interruption event is passed straight to the program which uses IOSharp. Finally the interrupt port can be disabled as the other ones.
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
-Once the port interruptions where working it was possible to start designing and implementing the SPI code block for IOSharp.
-\subsection{UART}\label{SS:IOSharp-UART}
+The \gls{SPI} is one of the important features to be implemented on IOSharp. The SPI is a protocol used in embedded systems to communicate boards and components in a Master-Slave way. This protocol offers a full-duplex communication where the master and the slave can write and read at the same time on the channel. Normally this protocol accepts transmission frequencies in the range of 10 kHz to 100 MHz and in order to operate, the master configures its clock using a frequency less or equal to the maximum frequency supported by the slave which wants to communicate.
+\\
+Both Netduino and RaspberryPi support the SPI communication protocol which makes easy the use of different modules. In case of this thesis, the SPI was required in order to make HomeSense work in the platform.
+\\
+It was decided that the implementation of this component will be on a similar way as the it has been done in the interrupt port which is explained on the previous section.
 
+\subsubsection{Designing the SPI}\label{SSS:IOSharp-SPI-Design}
+
+\subsubsection{Implementation}\label{SSS:IOSharp-SPI-Implementation}
+
+\subsection{UART}\label{SS:IOSharp-UART}
+The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it.
+\\
+After comparing and evaluating the differences on the Micro Framework and .NET Framework classes it was decided to use it on the IOSharp for two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, a class on the standard framework will be much more stable and tested than a code written from scratch. The other reason on choosing the existing class that although it is not exactly as the NETMF class it has all the required functions that are needed for deploying HomeSense.
+\\
+Is important to emphasize that IOSharp in Linux runs using the Mono implementation of the standard Framework classes, and in this case the SerialPort class has some disadvantages on the Mono version, basically they do not support events such as \verb!DataReceived! or \verb!ErrorReceived! because the functions have not been implemented on its internal runtime, but as it was said, this feature is not used in HomeSense so it does not influence on the execution of the platform.
 
 \section{Port Mapping}\label{S:Port-Mapping}
+In order to make IOSharp portable between hardware platforms a port mapping must be done. The idea is to map the underlying hardware to variables in order to be used on the upper-layer taking into account its GPIO ports, the SPI devices and its corresponding ports and the Serial Pins.
+
 \subsection{HardwareProvider}\label{SS:HardwareProvider}
+In fact, the original NETMF supports a hardware descriptor called HardwareProvider which do the mentioned things. The Raspberry Pi was the target platform for this project so a hardware descriptor was written, below is represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In this pins are located the GPIO, two SPI devices, two UART ports and an I$^{2}$C bus.
 
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.30]{pictures/iosharp/mapping-raspberrypi}
+  \caption{Raspberry Pi available ports\label{fig:mapping-rpi}}
+\end{center}\end{figure}
 
-
+The mapping has been divided on two classes, the first one maps the Pins so it will contain the references to the platform pins, in case of this thesis, both versions are mapped.
+The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. For the SPI the device is called spi0.0 and spi0.1 in case of the Raspberry Pi, this shows basically that there are two SPI devices which shares the MISO, MOSI and SCLK pins it has two different chip selects so it can connect to two different slaves. In case of the UART it is also represented as a device and will have a name like \verb!/dev/ttyAMA0! in case of Raspberry Pi.
+\\
+\\
+This is not the unique case, for example the Netduino provides the same classes for the pins for the CPU.

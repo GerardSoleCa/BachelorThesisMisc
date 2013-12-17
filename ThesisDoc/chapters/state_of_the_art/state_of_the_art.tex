@@ -2,7 +2,7 @@
 
 This chapter sketches out briefly the state of the art of the embedded operating systems and its capabilities. Then according to this thesis it will be explained what is the current operating system running on bottom of HomeSense and finally why has been chosen the RaspberryPi as the target device.
 
-\section{Embedded Systems}\label{S:Embedded-Systems}
+\section{Embedded Systems}\label{S:SOTA-Embedded-Systems}
 Embedded Systems now a days are taking relevance again with the Internet of the Things, environment sensing, Wireless Sensor Networks and all new coming technologies that require low power consumption, small size, mobility environments, ...
 
 In Embedded Systems or Resource Constrained Systems it is interesting to take a look into the Hardware platform and its capabilities, the differences between platforms, and also which tools or unique features offers to developers.
@@ -12,7 +12,7 @@ An operating system (OS) offers an interface with the hardware to make it indepe
 An OS is an important program that makes easy to develop applications, but it is important to maintain the features that the processor offers, avoiding performance or capabilities degradation. 
 This bachelor thesis is focused on constrained-resource devices, where the processing capabilities and memory resources are limited, is fundamental to respect the above criteria.
 
-\subsection{Operating Systems Architectures}\label{Operating-Systems-Architectures}
+\subsection{Operating Systems Architectures}\label{SOTA-Operating-Systems-Architectures}
 In general, there are three types of operating system architectures for embedded devices, which are based on how applications are executed or included into the OS.
 
 \begin{itemize}
@@ -23,7 +23,7 @@ In general, there are three types of operating system architectures for embedded
 \item \textbf{Virtual-Machine:} The OS creates an abstraction layer of its underlying hardware, this abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. Although using virtual-machine devices simplifies the development on multiple devices, the performance of the platform normally will be reduced and in Real Time environments it isn't recommended to use it.
 \end{itemize}
 
-\subsection{Embedded Operating Systems}\label{Embedded-Operating-Systems}
+\subsection{Embedded Operating Systems}\label{SOTA-Embedded-Operating-Systems}
 There is a wide range of Embedded Operating Systems each of them has strengths and weaknesses, below different OS are described and compared.
  
 \begin{itemize}
@@ -44,12 +44,12 @@ One of its interesting features is that offers the advantages of .NET language u
 
 
 
-\section{Micro Framework .NET}\label{S:MicroFramework-dotNet}
+\section{Micro Framework .NET}\label{S:SOTA-NETMF}
 MicroFramwork, is also known as NETMF, had its roots in a project called \textbf{Smart Personal Objects Technology (SPOT)}. The first devices implementing the SPOT technology where smart-watches from Fossil and Suunto in 2004 and after them became kettles, weather stations and for traffic and map updates in Garmin devices. Microsoft wanted to create a technology for everyday devices so they launched together with SPOT the MSN Direct which was a set of network services capable of delivering information to the SPOT devices using FM radio broadcast signals.
 \\
 In 2008 the production of SPOT watches was discontinued and in 2009 Microsoft released the source code of Micro Framework under Apache 2.0 license making availably to the community and shortly after this release the MSN Direct services where ceased.
 
-\subsection{Devices using Micro Framework}\label{SS:MicroFramework-Devices}
+\subsection{Devices using Micro Framework}\label{SS:SOTA-MicroFramework-Devices}
 Since Microsoft released the Micro Framework source code, different companies had created different devices supporting .NET code and this stack.
 \\
 There are two major vendors producing chips and development kits for this software. Secret Labs produces the netduino family which consists of the standard netduino, a netduino plus which is an enriched version. This one has better processor and memory, it includes an ethernet port and uses micro sd cards to provide storage. One of the interesting this of this two boards is the layout of the board, it is totally compatible with most of the arduino shields in the market.
@@ -60,7 +60,7 @@ GHI Electronics is another hardware manufacturer that has designed and released 
 \\
 In addition to the mentioned manufacturers, Microsoft Research in Cambridge has defined a hardware reference platform called .NET Gadgeteer which defines how boards and modules must be in order to allow rapid prototyping of projects. Gadgeteer boards and modules share the same layout and connector schemes and are open to any company that wants to build products using those schematics.
 
-\subsection{NETMF on Linux}\label{S:NETMF-Linux}
+\subsection{NETMF on Linux}\label{S:SOTA-NETMF-Linux}
 
 After doing some research about implementations of Micro Framework on other devices or running on top of other operating systems such as Linux. It was found a project that is currently porting NETMF to Linux, but for a very specific device called Eddy.
 \\
@@ -68,14 +68,14 @@ Eddy is an ARM embedded device board which uses Linux, the port named above has 
 \\
 Although this port is for the Eddy board, it can be ported to other devices using the appropriate cross-toolchain, anyway it seems that there is a lack of possibilities to run Micro Framework code in other devices or operating systems.
 
-\subsection{NETMF on RaspberryPi}\label{S:NETMF-RPI}
+\subsection{NETMF on RaspberryPi}\label{S:SOTA-NETMF-RPI}
 
 If it is hard to find an implementation of NETMF in Linux it will be harder to find an implementation for RaspberryPi. In other words, people in GHI forums are asking for NETMF ports for RaspberryPi but no one exists.
 \\
 aqui nombrar altres implementacions en C\# que acostumen a ser bastant escaces també
 
 
-\section{Micro Framework in other devices}\label{S:NETMF-and-RaspberryPi}
+\section{Micro Framework in other devices}\label{S:SOTA-NETMF-and-RaspberryPi}
 Before starting with the development a search was done in order to know if there was any project involving the port of the MicroFramework to Linux devices using, for example, Mono. Nothing was found.
 There is currently one implementation of MicroFramework for Linux, but it only works in a resource-constrained device called Edy Linux.
 

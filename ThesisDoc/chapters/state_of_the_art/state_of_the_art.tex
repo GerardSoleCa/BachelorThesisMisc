@@ -70,21 +70,6 @@ Although this port is for the Eddy board, it can be ported to other devices usin
 
 \subsection{NETMF on RaspberryPi}\label{S:SOTA-NETMF-RPI}
 
-If it is hard to find an implementation of NETMF in Linux it will be harder to find an implementation for RaspberryPi. In other words, people in GHI forums are asking for NETMF ports for RaspberryPi but no one exists.
+If it is hard to find an implementation of NETMF in Linux it will be harder to find an implementation for RaspberryPi. In other words, people in GHI forums are asking for NETMF ports for RaspberryPi but no one exists. At time of writing this thesis, a small port was uploaded to Codeplex (http://raspberrypinetmf.codeplex.com/) and uses the bcm2835 library to implement the NETMF functions.
 \\
-aqui nombrar altres implementacions en C\# que acostumen a ser bastant escaces també
-
-
-\section{Micro Framework in other devices}\label{S:SOTA-NETMF-and-RaspberryPi}
-Before starting with the development a search was done in order to know if there was any project involving the port of the MicroFramework to Linux devices using, for example, Mono. Nothing was found.
-There is currently one implementation of MicroFramework for Linux, but it only works in a resource-constrained device called Edy Linux.
-
-RaspberryPi has many implementations in different languages involving its IO ports, many are written in C and Python, others are for example in Java. But when speaking in terms of .NET/C\# there is an important lack in IO implementations, below are exposed the most important ones that where found.
-
-\begin{itemize}
-\item \textbf{BlaBlaBla:}
-\item \textbf{BlaBlaBla:}
-\end{itemize}
-
-Although the XXX library is really interesting according to it's description of functionality, it doesn't 
-
+Leaving aside the NETMF implementations for the Raspberry Pi a search on existing libraries to control the features of the board was done, there are existing libraries for many languages including C and C++, Python, Java, Ruby and .NET. The interesting ones are the C and .NET implementations, the C and .NET ones are interesting to accomplish this thesis goal, the first one because can be used in conjunction with .NET code via Platform Invocation Services, the second one is interesting for how has been done the implementation of the bcm2835 in this language, but after analysing it the conclusion was that the there was a lack of an interesting library written in .NET, probably if this thesis succeeds a more useful .NET library will exist.

@@ -1,5 +1,4 @@
 \chapter{IOSharp}\label{C:IOSharp development}
-
 In this chapter it will be explained how was defined and architected, designed and implemented the core of IOSharp disaggregating the different parts and explaining each one.
 \\
 \\
@@ -20,8 +19,14 @@ This methodology is interesting when is important to achieve high performance on
 \\
 The library written for the bcm2835 is the one that should be used in case of this methodology is chosen. The idea is to make calls from C\# to this library using a specific call methodology that will be explained on future sections on this thesis.
 
-\subsection{Focused on Linux in General}\label{SS:IOSharp-Linux}
-Since the design of IOSharp was focused on reach any device capable of execute C\# and not only the RasperryPi the best solution was to build this library in a way that doing a minimal set of changes the portability statement was accomplished.
+\subsection{Focused on Linux}\label{SS:IOSharp-Linux}
+It may also be interesting to get a wider public for IOSharp because more users implies more implementations, tests and in general feedback for the development and improvement of this project. The idea is to make it run on any devices capable of execute C\# and C code and in general any device that runs Linux or any similar stack like Unix, Android, being able to use hardware features such us the GPIOs, SPI, serial port, ...
+\\
+In case of this project, it has been chosen to develop using this method because Linux offers the appropriate tools like the SPI Kernel functions or the mapping of Ports through the user space. To use any of this features, the modules must be loaded to the Kernel in order to have access to this functions or devices.
+\\
+Apart from this, the Micro Framework offers the possibility to configure the port mapping to the corresponding pins and devices of its underlying hardware. Apart from this, implementations of C will be used in order to exploit the functions provided by the Linux Kernel as it has been commented before.
+\\
+In short, IOSharp will be capable of run in any platform that uses Linux such as the RaspberryPi, a Cubieboard or a standard desktop.
 
 \section{Implementation}\label{S:Implementation}
 Remember that as it was explained on the introduction, the goal of this thesis is deploy and run successfully the HomeSense platform on a RaspberryPi. Taking in mind this, some modules where required to develop in order to accomplish with this requirement. In this case the GPIO, Interrupts, SPI and UART need to work in order to use the different components of HomeSense.
@@ -226,21 +231,65 @@ Once the triggering is configured IOSharp will wait for a delegate to be configu
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
 The \gls{SPI} is one of the important features to be implemented on IOSharp. The SPI is a protocol used in embedded systems to communicate boards and components in a Master-Slave way. This protocol offers a full-duplex communication where the master and the slave can write and read at the same time on the channel. Normally this protocol accepts transmission frequencies in the range of 10 kHz to 100 MHz and in order to operate, the master configures its clock using a frequency less or equal to the maximum frequency supported by the slave which wants to communicate.
-\\
-Both Netduino and RaspberryPi support the SPI communication protocol which makes easy the use of different modules. In case of this thesis, the SPI was required in order to make HomeSense work in the platform.
-\\
-It was decided that the implementation of this component will be on a similar way as the it has been done in the interrupt port which is explained on the previous section.
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/iosharp/spi-modules}
+  \caption{SPI bus setup with one master and to slaves \label{fig:spi-modules}}
+\end{center}\end{figure}
+
+Both Netduino and RaspberryPi support the SPI communication protocol which makes easy the use of different modules. In case of this thesis, the SPI was required for HomeSense which make use of it to control the Nordic chip.
 
 \subsubsection{Designing the SPI}\label{SSS:IOSharp-SPI-Design}
-The design of the SPI takes into account different situations, but basically
+It was decided that the implementation of this component will be done in a similar way as it has been done in the interrupt port which has been explained on the previous section. The idea is to use the functions provided by the Linux Kernel by using the \verb!<linux/spi/spidev.h>! library. This makes easy the access to the SPI device, make the required configurations and write or read the channel.
+\\
+In Linux the SPI devices are mapped under the \verb!/dev/! directory with a convention naming like \verb!/dev/spidevX.Y! the \verb!X! is an integer and represents the device, a CPU can have multiple SPI devices so this number will indicate the device number, then the \verb!Y!, which is also an integer and it shows the Chip Enable, an SPI device can have multiple chip enablers, so it can has more than one slave.
+\\
+\\
+Before doing a transaction via the SPI bus this must be configured, first of all defining the operational mode. SPI modes are defined with the parameters Clock Polarity (CPOL) and Clock Phase (CPHA). Both are related to the sampling edge according to the clock (SCLK) used in the communication. The CPOL defines the polarity of the clock so the sampling will be done when de clock is in the edge low or in edge high according to the configured parameter, the second one, CPHA defines in which phase the sample must be done. This concept is much easy to understand using the figure \ref{fig:spi-modes} which shows this with the equivalence of the SPI modes needed to configure the device.
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.7]{pictures/iosharp/spi-modes}
+  \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the Clock (SCLK) state.\label{fig:spi-modes}}
+\end{center}\end{figure}
 
 \subsubsection{Implementation}\label{SSS:IOSharp-SPI-Implementation}
 
+\begin{lstlisting}[language=C, caption={IOSharp.c - SPI interesting function parts}]
+
+// Set the MODE using SPI_MODE_0, SPI_MODE_1, SPI_MODE_2 or SPI_MODE_3.
+  ret = ioctl(fd, SPI_IOC_WR_MODE, &mode);
+
+// Configure the spi_ioc_transfer struct with the buffers, lenght, delay, bits per word and chip select changing.
+  struct spi_ioc_transfer tr = {
+    .tx_buf = (unsigned long)writeBuffer,
+    .rx_buf = (unsigned long)readBuffer,
+    .len = writeCount,
+    .delay_usecs = spi.delay,
+    .speed_hz = spi.speed,
+    .cs_change = spi.cs_change,
+    .bits_per_word = 8,
+  };
+
+// Transmit and read data using the buffers configured above.
+  ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
+\end{lstlisting}
+
 \subsection{UART}\label{SS:IOSharp-UART}
-The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it.
+The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.
 \\
-After comparing and evaluating the differences on the Micro Framework and .NET Framework classes it was decided to use it on the IOSharp for two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, a class on the standard framework will be much more stable and tested than a code written from scratch. The other reason on choosing the existing class that although it is not exactly as the NETMF class it has all the required functions that are needed for deploying HomeSense.
-\\
+Before start writing a new implementation a comparison and evaluation was carried on for the implementation of .NET Framework and the Micro Framework version, after comparing them, they where so similar that a new implementation for IOSharp was not required, at least until the missing functions were required. This decision is due two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, a class on the standard framework will be much more stable and tested than a code written from scratch. The other reason on choosing the existing class that although it is not exactly as the NETMF class it has all the required functions that are needed for deploying HomeSense.
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=1]{pictures/iosharp/serialport-uml}
+  \caption{UML representation of the original .NET Framework SerialPort (Left) and the SerialPort in Micro Framework (Right)\label{fig:serialport-uml}}
+\end{center}\end{figure}
+
 Is important to emphasize that IOSharp in Linux runs using the Mono implementation of the standard Framework classes, and in this case the SerialPort class has some disadvantages on the Mono version, basically they do not support events such as \verb!DataReceived! or \verb!ErrorReceived! because the functions have not been implemented on its internal runtime, but as it was said, this feature is not used in HomeSense so it does not influence on the execution of the platform.
 
 \section{Port Mapping}\label{S:Port-Mapping}
@@ -257,7 +306,7 @@ In fact, the original NETMF supports a hardware descriptor called HardwareProvid
 \end{center}\end{figure}
 
 The mapping has been divided on two classes, the first one maps the Pins so it will contain the references to the platform pins, in case of this thesis, both versions are mapped.
-The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. For the SPI the device is called spi0.0 and spi0.1 in case of the Raspberry Pi, this shows basically that there are two SPI devices which shares the MISO, MOSI and SCLK pins it has two different chip selects so it can connect to two different slaves. In case of the UART it is also represented as a device and will have a name like \verb!/dev/ttyAMA0! in case of Raspberry Pi.
+The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. For the SPI the device is called spidev0.0 and spidev0.1 in case of the Raspberry Pi, this shows basically that there are two SPI devices which shares the MISO, MOSI and SCLK pins it has two different chip selects so it can connect to two different slaves. In case of the UART it is also represented as a device and will have a name like \verb!/dev/ttyAMA0! in case of Raspberry Pi.
 \\
 \\
 This is not the unique case, for example the Netduino provides the same classes for the pins for the CPU.

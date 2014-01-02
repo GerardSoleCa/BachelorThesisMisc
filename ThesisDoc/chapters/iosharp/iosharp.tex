@@ -247,7 +247,7 @@ It was decided that the implementation of this component will be done in a simil
 In Linux the SPI devices are mapped under the \verb!/dev/! directory with a convention naming like \verb!/dev/spidevX.Y! the \verb!X! is an integer and represents the device, a CPU can have multiple SPI devices so this number will indicate the device number, then the \verb!Y!, which is also an integer and it shows the Chip Enable, an SPI device can have multiple chip enablers, so it can has more than one slave.
 \\
 \\
-Before doing a transaction via the SPI bus this must be configured, first of all defining the operational mode. SPI modes are defined with the parameters Clock Polarity (CPOL) and Clock Phase (CPHA). Both are related to the sampling edge according to the clock (SCLK) used in the communication. The CPOL defines the polarity of the clock so the sampling will be done when de clock is in the edge low or in edge high according to the configured parameter, the second one, CPHA defines in which phase the sample must be done. This concept is much easy to understand using the figure \ref{fig:spi-modes} which shows this with the equivalence of the SPI modes needed to configure the device.
+Before doing a transaction via the SPI bus this must be configured, first of all defining the operational mode. SPI modes are defined with the parameters Clock Polarity (CPOL) and Clock Phase (CPHA). Both are related to the sampling edge according to the clock (SCLK) used in the communication. The CPOL defines the polarity of the clock so the sampling will be done when de clock is in the edge low or in edge high according to the configured parameter, the second one, CPHA defines in which phase the sample must be done. This concept is much easy to understand using the figure \ref{fig:spi-modes} which shows the different CPHA and CPOL options with the equivalent SPI modes needed to configure the device in the C library.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -256,15 +256,22 @@ Before doing a transaction via the SPI bus this must be configured, first of all
   \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the Clock (SCLK) state.\label{fig:spi-modes}}
 \end{center}\end{figure}
 
-\subsubsection{Implementation}\label{SSS:IOSharp-SPI-Implementation}
+This modes must be configured using the \gls{IOCTL} function passing the \gls{FD} according to the SPI device and the desired Chip Enable, then the preprocessor macro, in this case the \verb!SPI_IOC_WR_MODE! which is defined in the \verb!spidev.h! and it is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro and corresponds to the operational mode explained before, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the ioctl function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
 
-\begin{lstlisting}[language=C, caption={IOSharp.c - SPI interesting function parts}]
+\begin{lstlisting}[language=C, caption={IOSharp.c - SPI Mode configuration}]
+uint8_t mode;
+  int ret;
 
-// Set the MODE using SPI_MODE_0, SPI_MODE_1, SPI_MODE_2 or SPI_MODE_3.
+//The mode variable can be SPI_MODE_0, SPI_MODE_1, SPI_MODE_2 and  SPI_MODE_3
   ret = ioctl(fd, SPI_IOC_WR_MODE, &mode);
+  if (ret == -1)
+    pabort("can't set spi mode");
+\end{lstlisting}
 
-// Configure the spi_ioc_transfer struct with the buffers, lenght, delay, bits per word and chip select changing.
-  struct spi_ioc_transfer tr = {
+Once the SPI mode has been configured a struct defining the transaction must be filled, this struct is the type of \verb!spi_ioc_transfer! specified in the \verb!spidev.h! library. This struct contains different variables, the \verb!tx_buf! and \verb!rx_buf! which are configured with the write and read buffers, \textcolor{red}{and are used as pointers???}. Apart from the buffers, the transmission length is configured using the variable \verb!len!. Then the delay is configured, this indicates how many microseconds the SPI driver must wait before starting the transmission, this is important because some slaves take awhile between they are selected and they are able to communicate, this is configured using the \verb!delay_usecs! variable. Another parameter to configure is the clock by using \verb!speed_hz!. In order to deselect a device before another transfer the parameter \verb!cs_change! must be true. Finally, to configure or override the wordsize of the transmission \verb!bits_per_word! is used.
+
+\begin{lstlisting}[language=C, caption={IOSharp.c - SPI struct configuration}]
+struct spi_ioc_transfer tr = {
     .tx_buf = (unsigned long)writeBuffer,
     .rx_buf = (unsigned long)readBuffer,
     .len = writeCount,
@@ -273,10 +280,17 @@ Before doing a transaction via the SPI bus this must be configured, first of all
     .cs_change = spi.cs_change,
     .bits_per_word = 8,
   };
-
-// Transmit and read data using the buffers configured above.
-  ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 \end{lstlisting}
+
+After configuring this struct, it can be passed to another ioctl call which will make the transfer it self, in this case, along with the \gls{FD} corresponding to the SPI device another preprocessor macro is passed as a parameter, this one is called \verb!SPI_IOC_MESSAGE! and must include the number of transfers that will be executed together, in case of IOSharp the ir only a transfer at a time, so the parameter will look like \verb!SPI_IOC_MESSAGE(1)!, finally the struct commented above is included in the ioctl call.
+
+\begin{lstlisting}[language=C, caption={IOSharp.c - SPI transfer}]
+// Pass the preprocessor macro and the spi_ioc_transfer struct.
+ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
+\end{lstlisting}
+
+\subsubsection{Implementation in C\#}\label{SSS:IOSharp-SPI-Implementation-CSharp}
+ds
 
 \subsection{UART}\label{SS:IOSharp-UART}
 The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.

@@ -230,6 +230,7 @@ Like the GPIO the triggering is configured on the SYSFS on a file called edge lo
 Once the triggering is configured IOSharp will wait for a delegate to be configured by the user in which will receive the interrupt events, once a delegate is passed to the OnInterrupt a thread will be assigned to the task of polling a GPIO using the library previously explained. This thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated passed by the user is called and in this way the interruption event is passed straight to the program which uses IOSharp. Finally the interrupt port can be disabled as the other ones.
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
+\textcolor{red}{Potser seria interesant explicar mosi, miso, sclk, cs}
 The \gls{SPI} is one of the important features to be implemented on IOSharp. The SPI is a protocol used in embedded systems to communicate boards and components in a Master-Slave way. This protocol offers a full-duplex communication where the master and the slave can write and read at the same time on the channel. Normally this protocol accepts transmission frequencies in the range of 10 kHz to 100 MHz and in order to operate, the master configures its clock using a frequency less or equal to the maximum frequency supported by the slave which wants to communicate.
 
 \begin{figure}[H]\begin{center}
@@ -290,7 +291,59 @@ ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 \end{lstlisting}
 
 \subsubsection{Implementation in C\#}\label{SSS:IOSharp-SPI-Implementation-CSharp}
-ds
+After writing the library part in C is time to modify IOSharp to add the necessary calls to this library in order to make Micro Framework use the SPI in Linux. In this case the calls will be done in a similar way as it has been done in the Interrupt part (\ref{SS:IOSharp-Interrupt}. In this case some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
+\\
+Essentially the method will be the same, do a P/Invoke from C\# in order to call the functions in the library. To facilitate the data exchange between the program and the library a struct is used, this contains the basic information in order to do the configurations explained on the previous section. This struct must be written in the header file of the library and also must be written in the C\# code. First of all the SPI implementation in Micro Framework is divided into two blocks, the first one represents the port configuration which is used to set the different properties that can be used with the SPI, for example the clock rate, the setup time of the slave, the SPI modes (CPHA and CPOL), etc. The second block, which is the SPI itself uses the configuration commented above to create an SPI instance, along with the configuration the required pins for the\gls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls{CS} are obtained and reserved, so the used can not create a port (for example an input or an output) over this pins.
+\\
+When the SPI instance is created, the methods will be able to be used, basically there are different overloads of the \verb!Write! and \verb!WriteRead! methods, but all of them end calling the same internal function which will do the P/Invoke to the library.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=1]{pictures/iosharp/spi-uml}
+  \caption{UML representation of the SPI Configuration Class (Left) and the SPI Port (Right)\label{fig:spi-uml}}
+\end{center}\end{figure}
+
+In order to pass the configuration to the library, the configuration object is converted to a struct which its variables are the same as the struct from the header file of the library. This struct will be the one that is passed with the P/Invoke to the C implementation.
+\\
+The code shown below corresponds to the header file and represents the struct that will be interchanged between the two languages.
+
+\begin{lstlisting}[language=C, caption={IOSharp.h - spi\_config struct}]
+typedef struct spi_config
+{
+  int mode;
+  uint32_t speed;
+  int cs_change;
+  uint16_t delay;
+} SPI_CONFIG;
+\end{lstlisting}
+
+In this case, this struct represents the C\# implementation, it contains the same parameters as the C versions and also implements a constructor which simplifies the conversion between the Configuration class and this structure, the important thing in this case is the \verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]! which is the attribute of the struct which is used by the P/Invoke to know how to serialize the structure and also which encoding must be applied to it when is passed to the library.
+
+\begin{lstlisting}[language=CSharp, caption={SPI.cs - spi\_config struct}]
+[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+public struct spi_config {
+    public int mode;
+    public uint speed;
+    public int cs_change;
+    public ushort delay;
+
+    public spi_config(Configuration config) {
+        this.cs_change = (config.ChipSelect_ActiveState) ? 1 : 0;
+        this.delay = (ushort) config.ChipSelect_HoldTime;
+
+        if (config.Clock_Edge && !config.Clock_IdleState)
+            this.mode = 0;
+        else if (!config.Clock_Edge && !config.Clock_IdleState)
+            this.mode = 1;
+        else if (config.Clock_Edge && config.Clock_IdleState)
+            this.mode = 2;
+        else
+            this.mode = 3;
+        this.speed = config.Clock_RateKHz * 1000;
+    }
+}
+\end{lstlisting}
+
 
 \subsection{UART}\label{SS:IOSharp-UART}
 The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.

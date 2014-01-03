@@ -344,6 +344,7 @@ public struct spi_config {
 }
 \end{lstlisting}
 
+Using this method the configuration is passed to the library so SPI can work just as the developer wants. It is also interesting to remark that the buffers for the incoming or the outgoing data are not returned from C to C\# but the buffers have been read and written so C takes the pointer of that buffer, which is the same as the C\# and then writes or reads the information from there. 
 
 \subsection{UART}\label{SS:IOSharp-UART}
 The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.

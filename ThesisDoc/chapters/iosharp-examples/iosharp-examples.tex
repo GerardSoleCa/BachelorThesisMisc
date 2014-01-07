@@ -1,5 +1,17 @@
 \chapter{Tests of IOSharp}\label{C:IOSharp Implementation}
+Simultaneously with the development of IOSharp some small tests were created so the developed module could be tested to verify the properly operation. There are three major tests without taking into account the simple GPIO. First of all the SPI with the Interrupt port was tested using a RFID reader, secondly an Arduino and a RaspberryPi running IOSharp where connected via a Serial Port so one could send a message and the other forward to the first again. Finally HomeSense will be deployed on the RaspberryPi using IOSharp, and it will be compared with the original version of it, using the Netudino Mini.
 
-\section{Current IOSharp release}\label{S:current-iosharp-release}
 \section{RFID and IOSharp}\label{S:rfid-iosharp}
+This was the first test to verify the SPI and the Interruptions in a real environment using a RFID card reader connected through the SPI bus. In this case the code used for a Netduino has been taken and with minimal changes to the code it has been able to use without problems this reader.
+\\
+The card reader uses a MFRC522 chip from NXP and its hosted interfaces are SPI, UART and I$^{2}$C. In this case the chip is mounted on a PCB which offers the SPI connection, this reader is the MF522-AN from Mifare.
+
+\subsection{Micro Framework and Netduino}\label{S:IOEx-SPI-Using-NETMF}
+The original example uses a Netduino with the standard Micro Framework from Microsoft, then the RFID is connected through SPI to the board and a program will read the MFRC522 Version, then a timer will be configured to pull data from the card every 500 milliseconds. After pulling this data the program will try to identify the tag between the different Mifare versions and also print the serial number of the tag.
+
+
+\subsection{Integrating IOSharp}\label{S:IOEx-SPI-Using-IOSharp}
+ 
+\section{Arduino and IOSharp echoing}\label{S:rfid-iosharp}
 \section{HomeSense over IOSharp}\label{S:HomeSense-IOSharp}
+\section{Current IOSharp release}\label{S:current-iosharp-release}

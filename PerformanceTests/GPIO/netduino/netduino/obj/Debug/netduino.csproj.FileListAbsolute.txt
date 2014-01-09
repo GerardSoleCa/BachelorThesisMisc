@@ -33,3 +33,4 @@ D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\netdu
 D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\netduino\netduino\obj\Debug\le\netduino.pdbx
 D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\netduino\netduino\obj\Debug\netduino.exe
 D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\netduino\netduino\obj\Debug\netduino.pdb
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\netduino\netduino\obj\Debug\netduino.csprojResolveAssemblyReference.cache

@@ -5,3 +5,6 @@ Z:\tfc\Microsoft.SPOT.dll
 Z:\tfc\Microsoft.SPOT.pdb
 D:\Gerard\Dropbox\TFC\codi\GitHub\IOSharp-netmf-Linux\IOSharp-netmf\Microsoft.SPOT\obj\x86\Debug\Microsoft.SPOT.dll
 D:\Gerard\Dropbox\TFC\codi\GitHub\IOSharp-netmf-Linux\IOSharp-netmf\Microsoft.SPOT\obj\x86\Debug\Microsoft.SPOT.pdb
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\obj\x86\Debug\Microsoft.SPOT.csprojResolveAssemblyReference.cache
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\obj\x86\Debug\Microsoft.SPOT.dll
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\obj\x86\Debug\Microsoft.SPOT.pdb

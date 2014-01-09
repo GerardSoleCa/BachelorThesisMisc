@@ -17,11 +17,11 @@ namespace raspberrypi
             // Specify the GPIO pin we want to use as an interrupt 
             // source, specify the edges the interrupt should trigger on 
             InterruptPort button = new InterruptPort(Pins.V2_GPIO2, false,
-              Port.ResistorMode.Disabled, Port.InterruptMode.InterruptEdgeLow);
+              Port.ResistorMode.Disabled, Port.InterruptMode.InterruptEdgeBoth);
 
             // Hook up an event handler (delegate) to the OnInterrupt event 
             button.OnInterrupt += new NativeEventHandler(button_OnInterrupt);
-            Debug.Print("Started");
+            Debug.Print("Started"); 
             Thread.Sleep(-1);
         }
 

@@ -1,0 +1,9 @@
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\bin\Debug\raspberrypi.exe
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\bin\Debug\raspberrypi.pdb
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\bin\Debug\IOSharp.NETMF.RaspberryPi.dll
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\bin\Debug\Microsoft.SPOT.dll
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\bin\Debug\IOSharp.NETMF.RaspberryPi.pdb
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\bin\Debug\Microsoft.SPOT.pdb
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\obj\x86\Debug\raspberrypi.csprojResolveAssemblyReference.cache
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\obj\x86\Debug\raspberrypi.exe
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\obj\x86\Debug\raspberrypi.pdb

@@ -83,12 +83,13 @@
 %%% FancyHeadings and  Calc packages are required
 \RequirePackage{fancyhdr}
 \RequirePackage{calc}
-\RequirePackage[dvips]{graphics}                
+\RequirePackage{graphics}                
 \RequirePackage{epsfig}
 \RequirePackage{graphicx}
 \RequirePackage{tocloft}  %% controls typografic design of the TOC, LOF etc...
 \RequirePackage{pslatex}  %% Arial
 \RequirePackage{helvet}
+%\RequirePackage[nonumberlist]{glossaries}
 
 \renewcommand{\familydefault}{\sfdefault}  %% sans-serif is default
 
@@ -204,7 +205,7 @@
 \newlength{\logoEPSCheight}   %% no tocar. nomes descomentar
 \setlength{\logoEPSCheight}{1.5cm}
 \newsavebox{\logoEPSC}
-\sbox{\logoEPSC}{\includegraphics[angle=0, totalheight=\logoEPSCheight]{./pictures/logos/logo_EETAC.eps}}
+\sbox{\logoEPSC}{\includegraphics[angle=0, totalheight=\logoEPSCheight]{./pictures/logos/logo_EETAC}}
 
 %% PORTADA ENVIRONMENT
 %%%%%%%%%%%%%%%%%%%%%%

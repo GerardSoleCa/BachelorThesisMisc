@@ -118,15 +118,20 @@ Escriure aquí opcionalment la dedicatòria.
 %%       és ''introducció'' amb l'idioma en que es redacti el projecte
 \pagestyle{fancy} 
 
+%% First include Glossary to be used in the following chapters
+\include{chapters/glossary/glossary}
+
 \begin{intro}{Introduction} 
-The aim of this thesis is port an existing operating system called Micro Framework developed by Microsoft. Micro Framework is the smallest version of .NET for very resource-constrained devices. This port should let applications using this framework run on any Linux device capable of use Input/Output ports and SPI, UART communication standards.
-There is no official implementation of this framework for complete operating systems, in example, Windows or Linux.
-
-The reason of this port is try to migrate a Wireless Sensor Network (WSN) Gateway that currently uses MicroFramework and Netduino Plus which is a constrained-device. But this gateway it's getting out of system resources, so in order to keep the existing code a solution has been proposed, make able to run this software on a Linux device.
-
-In this case, the deployment device will be a RaspberryPi which is a low end computer similar to a Pentium II in terms of computing power. This computer offers a set of interesting things in terms of this thesis, basically it has exposed Input/Output ports as a GPIO. Over this GPIOs it's possible to use SPI, I$^{2}$C and UART communication buses.
-
-After achieving this, there is a second goal which consists of help and test the development of a code translating tool called AlterNative which is being developed by Alex Albalá and Juan López. This translator is capable to get a source code from a C\# binary and translate it to C++ trying to get better performance than C\#. On the other hand, taking the benefit of the C++, the translated code should be able to execute between different operating systems (Windows, Linux and MacOSX and also mobile devices as Android).
+Embedded systems have become more powerful over time passing from 8 bit controllers to 8 or 16 bit microprocessors or even 32 bit ARM microprocessors, apart from the increase of the processing power, the memory included in this devices is also increased, from  tens of Kilobytes to tens or hundreds of Megabytes. One of the reasons for this changes has been the price drop on production. This new embedded systems offers a power similar to the computers from the nineties and most of them implement operating systems which this helps on reducing the difficulty to create embedded applications. With an operating system running over the bare metal of the chip, the developer will get all the underlying hardware abstracted to different APIs and libraries and avoiding low level interaction with the hardware. They also offer interesting features such as memory control and allocation, threading, dynamic program loading. In example, one of the top notch devices nowadays is the Raspberry Pi which mounts an ARM6, 512MB of RAM and some I/O features such as GPIOs, SPI, UART. This hardware can be equivalent to a nineties computer similar to a Pentium II so they are really powerful to the task that they may do.
+\\
+One of the operating systems for embedded devices is .NET Micro Framework (NETMF) developed by Microsoft. This system is the smallest version of .NET Framework and is oriented to resource-constrained devices for embedded applications. This system offers different communication protocols and methods like the \gls{GPIO} ports, the \gls{SPI}, \gls{UART} and \gls{I2C}. There is no official implementation or port of Micro Framework that is capable to run on standard computers (a normal desktop), so any application written for this operating system will not work on Linux or Windows, and although exists a minimal port of this system to a Linux board called Eddy it do not offers all the hardware features that Micro Framework do, and it is only focused to the named board.
+\\
+The aim of IOSharp is solve this lack and get Micro Framework applications run on any Linux machine which is capable of running applications using the .NET Framework (the complete stack designed by Microsoft). So this project instead of writing a complete port of the Micro Framework runtime to run on Linux is an extension to the classes provided by the .NET Framework. Basically IOSharp offers the IO functions, methods and classes that are missing on .NET Framework, and although the implementation of the classes is different in IOSharp than in Micro Framework, the namespaces, methods, class naming, etc is equal to the original ones so this makes much easy to migrate between Micro Framework to .NET Framework. 
+\\
+The reason for this implementation is try to migrate the Micro Framework code that runs on a Netduino Mini which is the gateway of a Wireless Sensor Network (\gls{WSN}). One of the problems that this platform has is that the it is getting out of system resources, so in order to keep the existing code different solutions are being researched, in this case IOSharp pretends to be one of that solutions achieving the deployment of this WSN gateway software on a Raspberry Pi which runs a Linux operating system.
+\\
+\\
+After achieving the first goal, there is a second expansion project which consists of extending a code translating tool called AlterNative which is being developed by Alex Albalá and Juan López. This translator is capable to get the source code from a C\# binary and then translate it to C++ trying to get better performance than C\#. C++ theoretically performs better than C\# applications, but normally are more platform oriented, so Windows binary will not work on a Linux sytem, but one of the interesting features of AlterNative is generate a highly portable code that can be compiled on (and for) any operating system, i.e. Windows, Linux, MacOSX, iOS, Android, etc. Another interesting point of this tool is that the generated code is similar to C\# so a developer used to this language will be able to understand or even write programs using the translated code.
 
 \end{intro}
 
@@ -137,13 +142,15 @@ After achieving this, there is a second goal which consists of help and test the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% First include Glossary to be used in the following chapters
-\include{chapters/glossary/glossary}
+%\include{chapters/glossary/glossary}
 
 %% Include the chapters
 \include{chapters/proposal/proposal}
 \include{chapters/state_of_the_art/state_of_the_art}
 \include{chapters/iosharp/iosharp}
 \include{chapters/iosharp-examples/iosharp-examples}
+\include{chapters/alternative/alternative}
+\include{chapters/performance-tests/performance-tests}
 
 %% Remove the final dot and print the glossaries
 %\renewcommand*{\glspostdescription}{}

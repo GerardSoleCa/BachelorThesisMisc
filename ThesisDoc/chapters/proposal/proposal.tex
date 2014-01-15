@@ -1,17 +1,19 @@
-\chapter{Initial proposal}\label{C:innitial-proposal}
+\chapter{Project overview}\label{C:project-overview}
 This project was proposed by AlterAid a company which is working on several ways to help in taking care of the health of our elderly, or in general, anyone that is relevant to our lives.
 
 This company is working on two different projects that combine together, the first one is called aaaida which consists of a social network where people can stay alert about its relatives, upload information about its health or watch recommendations from doctors or other professionals. On the other side, and more hardware oriented development, they are creating a Sensor Network called HomeSense that once deployed in a house will be able to collect relevant information from those sensors in the home and allow other people to know if the daily life of the resident's house is going normal, or something is happening.
 
 \section{AlterAid products in depth}\label{S:alteraid-products}
-As explained before, AlterAid has two relevant products, aaaida which is the unifying social network that shows or even analyzes the data uploaded there. Then comes HomeSense, a Wireles Healthcare Sensor Platform, which is interesting on terms of sensing and daily life control. HomeSense idea is be able to gather information by using distributed sensors around a house and then upload this information to aaaida.
+%As explained before, AlterAid has two relevant products, aaaida which is the unifying social network that shows or even analyzes the data uploaded there. Then comes HomeSense, a Wireles Healthcare Sensor Platform, which is interesting on terms of sensing and daily life control. HomeSense idea is be able to gather information by using distributed sensors around a house and then upload this information to aaaida.
 
 \subsection{HomeSense}\label{SS:HomeSense-proposal}
-HomeSense, is a Wireless Healthcare Sensor Platform created with the aim of control and care taking of the elderly and relatives, actually it uses a Netduino Mini which makes the function of the gateway which controls the sensor network, receiving all the data and uploading to aaaida platform through internet.
+HomeSense, is a Wireless Healthcare Sensor Platform \gls{WSN} created with the aim of control and care taking of the elderly and relatives, actually it uses a Netduino board which makes the function of the gateway which controls the sensor network, receiving all the data and uploading to aaaida platform through internet.
 \\
 In the house the communication is carried on using little sensors capable of fetching data in different situations for example a drawer or a medicine cabinet, it is also possible to install the sensors on doors in order to know if they are opened or closed or in any place where is interesting to acquire information from the environment, house or residents. This sensors make use of nRF24LE1 \gls{SoC} with a low-power RF \gls{ISM} band on 2.4GHz from Nordic Semiconductor.
 \\
 The communication protocol designed for HomeSense is similar to a mesh network with multi-hop transmissions which normally the nodes try to fetch the gateway because this is on charge of upload the information straight to the internet.
+\\
+The gateway system has been entirely developed using .NET Micro Framework and deployed on a Netduino Mini. The mesh protocol has been defined internally on the company while it uses third-party hardware to create the physical links of the network.
 
 \subsection{Case of use}\label{SS:Case-Of-Use}
 Alice is a young teenager whose grandfather, Bob, is ill and she wants to know if all is fine in Bob's home life. Alice will sign up in http://www.aaaida.com, there she will create a bond called Bob. A bond is a entity that represents a person, this entity can be configured with different measures. Then Alice will create 2 measures, the first one will be blood pressure while the other one will be bob's house.

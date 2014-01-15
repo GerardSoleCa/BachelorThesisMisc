@@ -3,3 +3,7 @@ D:\Gerard\Dropbox\TFC\codi\GitHub\IOSharp-netmf-Linux\IOSharp-netmf\Microsoft.SP
 D:\Gerard\Dropbox\TFC\codi\GitHub\IOSharp-netmf-Linux\IOSharp-netmf\Microsoft.SPOT\obj\x86\Release\Microsoft.SPOT.dll
 D:\Gerard\Dropbox\TFC\codi\GitHub\IOSharp-netmf-Linux\IOSharp-netmf\Microsoft.SPOT\obj\x86\Release\Microsoft.SPOT.pdb
 D:\Gerard\Dropbox\TFC\codi\GitHub\IOSharp-netmf-Linux\IOSharp-netmf\Microsoft.SPOT\obj\x86\Release\Microsoft.SPOT.csprojResolveAssemblyReference.cache
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\bin\Release\Microsoft.SPOT.dll
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\bin\Release\Microsoft.SPOT.pdb
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\obj\x86\Release\Microsoft.SPOT.dll
+D:\Gerard\Dropbox\TFC\codi\GitHub\BachelorThesisMisc\PerformanceTests\GPIO\raspberrypi\raspberrypi\Microsoft.SPOT\obj\x86\Release\Microsoft.SPOT.pdb

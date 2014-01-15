@@ -1,5 +1,19 @@
 \chapter{Tests of IOSharp}\label{C:IOSharp Implementation}
-Simultaneously with the development of IOSharp some small tests were created so the developed module could be tested to verify the properly operation. There are three major tests without taking into account the simple GPIO. First of all the SPI with the Interrupt port was tested using a RFID reader, secondly an Arduino and a RaspberryPi running IOSharp where connected via a Serial Port so one could send a message and the other forward to the first again. Finally HomeSense will be deployed on the RaspberryPi using IOSharp, and it will be compared with the original version of it, using the Netudino Mini.
+Simultaneously with the development of IOSharp some small tests were created so the developed module could be tested to verify the properly operation. There are three major tests without taking into account the simple GPIO. First of all an Arduino and a RaspberryPi running IOSharp where connected via a Serial Port so one could send a message and the other forward to the first again.  Secondly the SPI was tested using a RFID reader. Finally HomeSense running on the RaspberryPi using IOSharp, and it will be compared with the original version of it, using the Netudino Mini.
+
+\section{UART. RaspberryPi and Netduino}\label{S:IOEx-UART}
+This example which shows that is possible to use the .NET Framework SerialPort implementation as a replacement of the original Micro Framework one. In this case a Raspberry Pi and a Netduino is used, the first one will send a message through the UART port, when the Netduino receives that message will send it back to the Raspberry Pi.
+
+\textcolor{red}{Include here a Logic capture showing the bytes exachanges}
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/proposal/aaaida-use-case}
+  \caption{Bytes exchanged between a Raspberry Pi and a Netduino using the UART \label{fig:IOEx-UART}}
+\end{center}\end{figure}
+
+As figure \ref{fig:IOEx-UART} shows the bytes sended through the \gls{TX} channel of the Raspberry Pi are the same as the \gls{RX} connected to the Netduino.
 
 \section{SPI. RFID and IOSharp}\label{S:rfid-iosharp}
 This was the first test to verify the SPI and the Interruptions in a real environment using a RFID card reader connected through the SPI bus.
@@ -68,22 +82,10 @@ public void ConfigureSPI() {
     //MFRC522Init();
 }
 \end{lstlisting}
- 
-\section{UART. RaspberryPi and Netduino}\label{S:IOEx-UART}
-This one is a really simple example which shows that is possible to use the .NET Framework SerialPort implementation as a replacement of the original Micro Framework one. In this case a Raspberry Pi and a Netduino is used. The first one will send a message through the UART port, then the Netduino will receive that message and then send it back to the Raspberry Pi.
+
+After doing this, this project can be opened as Micro Framework in order to deploy in a Netduino or open the Linux version. Deploying this application in any of these boards will result in a program working. As the figure \textcolor{red}{posar la referencia} shows the exchange of the data between the boards and the RFID reader is done by SPI
 
 \section{HomeSense over IOSharp}\label{S:HomeSense-IOSharp}
 
-\section{Performance Tests}\label{S:IOEx-Performance-Tests}
-After viewing that the performance of HomeSense with IOSharp in the RaspberryPi was worst than the Netduino version several performance tests were done.
-\\
-Measuring the performance is difficult because it is hard to know how much time needs the processor to execute the necessary instructions to make an I/O operation, and also how much time takes between the execution of the instruction to the real change seen in the pins.
-\\
-\\
-To measure the timings a protocol analyser was used, sniffing the desired pins for changes. This analyser is the Logic16 from Saleae. It provides 16 channels 
-
-\subsection{GPIO}\label{SS:IOEx-GPIO}
-The GPIO test consists of how much time takes between
-
-\subsection{Interruptions}
-\label{SS:IOEx-Interruptions}
+\section{Results overview}\label{S:Results-overview}
+After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. HomeSense, \textcolor{red}{Explicar que homsense a netduino les resposes a les interrupcions son mes rapides per el que fa que sigui molt mes rapid tot, i es poden enviar totes les dades en una sola iteracio, mentre que en iosharp i mono es necessiten dues iteracions per buidar el buffer}

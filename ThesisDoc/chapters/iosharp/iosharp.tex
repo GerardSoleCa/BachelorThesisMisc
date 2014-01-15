@@ -347,7 +347,16 @@ public struct spi_config {
 Using this method the configuration is passed to the library so SPI can work just as the developer wants. It is also interesting to remark that the buffers for the incoming or the outgoing data are not returned from C to C\# but the buffers have been read and written so C takes the pointer of that buffer, which is the same as the C\# and then writes or reads the information from there. 
 
 \subsection{UART}\label{SS:IOSharp-UART}
-The UART is a really simple protocol using asynchronous serial communication between two devices. Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.
+The UART is a really simple protocol using asynchronous serial communication between two devices. As figure \ref{fig:uart-modules} shows, each device have two ports which are the \gls{TX} for transmissions and \gls{RX} for receptions, the transmission port must be connected to the reception port on the other device. Both devices must share the ground.
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.60]{pictures/iosharp/uart-modules}
+  \caption{UART communication schema\label{fig:uart-modules}}
+\end{center}\end{figure}
+
+Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.
 \\
 Before start writing a new implementation a comparison and evaluation was carried on for the implementation of .NET Framework and the Micro Framework version, after comparing them, they where so similar that a new implementation for IOSharp was not required, at least until the missing functions were required. This decision is due two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, a class on the standard framework will be much more stable and tested than a code written from scratch. The other reason on choosing the existing class that although it is not exactly as the NETMF class it has all the required functions that are needed for deploying HomeSense.
 

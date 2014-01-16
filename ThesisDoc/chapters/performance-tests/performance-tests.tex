@@ -71,6 +71,37 @@ namespace raspberrypi {
 
 This test will be executed varying the number of iterations between 200 and 10000. Each iteration will swap the port between high and low. Apart from the iteration increase, two type of compilations will be done changing the optimization type between quick compilation without optimization (Debug) and compilation with optimization (Release).
 
+\subsection{Compilation types}\label{SS:PERF-GPIO-comptypes}
+When a compiler generates a binary from a source code normally tries to do some changes to optimize the some attributes of the program. The most common requirement is to optimize the time taken to execute that program, another one is optimize the amount of memory required, also some optimizations can be used to make a program consume less power and this is interesting because nowadays smartphones and tablets have a small battery so reaching low power consumption is great to have long battery life. All of this optimizations are carried out by a sequence of optimizing transformations and algorithms high help create programs that uses fewer resources.
+\\
+Normally compilers can generate programs using optimizations or without using them. If the compiler uses optimizations the compile time will growth but the program will be much more optimized than if the compiler does not apply them.
+\begin{itemize}
+  \item \textbf{Non-optimized or debug:} this compile mode is used by developers who want to debug applications in execution time. In this case the whole symbol information which is used by the debugger to stop at the break points (designated instructions). For example the .pdb files from Visual Studio are created by the compiler and have the information to debug the created binary. But normally the debug mode will not allow some optimizations because are incompatible to the properly function of the debugger.
+  \item \textbf{Optimized or release:} this compile mode is used to generate an optimized binary to execute much faster than the debug one. In this case the compiler performs different transformations to the original code, for example two typical optimizations that cannot be applied to the debug mode are:
+  \begin{itemize}
+  	\item \textbf{Loop unrolling:} the compiler replaces the code inside a loop (for example inside a for). This helps avoiding the maintenance of the loop variables.
+  	\item \textbf{Inlining:} the compiler places the method on the place of the call avoiding the overhead of the calling stack to the method.
+  	\begin{lstlisting}[language=C++, caption={Inline example}]
+inline int Max(int x, int y)
+{
+   return (x > y)? x : y;
+}
+int main( )
+{
+   cout << "Max (100,1010): " << Max(100,1010) << endl;
+   return 0;
+}
+
+/* The Max(int, int) function is inlined to the main Max call in the following way:*/
+int main( )
+{
+   cout << "Max (100,1010): " << (100>1010)? 100 : 1010 << endl;
+   return 0;
+}
+\end{lstlisting}
+  \end{itemize}
+\end{itemize}
+
 \subsection{200 Iterations}\label{SS:200-iterations}
 The result produced by Mono shows an irregular pattern consisting of two small pulses a wide pulse and then two small pulses following a wide gap. This pattern is regularly repeated across all the test. The wide pulses and gaps are supposed to be caused by the garbage collector and the thread hopping of mono.
 \\
@@ -102,4 +133,5 @@ In case of the C++ test it can be observed that the pulses are much more regular
 \end{center}\end{figure}
 
 \section{Interruptions}\label{SS:IOEx-Interruptions}
-\textcolor{red}{we expect this to work}
+It was observed that in HomeSense the response time between sensor events was poor, probably because of the time that mono takes between an interruption is detected to the instructions from the program are executed. To analyze this an interruption test was done to know how much time passes between the trigger and the result. So in this case the program will start and wait until an event occurs on a GPIO, then another GPIO will be set to an output port and change its state to high, this will be the measured time.
+\\

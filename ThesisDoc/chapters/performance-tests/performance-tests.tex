@@ -1,4 +1,4 @@
-\chapter{Performance tests}\label{S:Performance-Test}
+\chapter{Performance tests}\label{C:Performance-Test}
 In this chapter the results for a GPIO performance tests are shown. This tests will be done using the Raspberry Pi and two implementations of IOSharp, the original written in C\# which has been explained on the first part of this thesis, the second implementation tested will be the C++ one translated from the original by AlterNative which has been explained in the second part of this thesis. Theoretically, C++ has a major performance compared to C\# but this tests are used to determine how much the C++ implementation gains over the C\# ones.
 \\
 To make the measures in this tests the Logic16 has been used. This is a channel analyzer used to record, view, and measure digital signals. It also currently has 17 different protocol analyzers including SPI, serial, I2C and many more.
@@ -127,7 +127,7 @@ After testing the performance in Mono it was time to try out the generated code 
   \caption{200 Iterations using C++ with optimizations \label{fig:gpio-200it-cxx}}
 \end{center}\end{figure}
 This image is in the same scale that the C\# one, so the magnitude of the elapsed time can be compared.
-In case of C++ test it can be observed that the pulses are much more regular than the mono test, but at certain point around the pulse 89 a big gap is observed probably due to the lack of a garbage collector (AlterNative programs currently do not have a working garbage collector implemented). It is interesting to remark that C++ needs only 77 ms to perform the same test, and each pulse is 0.43 ms on average.
+In case of C++ test it can be observed that the pulses are much more regular than the Mono test, but at certain point around the pulse 89 a big gap is observed probably due to the lack of a garbage collector (AlterNative programs currently do not have a working garbage collector implemented). It is interesting to remark that C++ needs only 77 ms to perform the same test, and each pulse is 0.43 ms on average.
 \\
 \\
 After doing some tests on debug and release mode in both languages a graphic could be sketched, the performance in 200 iterations in Mono using both compile types was the practically the same, it takes around 200 ms to complete all the test, however in C++ the time varies a bit depending on the compilation type, without using optimizations it takes 100 ms but when the compile is done in release mode the time decreases to 78 ms.
@@ -142,19 +142,40 @@ From the figure \ref{fig:gpio-graph-200} it can be concluded that the C++ versio
 
 \subsection{10K Iterations}\label{SS:10K-iterations}
 After the first test using 200 iterations another one was done, but this time increasing to 10000 iterations or a factor of fifty, in this magnitude the compiler optimizations should be visible enough to observe some kind of improvement on the different compilation types.
+\\
+In the figure \ref{fig:gpio-10kit-csharp+cpp} is represented the elapsed time for 10k iterations, the block on the left is the Mono version and lasts 10 seconds while the second one is the C++ version and the 10k iterations are done in approximately 3 seconds being three times faster.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[width=1\textwidth]{pictures/performance-tests/GPIO/10k/cxx+csharp}
-  \caption{200 Iterations using C\# with optimizations \label{fig:gpio-200it-csharp}}
+  \caption{10k Iterations. using C\# with optimizations \label{fig:gpio-10kit-csharp+cpp}}
 \end{center}\end{figure}
+As it was done in the previous test a graph has been done comparing the different languages and compilation types.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.9,page=2]{pictures/performance-tests/GPIO/graphs}
   \caption{Graph showing the elapsed time for the 10k iteration test. Blue is for C++ while orange is C\#. On the left is represented the non-optimized compilations and on the right the optimized ones\label{fig:gpio-graph-10k}}
 \end{center}\end{figure}
+At this number of iterations the C++ performs much better than C\# and also is possible to see an improvement between the debug and release versions of C++ achieving being the optimized version 741 ms faster than the non-optimized.
 
-\section{Interruptions}\label{SS:IOEx-Interruptions}
-It was observed that in HomeSense the response time between sensor events was poor, probably because of the time that mono takes between an interruption is detected to the instructions from the program are executed. To analyze this an interruption test was done to know how much time passes between the trigger and the result. So in this case the program will start and wait until an event occurs on a GPIO, then another GPIO will be set to an output port and change its state to high, this will be the measured time.
+\section{Interruptions}\label{S:Performance-Interruptions}
+It was observed that in HomeSense the response time between sensor events was poor, probably because of the time that Mono takes between the interruption detection and the response to this interruption. To analyze the elapsed time between the trigger event and the response the example will be polling events from a pin, when an event is detected it will use another pin in output mode sending an active high state.
 \\
+Like the previous test the C++ code has been generated using AlterNative so it also will be used to test some special functionalities like the delegates or the timer. The program will start and create a delegate which will be the called function when an interrupt occurs. After the port instantiations the main thread will be slept and the interrupt will call the delegate if an interruption is present.
+\\
+In the figure \ref{fig:interrupt-csharp} is shown the triggering of the interruption (the top channel with the falling edge), after 1.326 ms the second channel is active in state high.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.65]{pictures/performance-tests/Interruptions/csharp}
+  \caption{Response time of an interruption in C\# and Mono\label{fig:interrupt-csharp}}
+\end{center}\end{figure}
+Then the same test is performed but using the C++ version. The result is pretty good because the interruption is attended only 0.879 ms after the triggering. This implies that C++ is 447 μs faster than the Mono version.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.65]{pictures/performance-tests/Interruptions/cxx}
+  \caption{Response time of an interruption in C++\label{fig:interrupt-cxx}}
+\end{center}\end{figure}
+It is important to take into account that the interruptions in operating systems are not real time, this implies that sometimes an event is attended at a certain time but in another moment the time required can be much more different due to the non real-time kernel that runs usually Linux. If hard real-time is needed it is recommended to use other platforms like FreeRTOS which is intended to do tasks that require controlled response times.

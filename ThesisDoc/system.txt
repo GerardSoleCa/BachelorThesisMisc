@@ -1,0 +1,117 @@
+System
+|   Array.h
+|   Console.cpp
+|   Console.h
+|   Convert.cpp
+|   Convert.h
+|   DateTime.cpp
+|   DateTime.h
+|   DateTimeKind.h
+|   Delegate.h
+|   events.h
+|   Exception.cpp
+|   Exception.h
+|   GC.cpp
+|   GC.h
+|   IDisposable.h
+|   Math.cpp
+|   Math.h
+|   Object.cpp
+|   Object.h
+|   Random.cpp
+|   Random.h
+|   String.cpp
+|   String.h
+|   support.h
+|   sys.sln
+|   System.h
+|   TimeSpan.cpp
+|   TimeSpan.h
+|   
++---Collections
+|   |   IEnumerable.h
+|   |   IEnumeratorCXX.h
+|   |   IteratorCXX.h
+|   |   
+|   \---Generic
+|           Dictionary.h
+|           IEnumerable.h
+|           IEnumeratorCXX.h
+|           IteratorCXX.h
+|           List.h
+|           
++---Exception
+|   |   SystemException.cpp
+|   |   SystemException.h
+|   |   
+|   \---SystemException
+|       |   ArgumentException.cpp
+|       |   ArgumentException.h
+|       |   InvalidOperationException.cpp
+|       |   InvalidOperationException.h
+|       |   NotImplementedException.cpp
+|       |   NotImplementedException.h
+|       |   
+|       +---ArgumentException
+|       |       ArgumentNullException.cpp
+|       |       ArgumentNullException.h
+|       |       ArgumentOutOfRangeException.cpp
+|       |       ArgumentOutOfRangeException.h
+|       |       
+|       \---InvalidOperationException
+|               ObjectDisposedException.cpp
+|               ObjectDisposedException.h
+|               
++---IO
+|       File.cpp
+|       File.h
+|       FileAccess.h
+|       FileMode.h
+|       FileOptions.h
+|       FileShare.h
+|       FileStream.cpp
+|       FileStream.h
+|       Stream.cpp
+|       Stream.h
+|       StreamReaderCXX.cpp
+|       StreamReaderCXX.h
+|       StreamWriterCXX.cpp
+|       StreamWriterCXX.h
+|       TextReader.cpp
+|       TextReader.h
+|       TextWriter.cpp
+|       TextWriter.h
+|       
++---Net
+|       Net.h
+|       
++---support
+|   |   asis.h
+|   |   boxing.h
+|   |   constraints.h
+|   |   delegates.h
+|   |   events.h
+|   |   exceptions.h
+|   |   general.h
+|   |   lock.h
+|   |   loops.h
+|   |   typeTraits.h
+|   |   
+|   \---internal
+|           Boxing.h
+|           TypeRefs.h
+|           TypeTraits.h
+|           
++---Text
+|       Encoding.cpp
+|       Encoding.h
+|       StringBuilder.cpp
+|       StringBuilder.h
+|       
+\---Threading
+        StackCrawlMark.h
+        Thread.cpp
+        Thread.h
+        Timer.cpp
+        Timer.h
+        

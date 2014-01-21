@@ -23,7 +23,6 @@ System
 |   String.cpp
 |   String.h
 |   support.h
-|   sys.sln
 |   System.h
 |   TimeSpan.cpp
 |   TimeSpan.h
@@ -61,6 +60,7 @@ System
 |       \---InvalidOperationException
 |               ObjectDisposedException.cpp
 |               ObjectDisposedException.h
+System
 |               
 +---IO
 |       File.cpp

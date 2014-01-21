@@ -62,12 +62,140 @@ At the beginning AlterNative only worked on Windows because some classes from th
 The first attempt to translate IOSharp was unsuccessful but it helped to determine how much the translation was near to be successful. There where several major features that AlterNative was not able to translate like the threading, the delegates used in the interruptions, the P/Invokes or some functions like DateTime, Timer and file access to read and write. Many of these features need to be implemented on the proprietary library because this is linked to the translated program as C\# does with its own libraries.
 \\
 To implement this features the C++ boost library has been used. This library uses standard C++ functions so it can work in any device or operating system capable of execute binaries compiled from C++.
+\\
+The classes currently implemented either totally or partially are shown in the Appendix in the section
+\ref{SS:Libs-AlterNative} AlterNative System Library.
+
+When IOSharp is translated through this program it will generate the source code necessary to run and execute the original functions. In the figure \ref{fig:AN-Example-IOSharp} is shown the differences between the original MicroFramework, the first implementation in C\# and the translated one. Each one includes some new layers on the stack either to implement the functionalities of the Micro Framework as IOSharp layer does or to implement the functionalities of C\# like the layer named AlterNative Library which is the implementation of the C\# classes.
+
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/alternative/transformations-iosharp}
+  \caption{Stack in the original .NET Micro Framework, the IOSharp implementation and the AlterNative translation\label{fig:AN-Example-IOSharp}}
+\end{center}\end{figure}
 
 \section{Example}\label{SS:AN-Process-Example}
 The best example to show in this section will be some of the parts of IOSharp translated to C++. In the moment of writing this thesis the only component working well in the translation was the GPIO ports which basically they use the \gls{SYSFS} of Linux and the interrupt port which uses calls to C is also working.
-\\
-\\
-dfdf
-\\
-\\
+
+As a short example of this translation the following pieces of code represents the InputPort in the different languages. This first one is the original implementation of IOSharp as it can be downloaded from GitHub.
+\begin{lstlisting}[language=CSharp, caption={InputPort in C\#}]
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.SPOT.Hardware;
+using IOSharp.NETMF.RaspberryPi.Hardware;
+using System.Threading;
+
+namespace raspberrypi
+{
+    public class InputPort : Port
+    {
+        public InputPort(Cpu.Pin portId, bool glitchFilter, ResistorMode resistor)
+            : base(portId, glitchFilter, resistor, InterruptMode.InterruptNone)
+        {
+            GPIOManager.Instance.SetPortType(portId, PortType.INPUT);
+        }
+
+        protected InputPort(Cpu.Pin portId, bool glitchFilter, ResistorMode resistor, InterruptMode interruptMode)
+            : base(portId, glitchFilter, resistor, interruptMode)
+        {
+            GPIOManager.Instance.SetPortType(portId, PortType.INPUT);
+        }
+
+        protected InputPort(Cpu.Pin portId, bool initialState, bool glitchFilter, ResistorMode resistor)
+            : base(portId, initialState, glitchFilter, resistor)
+        {
+            //throw new NotImplementedException();
+            GPIOManager.Instance.SetPortType(portId, PortType.INPUT);
+        }
+
+        public ResistorMode Resistor { get; set; }
+
+        public bool GlitchFilter { get; set; }
+
+    }
+}
+\end{lstlisting}
+After translating the project the code is represented in C++ which  uses header files, so the following code represents the header for the InputPort.
+\begin{lstlisting}[language=C++, caption={Header file for the InterruptPort in C++}]
+#pragma once
+#include "System/System.h"
+#include "Port.h"
+#include "Cpu.h"
+#include "GPIOManager.h"
+#include "PortType.h"
+#include "System/Exception/SystemException/NotImplementedException.h"
+
+using namespace Microsoft::SPOT::Manager;
+using namespace System;
+namespace Microsoft {
+	namespace SPOT {
+		namespace Hardware {
+			class InputPort : public virtual Port, public virtual Object
+			{
+				public:
+					Port::ResistorMode getResistor();
+				public:
+					void setResistor(Port::ResistorMode value);
+				public:
+					bool getGlitchFilter();
+				public:
+					void setGlitchFilter(bool value);
+				public:
+					InputPort(Cpu::Pin portId, bool glitchFilter, Port::ResistorMode resistor);
+				protected:
+					InputPort(Cpu::Pin portId, bool glitchFilter, Port::ResistorMode resistor, Port::InterruptMode interruptMode);
+				protected:
+					InputPort(Cpu::Pin portId, bool initialState, bool glitchFilter, Port::ResistorMode resistor);
+				public:
+					Port::ResistorMode Resistor_var;
+				public:
+					bool GlitchFilter_var;
+			};
+		}
+	}
+}
+\end{lstlisting}
+Finally this is the file containing the implementation of the header.
+\begin{lstlisting}[language=C++, caption={Implementation of the InterruptPort in C++}]
+#include "InputPort.h"
+namespace Microsoft {
+	namespace SPOT {
+		namespace Hardware {
+			Port::ResistorMode InputPort::getResistor(){
+				return Resistor_var;
+			}
+			void InputPort::setResistor(Port::ResistorMode value)
+			{
+				Resistor_var = value;
+			}
+			bool InputPort::getGlitchFilter()
+			{
+				return GlitchFilter_var;
+			}
+			void InputPort::setGlitchFilter(bool value)
+			{
+				GlitchFilter_var = value;
+			}
+			InputPort::InputPort(Cpu::Pin portId, bool glitchFilter, Port::ResistorMode resistor) : Port(portId, glitchFilter, resistor, Port::InterruptMode::InterruptNone)
+			{
+				GlitchFilter_var = (bool)(0);
+				Resistor_var = (Port::ResistorMode)(0);
+				GPIOManager::getInstance()->SetPortType(portId, PortType::INPUT);
+			}
+			InputPort::InputPort(Cpu::Pin portId, bool glitchFilter, Port::ResistorMode resistor, Port::InterruptMode interruptMode) : Port(portId, glitchFilter, resistor, interruptMode)
+			{
+				GPIOManager::getInstance()->SetPortType(portId, PortType::INPUT);
+			}
+			InputPort::InputPort(Cpu::Pin portId, bool initialState, bool glitchFilter, Port::ResistorMode resistor) : Port(portId, initialState, glitchFilter, resistor)
+			{
+				throw new NotImplementedException();
+			}
+		}
+	}
+}
+\end{lstlisting}
+
 Some performance tests had been carried out to quantify how much is faster the translation of IOSharp compared with the original one running on Mono. The explanation of the tests and its results are on the next chapter.

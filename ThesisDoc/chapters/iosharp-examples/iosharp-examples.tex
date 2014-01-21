@@ -88,4 +88,6 @@ After doing this, this project can be opened as Micro Framework in order to depl
 \section{HomeSense over IOSharp}\label{S:HomeSense-IOSharp}
 
 \section{Results overview}\label{S:Results-overview}
-After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. HomeSense, \textcolor{red}{Explicar que homsense a netduino les resposes a les interrupcions son mes rapides per el que fa que sigui molt mes rapid tot, i es poden enviar totes les dades en una sola iteracio, mentre que en iosharp i mono es necessiten dues iteracions per buidar el buffer}
+After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. HomeSense, need more time to send the network events and this is probably related to the time needed to attend the interruptions of the Nordic chip. In this case the IOSharp with Mono needs two transmission two send the same information that is send with only one transmission using the Netduino.
+\\
+To try to solve this issues with the performance of the Library IOSharp will be translated to C++ using a translating tool called AlterNative which is capable of translate .NET assemblies to C++ maintaining a similar C\# syntax.

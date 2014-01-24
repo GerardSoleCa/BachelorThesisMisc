@@ -1,5 +1,16 @@
 \chapter{Conclusions}\label{C:Conclusions}
 \section{Project Conclusions}\label{S:Project-Conclusions}
+An implementation of Micro Framework has been done with the necessary features to make the existing software work on it (HomeSense and the RFID card reader). Although it works well the performance is not as good as the original probably because the Micro Framework runs on dedicated hardware and all the consuming operations are implemented internally on the machine so this is the reason why HomeSense works better on the Netduino than on the Raspberry Pi although the second one is much more powerful than the first one.
+\\
+\\
+Another of the goals was create a portable implementation, IOSharp is implemented using C\# and with calls to Linux SYSFS or Kernel functions so this is way this implementation is architecture independent being capable of run either on a standard desktop or on  an ARMv6 like the Raspberry Pi. The only requirement is Linux running under the Mono interpreter.
+\\
+\\
+In order to improve the performance of IOSharp it was translated to C++ using the AlterNative translating tool. Actually it can partially transform the original code to C++ but it still needs a lot of work on its behind because many classes are unimplemented yet. The parts that AlterNative could not translate well where fixed by hand. After all, once IOSharp is translated to C++ the performance gets increased as it is shown in the chapter \ref{C:Performance-Test}. For example in 10000 iterations of a GPIO the C\# implementation needs around 10 seconds to finish while the translated version only spends around 3 seconds, this implies a really big performance compared with the original one.
+\\
+\\
+And finally the best of AlterNative is that the code generated is still cross platform because it uses standard C++ or libraries which are also available on different platforms, so once the source is generated it can be taken to an ARM Linux and compiled to an executable assembly.
+
 \section{Personal Conclusions}\label{S:Personal-Conclusions}
 Beyond academic achievements, all the process involving this bachelors thesis has been rewarding. This project has given me a real chance to start working with embedded virtual machines, protocols to communicate hardware modules and also it has provided an introduction to C++ development and code transformations.
 \\

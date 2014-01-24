@@ -85,7 +85,30 @@ public void ConfigureSPI() {
 
 After doing this, this project can be opened as Micro Framework in order to deploy in a Netduino or open the Linux version. Deploying this application in any of these boards will result in a program working. As the figure \textcolor{red}{posar la referencia} shows the exchange of the data between the boards and the RFID reader is done by SPI
 
-\section{HomeSense over IOSharp}\label{S:HomeSense-IOSharp}
+\section{HomeSense}\label{S:IOEx-HomeSense}
+HomeSense, is a Wireless Healthcare Sensor Platform designed by AlterAid. Its basis are the aim of control and care taking of the elderly and relatives. The current implementation uses a Netduino Mini which makes the function of the gateway which controls the sensor network, receiving all the data and uploading to aaaida platform through internet.
+Some sensors are spread around the house which are capable of fetch     data, for example a sensor installed on the door of a medicine cabinet let the network know if that cabinet has been opened. So with all of this sensors is possible to acquire information from the environment and then send the information to the internet using a gateway which is a relay of all this information.
+\\
+This sensors are programmed using C and all of them use the \gls{SoC} nRF24LE1 which mounts a low-power RF ISM band (2.4 GHz) from Nordic Semiconductor.
+\\
+The communication protocol designed for HomeSense is similar to a star network with multi-hop transmissions so it becomes a tree-start topology. The nodes try to fetch the gateway because this is on charge of upload the information to the internet.
+
+\subsection{Gateway}\label{SS:IOEx-HomeSense-Gateway}
+The program running on the gateway is programmed using Micro Framework and is deployed on a Netduino Mini. With IOSharp has been possible to deploy on a RaspberryPi running Linux and Mono. The software running on the gateway controls the communication hardware and the mesh network using the designed protocol for this platform.
+Basically it will use all the features implemented in this library.
+
+\begin{itemize}
+\item \textbf{UART}: the Serial Port is to transmit data between the Wifly and the Raspberry Pi. The Wifly is an XBee socket type module created by Roving Networks, and is used to connect to Wi-Fi networks. The communication between this module and the board where is connected is carried out using UART with a protocol described on the specification paper provided by the manufacturers.
+
+\item \textbf{SPI}: The Nordic nRF24L01+ is controlled using the SPI protocol. This chip is used to create the physical meshed network which connects with the different nodes. The channel created using the Nordic is half-duplex so there is only one communication at a time either transmission or reception.
+\item \textbf{Interruptions}: When the gateway's Nordic receives information form other nodes it must alert that new data is waiting to be read on its buffer, to make this alert an interruption is used on a GPIO
+\end{itemize}
+
+\subsection{Working}\label{SS:IOEx-HomeSense-Working}
+HomeSense has a program which shows the network status with its gateway and the different sensors connected between them.
+- Programa HomeSense
+- Posar captures
+- Posar imatges
 
 \section{Results overview}\label{S:Results-overview}
 After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. HomeSense, need more time to send the network events and this is probably related to the time needed to attend the interruptions of the Nordic chip. In this case the IOSharp with Mono needs two transmission two send the same information that is send with only one transmission using the Netduino.

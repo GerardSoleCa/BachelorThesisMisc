@@ -11,7 +11,7 @@ HomeSense, is a Wireless Healthcare Sensor Platform \gls{WSN} created with the a
 \\
 In the house the communication is carried on using little sensors capable of fetching data in different situations for example a drawer or a medicine cabinet, it is also possible to install the sensors on doors in order to know if they are opened or closed or in any place where is interesting to acquire information from the environment, house or residents. This sensors make use of nRF24LE1 \gls{SoC} with a low-power RF \gls{ISM} band on 2.4GHz from Nordic Semiconductor.
 \\
-The communication protocol designed for HomeSense is similar to a mesh network with multi-hop transmissions which normally the nodes try to fetch the gateway because this is on charge of upload the information straight to the internet.
+The communication protocol designed for HomeSense is similar to a star network with multi-hop transmissions so it becomes a tree-start topology. The nodes try to fetch the gateway because this is on charge of upload the information to the internet.
 \\
 The gateway system has been entirely developed using .NET Micro Framework and deployed on a Netduino Mini. The mesh protocol has been defined internally on the company while it uses third-party hardware to create the physical links of the network.
 

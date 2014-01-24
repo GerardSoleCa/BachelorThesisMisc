@@ -11,7 +11,7 @@ Normally compilers can generate programs using optimizations or without using th
   \item \textbf{Non-optimized or debug:} this compile mode is used by developers who want to debug applications in execution time. In this case the whole symbol information which is used by the debugger to stop at the break points (designated instructions). For example the .pdb files from Visual Studio are created by the compiler and have the information to debug the created binary. But normally the debug mode will not allow some optimizations because are incompatible to the properly function of the debugger.
   \item \textbf{Optimized or release:} this compile mode is used to generate an optimized binary to execute much faster than the debug one. In this case the compiler performs different transformations to the original code, for example two typical optimizations that cannot be applied to the debug mode are:
   \begin{itemize}
-  	\item \textbf{Loop unrolling:} the compiler replaces the code inside a loop (for example inside a for). This helps avoiding the maintenance of the loop variables.
+  	\item \textbf{Loop unrolling:} \textcolor{red}{the compiler replaces the code inside a loop (for example inside a for). This helps avoiding the maintenance of the loop variables.}
   	\item \textbf{Inlining:} the compiler places the method on the place of the call avoiding the overhead of the calling stack to the method.
   	\begin{lstlisting}[language=C++, caption={Inline example}]
 inline int Max(int x, int y)

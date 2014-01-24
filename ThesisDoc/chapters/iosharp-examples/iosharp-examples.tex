@@ -103,12 +103,15 @@ Basically it will use all the features implemented in this library.
 \item \textbf{SPI}: The Nordic nRF24L01+ is controlled using the SPI protocol. This chip is used to create the physical meshed network which connects with the different nodes. The channel created using the Nordic is half-duplex so there is only one communication at a time either transmission or reception.
 \item \textbf{Interruptions}: When the gateway's Nordic receives information form other nodes it must alert that new data is waiting to be read on its buffer, to make this alert an interruption is used on a GPIO
 \end{itemize}
+With all this devices attached to the shield used in the Raspberry Pi will be possible to test all the functions working at the same time and how the system response compared to the original one.
+\textcolor{red}{Posar una imatge de la raspi amb tot el tinglado}
 
 \subsection{Working}\label{SS:IOEx-HomeSense-Working}
+As IOSharp has implemented all the features required in HomeSense it is possible to change the project type from Micro Framework to .NET Framework and then reference this project. Finally the ports need to be remapped according to the shield used with the Raspberry Pi. The strategy to do this mapping is include the Hardware class of the Raspberry Pi and then rename the ports to the according ones. The SerialPort device also must be renamed from \verb!COM1! to \verb!/dev/ttyAMA0!. After changing the references and the port names is possible to start testing the program. So it has been really easy to migrate from the Netduino Mini to the Raspberry Pi.
+\\
+\\
 HomeSense has a program which shows the network status with its gateway and the different sensors connected between them.
-- Programa HomeSense
-- Posar captures
-- Posar imatges
+\textcolor{red}{Posar una imatge del programa de HomeSense}
 
 \section{Results overview}\label{S:Results-overview}
 After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. HomeSense, need more time to send the network events and this is probably related to the time needed to attend the interruptions of the Nordic chip. In this case the IOSharp with Mono needs two transmission two send the same information that is send with only one transmission using the Netduino.

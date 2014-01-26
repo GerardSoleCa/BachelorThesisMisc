@@ -214,12 +214,12 @@
 \begin{tabular}{p{\textwidth}}
 \ifthenelse{\boolean{logo}}{\usebox{\logoEPSC}  \hfill \usebox{\logo}   \\[8cm]}{\usebox{\logoEPSC} \\[8cm]}
 \ifthenelse{\boolean{TFC}}{\begin{center}\Huge\sffamily\bfseries  TREBALL DE FI DE CARRERA \end{center}  \\[5cm]}{}
-\ifthenelse{\boolean{PFC}}{\begin{center}\Huge\sffamily\bfseries  BACHELOR'S THESIS \end{center}  \\[5cm]}{}
+\ifthenelse{\boolean{PFC}}{\begin{center}\Huge\sffamily\bfseries  MASTER THESIS \end{center}  \\[5cm]}{}
 \fbox{\parbox{\textwidth}{
         \vspace{2ex}
         \ifthenelse{\boolean{TFC}}{{\normalsize\bf\sffamily  T\'ITOL DEL TFC : \titledoc}  \\[2ex]}{}
         \ifthenelse{\boolean{PFC}}{{\normalsize\bf\sffamily  TITLE : \titledoc}  \\[2ex]}{}
-        {\normalsize\bf\sffamily  DEGREE: \titulacio    }  \\[2ex]
+        {\normalsize\bf\sffamily  MASTER DEGREE: \titulacio    }  \\[2ex]
         \ifthenelse{\boolean{ONEauthor}}{{\normalsize\bf\sffamily AUTHOR: \authordoc  } \\[2ex]}{}
         \ifthenelse{\boolean{Nauthors}}{{\normalsize\bf\sffamily AUTHORS: \authordoc  } \\[2ex]}{}
         {\normalsize\bf\sffamily  DIRECTOR:    \directordoc  }  \\[2ex]

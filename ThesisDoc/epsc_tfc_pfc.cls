@@ -664,18 +664,18 @@
 \settowidth{\Lautors}{{\normalsize\bf\sffamily AUTORS: }}
 \begin{tabular}{p{\textwidth}}
 \ifthenelse{\boolean{logo}}{\usebox{\logoEPSC}  \hfill \usebox{\logo}   \\[8cm]}{\usebox{\logoEPSC} \\[8cm]}
-\ifthenelse{\boolean{TFC}}{\begin{center}\Huge\sffamily\bfseries  AP\`ENDIXS \end{center}  \\[5cm]}{}
-\ifthenelse{\boolean{PFC}}{\begin{center}\Huge\sffamily\bfseries  AP\`ENDIXS \end{center}  \\[5cm]}{}
+\ifthenelse{\boolean{TFC}}{\begin{center}\Huge\sffamily\bfseries  APPENDICES \end{center}  \\[5cm]}{}
+\ifthenelse{\boolean{PFC}}{\begin{center}\Huge\sffamily\bfseries  APPENDICES \end{center}  \\[5cm]}{}
 \fbox{\parbox{\textwidth}{
         \vspace{2ex}
         \ifthenelse{\boolean{TFC}}{{\normalsize\bf\sffamily  T\'ITOL DEL TFC : \titledoc}  \\[2ex]}{}
-        \ifthenelse{\boolean{PFC}}{{\normalsize\bf\sffamily  T\'ITOL DEL PFC : \titledoc}  \\[2ex]}{}
-        {\normalsize\bf\sffamily  TITULACI\'O: \titulacio    }  \\[2ex]
-        \ifthenelse{\boolean{ONEauthor}}{{\normalsize\bf\sffamily AUTOR: \authordoc  } \\[2ex]}{}
+        \ifthenelse{\boolean{PFC}}{{\normalsize\bf\sffamily  TITLE : \titledoc}  \\[2ex]}{}
+        {\normalsize\bf\sffamily  DEGREE: \titulacio    }  \\[2ex]
+        \ifthenelse{\boolean{ONEauthor}}{{\normalsize\bf\sffamily AUTHOR: \authordoc  } \\[2ex]}{}
         \ifthenelse{\boolean{Nauthors}}{{\normalsize\bf\sffamily AUTORS: \authordoc  } \\[2ex]}{}
         {\normalsize\bf\sffamily  DIRECTOR:    \directordoc  }  \\[2ex]
         \ifthenelse{\boolean{supervisor}}{{\normalsize\bf\sffamily SUPERVISOR: \supervisordoc  } \\[2ex]}{}
-        {\normalsize\bf\sffamily  DATA: \today               }  \\[2ex]
+        {\normalsize\bf\sffamily  DATE: \today               }  \\[2ex]
       }} \\
 
 \end{tabular}

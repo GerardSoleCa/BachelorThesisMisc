@@ -1,32 +1,30 @@
 \chapter{Tests of IOSharp}\label{C:IOSharp Implementation}
-Simultaneously with the development of IOSharp some small tests were created so the developed features could be tested to verify the properly operation. There are three major tests without taking into account the simple GPIO. First of all an Arduino and a Raspberry Pi were connected through a Serial Port so the first one sends a message and the second replays it to the first.  Secondly the SPI was tested using a RFID card reader and finally HomeSense was running on the Raspberry Pi using this implementation.
+Simultaneously with the development of IOSharp some small tests were created so the developed features could be tested to verify the properly operation of the implementation. There are three major tests without taking into account the simple GPIO. First of all an Arduino and a Raspberry Pi were connected through a Serial Port so the first one sends a message and the second replays again to the first. Secondly the SPI was tested using a RFID card reader and finally HomeSense deployed on a Raspberry Pi.
 
-\section{UART. RaspberryPi and Netduino}\label{S:IOEx-UART}
-This example which shows that is possible to use the .NET Framework SerialPort implementation as a replacement of the original Micro Framework one. In this case a Raspberry Pi and a Netduino is used, the first one will send a message through the UART port, when the Netduino receives that message will send it back to the Raspberry Pi.
-
-\textcolor{red}{Include here a Logic capture showing the bytes exachanges}
-
+\section{UART. Raspberry Pi and Netduino}\label{S:IOEx-UART}
+This example shows that is possible to use the .NET Framework SerialPort implementation as a replacement of the original Micro Framework one. In this case a Raspberry Pi and a Netduino is used, the first one will send a message through the UART port, when the Netduino receives that message will send it back to the Raspberry Pi.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
-  \includegraphics[width=1\textwidth]{pictures/proposal/aaaida-use-case}
+  \includegraphics[width=1\textwidth]{pictures/sample/red}
   \caption{Bytes exchanged between a Raspberry Pi and a Netduino using the UART \label{fig:IOEx-UART}}
 \end{center}\end{figure}
 
-As figure \ref{fig:IOEx-UART} shows the bytes sended through the \gls{TX} channel of the Raspberry Pi are the same as the \gls{RX} connected to the Netduino.
+The figure \ref{fig:IOEx-UART} shows the bytes sent through the \gls{TX} channel of the Raspberry Pi which are the same as the \gls{RX} connected to the Netduino.
 
 \section{SPI. RFID and IOSharp}\label{S:rfid-iosharp}
-This was the first test to verify the SPI and the Interruptions in a real environment using a RFID card reader connected through the SPI bus.
+This was the first test to verify the SPI in a real environment using a RFID card reader connected through the SPI bus.
 \\
-This test derives from a proof of concept made for VR gym in Argentona under the Spanish project "Activat" from "Proyecto Impacto", this project requested to develop a method to authenticate and authorize users for a secure entrance on a complex, for example a gym. The project goal was grant users access to somewhere, for example a gym, by using a RFID card reader and different cards, tags and wristbands with an ID which can be associated with a certain user.
+This test derives from a proof of concept made for VR gym in Argentona under the Spanish project "Activat" from "Proyecto Impacto", this project requested to develop a method to authenticate and authorize users for a secure entrance on a complex by using a RFID card reader and different cards, tags and wristbands with an ID which can be associated with a certain user.
 \\
-The project was developed using a Netduino Plus which uses Micro Framework and have interesting features such as network connectivity. The card reader used along this project implemented a MFRC522 chip from NXP which can use different communication protocols like SPI, UART and I$^{2}$C. But that chip is mounted on a MF522-AN board from Mifare which only offers a SPI interface. And this is the reason why this proof of concept was used to test the SPI feature of IOSharp.
+The project was developed using a Netduino Plus which uses Micro Framework and have interesting features such as network connectivity. The card reader used in this test is a MFRC522 chip from NXP which can use different communication protocols like SPI, UART and \gls{I2C}. But that chip is mounted on a MF522-AN board from Mifare which only offers a SPI interface. And this is the reason why this proof of concept was used to test the SPI feature.
 \\
-To communicate the Netduino with the card reader an API was written taking into account the MFRC522 datasheet (see on Appendix \ref{C:Libraries-Datasheets} the section \ref{SS:Libs-MFRC522-Datasheet} MFRC522 Datasheet) and the existing Arduino implementation which uses Wiring, the Arduino programming language. The program creates an instance of this API, then starts the SPI configuration and then creates a Timer which will call a function repeatedly at certain time. This called function uses the API to communicate to the card reader and retrieve the card ID if any is present, then communicates again to obtain the Serial Number located in the card. Finally it prints this data through the console.
-
+To communicate the Netduino with the card reader an API was written taking into account the MFRC522 datasheet (see on Appendix \ref{C:Libraries-Datasheets} the section \ref{SS:Libs-MFRC522-Datasheet}) and the existing Arduino implementation which uses Wiring, the Arduino programming language.
+\\
+The program creates an instance of this API and then starts the SPI configuration. Following this configuration a Timer is instantiated which will trigger a function at every certain time. This called function uses the API to communicate to the card reader and then retrieve the card ID if any is present after that it communicates again to obtain the Serial Number located in the card. Finally it prints this data in the console.
 
 \subsection{Micro Framework version}\label{S:IOEx-SPI-Netduino}
-The original example uses the standard Micro Framework and the Secretlab classes for the Netduino Plus so the resulting binary will only work on this board. The port configuration for this example is really simple, because it only uses a pin for the \gls{CS}, the \gls{MOSI}, \gls{MISO} and \gls{SCLK} are defined by the board schema so the pins will be selected and configured internally.
+The original example uses Micro Framework and the Secretlab classes for the Netduino Plus so the resulting binary will only work on this board. The port configuration for this example is really simple, because it only uses a pin for the \gls{CS}. The \gls{MOSI}, \gls{MISO} and \gls{SCLK} are defined by the board schema so the pins will be selected and configured internally on the virtual machine.
 
 \begin{lstlisting}[language=CSharp, caption={SPIApi.cs - Configuring SPI for the MFRC522 in Netduino Plus}]
 public void ConfigureSPI() {
@@ -44,18 +42,18 @@ public void ConfigureSPI() {
     spiDevice = new SPI(xSPIConfig);
 }
 \end{lstlisting}
-As it is shown above, the \gls{CS} pin is the \verb!Pins.GPIO_PIN_D9! which corresponds to a digital pin on the Netduino board.
+As it is shown above, the \gls{CS} pin is the \verb!Pins.GPIO_PIN_D9! which corresponds to a digital pin.
 
 \subsection{Migrating to Linux}\label{S:IOEx-SPI-Migrating-to-IOSharp}
-To use IOSharp instead of Micro Framework there is not big requirements, basically the project must be converted to .NET Framework and then reference the IOSharp project which include the implementation of the Micro Framework classes, beside this library the mapping classes according to the deployment platform must also be referenced, in this case the Raspberry Pi pin library. The next step is change the pin for the \gls{CS} to the according one. Normally in Linux each SPI device have one or more designed \gls{CS} pins but not every pin is suitable to work with that SPI device, so it is important to check the appropriate pin.
+To use IOSharp instead of Micro Framework there is not a big requirement, basically the project must be converted to .NET Framework and then reference the IOSharp library, beside this library the mapping classes according to the deployment platform must also be referenced, in this case the Raspberry Pi pin library. The next step is change the pin for the \gls{CS} to the according one. Normally in Linux each SPI device have one or more designed \gls{CS} pins but not every pin is suitable to work with that SPI device, so it is important to check the appropriate pin.
 \\
-Taking in mind that by using this test can also be proven that IOSharp can work with the original code by doing a minimal set of changes it was tried to use one of the features that the Visual Studio projects offers.
+Taking in mind that using this test can also be proven that IOSharp can work with the original code by doing a minimal set of changes it was tried to use one of the features that the Visual Studio projects offers.
 \\
-Declaring two solution files (\verb!*.sln!) for this project which each one calls for two other project files (\verb!*.csproj!) make possible to have one solution with the Micro Framework classes for the Netduino while the other one will contain the references for the IOSharp and the .NET Framework. This will create two different projects from the same code, one being able to run on Netduino and the other one in Linux.
+Declaring two solution files (\verb!*.sln!) which each one calls two other project files (\verb!*.csproj!) make possible to have one solution with the Micro Framework classes for the Netduino while the other one will contain the references for the IOSharp and the .NET Framework. This will create two different projects from the same code, one being able to run on Netduino and the other one in Linux.
 \\
-These were the major changes, and they cannot be considered real changes to the original code, because is possible to take the application program (the real typed by the developer) and create a new .NET Framework project with that code. With this changes, it was tried to show that is possible to maintain the same code for different platform deployments.
+These were the major changes, and they cannot be considered real changes to the original code, because is possible to take the application program (the real typed by the developer) and create a new .NET Framework project with that code. Doing this changes is proofs that is possible to maintain the same code for different platform deployments.
 \\
-The next step was make easy the pin configuration because both boards have different pin naming and layout, so by using conditional compiling it was possible to instantiate the necessary port for each solution. In this case, the symbol used for the conditional compiling is \verb!MF! which is present on the Netduino version of the \verb!*.csproj! whereas the Raspberry Pi don't. Taking a look in the above code, for the Netduino the used pin is the \verb!Pins.GPIO_PIN_D9! and in the Raspberry Pi is \verb!Cpu.Pin.GPIO_Pin9!.
+Using conditional compiling is possible to set the required pin for each bord and each solution. In this case, the symbol used for the conditional compiling is \verb!MF! which is present on the Netduino version of the \verb!*.csproj! whereas the Raspberry Pi don't. Taking a look in the above code, for the Netduino the used pin is the \verb!Pins.GPIO_PIN_D9! and in the Raspberry Pi is \verb!Cpu.Pin.GPIO_Pin9!.
 
 \begin{lstlisting}[language=CSharp, caption={SPIApi.cs - Conditional compiling symbol for NETMF and IOSharp}]
 public void ConfigureSPI() {
@@ -81,37 +79,59 @@ public void ConfigureSPI() {
 }
 \end{lstlisting}
 
-After doing this, this project can be opened as Micro Framework in order to deploy in a Netduino or open the Linux version. Deploying this application in any of these boards will result in a program working. As the figure \textcolor{red}{posar la referencia} shows the exchange of the data between the boards and the RFID reader is done by SPI
+After doing this, this project can be opened as Micro Framework in order to deploy in a Netduino or open the Linux version. Deploying this application in any of these boards will result in a working program like the figure \ref{fig:IOEx-SPI} shows.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/sample/red}
+  \caption{Data exchange using the SPI\label{fig:IOEx-SPI}}
+\end{center}\end{figure}
 
 \section{HomeSense}\label{S:IOEx-HomeSense}
-HomeSense, is a Wireless Healthcare Sensor Platform designed by AlterAid. Its basis are the aim of control and care taking of the elderly and relatives. The current implementation uses a Netduino Mini which makes the function of the gateway which controls the sensor network, receiving all the data and uploading to aaaida platform through internet.
-Some sensors are spread around the house which are capable of fetch     data, for example a sensor installed on the door of a medicine cabinet let the network know if that cabinet has been opened. So with all of this sensors is possible to acquire information from the environment and then send the information to the internet using a gateway which is a relay of all this information.
+HomeSense is a Wireless Healthcare Sensor Platform designed by AlterAid. Its basis are the aim of control and care taking of the elderly and relatives. The current implementation uses a Netduino Mini which makes the function of the gateway which controls the sensor network, receiving all the data and uploading this to internet.
+Some sensors are spread around the house which are capable of fetch     data, for example a sensor installed on the door of a medicine cabinet let the network know if that cabinet has been opened. So with all of this sensors is possible to acquire information from the environment and then send that information to the internet using the gateway.
 \\
 This sensors are programmed using C and all of them use the \gls{SoC} nRF24LE1 which mounts a low-power RF ISM band (2.4 GHz) from Nordic Semiconductor.
-\\
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=1]{pictures/examples/sensor}
+  \caption{Sensor for a medicine cabinet\label{fig:IOEx-UART}}
+\end{center}\end{figure}
 The communication protocol designed for HomeSense is similar to a star network with multi-hop transmissions so it becomes a tree-start topology. The nodes try to fetch the gateway because this is on charge of upload the information to the internet.
 
 \subsection{Gateway}\label{SS:IOEx-HomeSense-Gateway}
-The program running on the gateway is programmed using Micro Framework and is deployed on a Netduino Mini. With IOSharp has been possible to deploy on a RaspberryPi running Linux and Mono. The software running on the gateway controls the communication hardware and the mesh network using the designed protocol for this platform.
+The program running on the gateway is programmed using Micro Framework and is deployed on a Netduino Mini. With IOSharp has been possible to deploy on a Raspberry Pi running Linux and Mono. The software running on the gateway controls the communication hardware and the mesh network using the designed protocol for this platform.
+\\
 Basically it will use all the features implemented in this library.
 
 \begin{itemize}
-\item \textbf{UART}: the Serial Port is to transmit data between the Wifly and the Raspberry Pi. The Wifly is an XBee socket type module created by Roving Networks, and is used to connect to Wi-Fi networks. The communication between this module and the board where is connected is carried out using UART with a protocol described on the specification paper provided by the manufacturers.
+\item \textbf{UART}: the Serial Port is used to transmit data between the Wifly and the Raspberry Pi. The Wifly is an XBee socket type module created by Roving Networks, and is used to connect to Wi-Fi networks. The communication between this module and the board where is connected is carried out using UART with a protocol described on the specification paper provided by the manufacturers.
 
 \item \textbf{SPI}: The Nordic nRF24L01+ is controlled using the SPI protocol. This chip is used to create the physical meshed network which connects with the different nodes. The channel created using the Nordic is half-duplex so there is only one communication at a time either transmission or reception.
-\item \textbf{Interruptions}: When the gateway's Nordic receives information form other nodes it must alert that new data is waiting to be read on its buffer, to make this alert an interruption is used on a GPIO
+\item \textbf{Interruptions}: When the gateway's Nordic receives information form other nodes it must alert that new data is waiting to be read, to make this alert an interruption is used on a GPIO
 \end{itemize}
 With all this devices attached to the shield used in the Raspberry Pi will be possible to test all the functions working at the same time and how the system response compared to the original one.
-\textcolor{red}{Posar una imatge de la raspi amb tot el tinglado}
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/sample/red}
+  \caption{Raspberry Pi with the modules needed to run HomeSense\label{fig:IOEx-HS-Stack}}
+\end{center}\end{figure}
 
 \subsection{Working}\label{SS:IOEx-HomeSense-Working}
-As IOSharp has implemented all the features required in HomeSense it is possible to change the project type from Micro Framework to .NET Framework and then reference this project. Finally the ports need to be remapped according to the shield used with the Raspberry Pi. The strategy to do this mapping is include the Hardware class of the Raspberry Pi and then rename the ports to the according ones. The SerialPort device also must be renamed from \verb!COM1! to \verb!/dev/ttyAMA0!. After changing the references and the port names is possible to start testing the program. So it has been really easy to migrate from the Netduino Mini to the Raspberry Pi.
+As IOSharp has implemented all the features required in HomeSense it is possible to change the project type from Micro Framework to .NET Framework and then reference this project. Finally the ports need to be remapped according to the shield used with the Raspberry Pi. The strategy to do this mapping is include the Hardware class of the Raspberry Pi and then rename the ports to the according ones. SerialPort device also must be renamed from \verb!COM1! to \verb!/dev/ttyAMA0!. After changing the references and the port names is possible to start testing the program. So it has been really easy to migrate from the Netduino Mini to the Raspberry Pi.
 \\
 \\
-HomeSense has a program which shows the network status with its gateway and the different sensors connected between them.
-\textcolor{red}{Posar una imatge del programa de HomeSense}
+HomeSense has a program which shows the network status with its gateway and the different sensors connected to the network.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=1\textwidth]{pictures/sample/red}
+  \caption{HomeSense dashboard\label{fig:IOEx-HS-Dash}}
+\end{center}\end{figure}
 
 \section{Results overview}\label{S:Results-overview}
-After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. HomeSense, need more time to send the network events and this is probably related to the time needed to attend the interruptions of the Nordic chip. In this case the IOSharp with Mono needs two transmission two send the same information that is send with only one transmission using the Netduino.
+After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. Raspberry Pi, need more time to send the network events than the Netduino and this is probably related to the time needed to attend the interruptions on Mono. In this case the IOSharp with Mono needs two transmissions to send the same information that is send with only one transmission using the Netduino.
 \\
 To try to solve this issues with the performance of the Library IOSharp will be translated to C++ using a translating tool called AlterNative which is capable of translate .NET assemblies to C++ maintaining a similar C\# syntax.

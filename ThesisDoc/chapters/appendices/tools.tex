@@ -1,6 +1,5 @@
 \chapter{Technical information. Libraries and Datasheets}\label{C:Libraries-Datasheets}
 \section{spidev.h}\label{S:linux-spi-spidev}
-\section{SPI Test. RFID Reader}\label{S:linux-spi-spidev}
 Source code of the library spidev.h used along this project. The different macros needed to configure the ioctl calls.
 \begin{lstlisting}[language=C, caption={linux/spi/spidev.h}]
 /*
@@ -103,10 +102,11 @@ struct spi_ioc_transfer {
 #endif /* SPIDEV_H */
 \end{lstlisting}
 
+\section{SPI Test. RFID Reader}\label{S:linux-spi-spidev}
 \subsection{MFRC522 Datasheet}\label{SS:Libs-MFRC522-Datasheet}
 The datasheet of this card card reader can be find at the NXP website or in the following link \url{http://www.nxp.com/documents/data_sheet/MFRC522.pdf}.
 \\
-\subsection{RFID Reader}\label{SS:Libs-RFID-Reader}
+\subsection{RFID Reader program}\label{SS:Libs-RFID-Reader}
 \begin{lstlisting}[language=CSharp, caption={SPIExample.cs - RFID Reading interval}]
 using System;
 using System.Runtime.CompilerServices;

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.6)  21 JAN 2014 19:46
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.6)  28 JAN 2014 10:55
 entering extended mode
 **iosharp.tex
 
@@ -3940,18 +3940,14 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 22--30
 []
  []
 
-
-! LaTeX Error: Environment figure undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.31 \begin{figure}
-                   [H]\begin{center}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+! Undefined control sequence.
+l.31 \section
+             {Implementation}\label{S:Implementation}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
 
 ! LaTeX Error: Missing \begin{document}.
@@ -3960,183 +3956,10 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.31 \begin{figure}[
-                    H]\begin{center}
+l.31 \section{I
+               mplementation}\label{S:Implementation}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
-
-Missing character: There is no [ in font nullfont!
-Missing character: There is no H in font nullfont!
-Missing character: There is no ] in font nullfont!
-
-Overfull \hbox (20.0pt too wide) in paragraph at lines 31--31
-[] 
- []
-
-! Undefined control sequence.
-l.33   \captionsetup
-                    {justification=centering}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no j in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no f in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no c in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no = in font nullfont!
-Missing character: There is no c in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
-! Undefined control sequence.
-l.34   \includegraphics
-                       [width=1\textwidth]{pictures/iosharp/interrupt-uml}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no [ in font nullfont!
-Missing character: There is no w in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no d in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no = in font nullfont!
-Missing character: There is no 1 in font nullfont!
-! Missing number, treated as zero.
-<to be read again> 
-                   ]
-l.34   \includegraphics[width=1\textwidth]
-                                          {pictures/iosharp/interrupt-uml}
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   ]
-l.34   \includegraphics[width=1\textwidth]
-                                          {pictures/iosharp/interrupt-uml}
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-Missing character: There is no ] in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no c in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no / in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no / in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no - in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no l in font nullfont!
-
-! LaTeX Error: \caption outside float.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.35   \caption
-               {UML Diagram of NETMF Interrupt Port \label{fig:interrupt-uml}}
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-Missing character: There is no U in font nullfont!
-Missing character: There is no M in font nullfont!
-Missing character: There is no L in font nullfont!
-Missing character: There is no D in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no g in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no m in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no f in font nullfont!
-Missing character: There is no N in font nullfont!
-Missing character: There is no E in font nullfont!
-Missing character: There is no T in font nullfont!
-Missing character: There is no M in font nullfont!
-Missing character: There is no F in font nullfont!
-Missing character: There is no I in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no P in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no t in font nullfont!
-
-! LaTeX Error: \begin{document} ended by \end{figure}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 \end{center}\end{figure}
-                             
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-! Undefined control sequence.
-l.38 \section
-             {Implementation}\label{S:Implementation}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
 Missing character: There is no I in font nullfont!
 Missing character: There is no m in font nullfont!
@@ -4463,18 +4286,30 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 38--40
+Overfull \hbox (20.0pt too wide) in paragraph at lines 31--33
 [][]
  []
 
 ! Undefined control sequence.
-l.41 \subsection
+l.34 \subsection
                 {GPIO}\label{SS:GPIO}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.34 \subsection{G
+                  PIO}\label{SS:GPIO}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no G in font nullfont!
 Missing character: There is no P in font nullfont!
@@ -4817,18 +4652,30 @@ Missing character: There is no c in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 41--45
+Overfull \hbox (20.0pt too wide) in paragraph at lines 34--38
 [][]
  []
 
 ! Undefined control sequence.
-l.46 \subsubsection
+l.39 \subsubsection
                    {Implementation Options}\label{SSS:Implementation-Options}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.39 \subsubsection{I
+                     mplementation Options}\label{SSS:Implementation-Options}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no I in font nullfont!
 Missing character: There is no m in font nullfont!
@@ -6226,18 +6073,30 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 46--59
+Overfull \hbox (20.0pt too wide) in paragraph at lines 39--52
 []
  []
 
 ! Undefined control sequence.
-l.60 \subsubsection
+l.53 \subsubsection
                    {Using GPIO from SYSFS}\label{SSS:IOSharp-GPIO-SYSFS}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.53 \subsubsection{U
+                     sing GPIO from SYSFS}\label{SSS:IOSharp-GPIO-SYSFS}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no U in font nullfont!
 Missing character: There is no s in font nullfont!
@@ -7509,23 +7368,35 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 60--67
+Overfull \hbox (20.0pt too wide) in paragraph at lines 53--60
 []
  []
 
 
-Overfull \hbox (66.6996pt too wide) in paragraph at lines 60--67
+Overfull \hbox (66.6996pt too wide) in paragraph at lines 53--60
 \OT1/cmr/m/it/10 /sys/class/gpio
  []
 
 ! Undefined control sequence.
-l.68 \subsubsection
+l.61 \subsubsection
                    {Implementing in NETMF}\label{SSS:Implementing-GPIO-NETMF}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.61 \subsubsection{I
+                     mplementing in NETMF}\label{SSS:Implementing-GPIO-NETMF}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 Missing character: There is no I in font nullfont!
 Missing character: There is no m in font nullfont!
@@ -7936,7 +7807,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no , in font nullfont!
 ! Undefined control sequence.
-l.71 ...led in order to avoid problems, \textcolor
+l.64 ...led in order to avoid problems, \textcolor
                                                   {red}{i.e instantiating th...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -8210,32 +8081,32 @@ Missing character: There is no v in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 68--74
+Overfull \hbox (20.0pt too wide) in paragraph at lines 61--67
 []
  []
 
 
-Overfull \hbox (15.0999pt too wide) in paragraph at lines 68--74
+Overfull \hbox (15.0999pt too wide) in paragraph at lines 61--67
 \OT1/cmr/m/it/10 IO-
  []
 
 
-Overfull \hbox (35.27754pt too wide) in paragraph at lines 68--74
+Overfull \hbox (35.27754pt too wide) in paragraph at lines 61--67
 \OT1/cmr/m/it/10 Ports.cs
  []
 
 
-Overfull \hbox (25.09708pt too wide) in paragraph at lines 68--74
+Overfull \hbox (25.09708pt too wide) in paragraph at lines 61--67
 \OT1/cmr/bx/n/10 GPI-
  []
 
 
-Overfull \hbox (35.36784pt too wide) in paragraph at lines 68--74
+Overfull \hbox (35.36784pt too wide) in paragraph at lines 61--67
 \OT1/cmr/bx/n/10 OMan-
  []
 
 
-Overfull \hbox (21.3471pt too wide) in paragraph at lines 68--74
+Overfull \hbox (21.3471pt too wide) in paragraph at lines 61--67
 \OT1/cmr/bx/n/10 ager
  []
 
@@ -8246,22 +8117,34 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.75 \begin{figure}
+l.68 \begin{figure}
                    [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 \begin{figure}[
+                    H]\begin{center}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 75--75
+Overfull \hbox (20.0pt too wide) in paragraph at lines 68--68
 [] 
  []
 
 ! Undefined control sequence.
-l.77   \captionsetup
+l.70   \captionsetup
                     {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -8293,7 +8176,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.78   \includegraphics
+l.71   \includegraphics
                        [width=1\textwidth]{pictures/iosharp/gpio}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -8312,7 +8195,7 @@ Missing character: There is no 1 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.78   \includegraphics[width=1\textwidth]
+l.71   \includegraphics[width=1\textwidth]
                                           {pictures/iosharp/gpio}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -8321,7 +8204,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.78   \includegraphics[width=1\textwidth]
+l.71   \includegraphics[width=1\textwidth]
                                           {pictures/iosharp/gpio}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -8359,7 +8242,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.79   \caption
+l.72   \caption
                {UML Diagram of NETMF Port and its inheritance \label{fig:gpi...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -8410,7 +8293,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.80 \end{center}\end{figure}
+l.73 \end{center}\end{figure}
                              
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -9395,12 +9278,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 82--83
+Overfull \hbox (20.0pt too wide) in paragraph at lines 75--76
 []
  []
 
 ! Undefined control sequence.
-l.84 \subsection
+l.77 \subsection
                 {Interrupt}\label{SS:IOSharp-Interrupt}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -9520,7 +9403,7 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.85 ...rupt system was needed for the future \gls
+l.78 ...rupt system was needed for the future \gls
                                                   {SPI}  code block. Althoug...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -9553,7 +9436,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.85 ...e \gls{SPI}  code block. Although the \gls
+l.78 ...e \gls{SPI}  code block. Although the \gls
                                                   {BCM2835} supports native ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -9599,7 +9482,7 @@ Missing character: There is no v in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no a in font nullfont!
 ! Undefined control sequence.
-l.85 ...35} supports native interruptions via \gls
+l.78 ...35} supports native interruptions via \gls
                                                   {IRQ} at the time of this ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -9700,7 +9583,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.85 ...rruptions from the Linux Kernel using \gls
+l.78 ...rruptions from the Linux Kernel using \gls
                                                   {IRQ}, but when this thesi...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -9881,12 +9764,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 84--86
+Overfull \hbox (20.0pt too wide) in paragraph at lines 77--79
 [][]
  []
 
 ! Undefined control sequence.
-l.87 \subsubsection
+l.80 \subsubsection
                    {Designing the Interruptions}\label{SSS:IOSharp-Interrupt...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -10261,7 +10144,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
 ! Undefined control sequence.
-l.88 ...onfigured to wait certain events on a \gls
+l.81 ...onfigured to wait certain events on a \gls
                                                   {FD} obtained from the GPI...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -10348,7 +10231,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...: Reference `SS:GPIO' on page \thepage 
                                                   \space undefined\on@line .
-l.88 ...y as it was explained in the \ref{SS:GPIO}
+l.81 ...y as it was explained in the \ref{SS:GPIO}
                                                    GPIO section. The poll is...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -10357,7 +10240,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `SS:GPIO' on page  undefined on input line 88.
+LaTeX Warning: Reference `SS:GPIO' on page  undefined on input line 81.
 
 Missing character: There is no G in font nullfont!
 Missing character: There is no P in font nullfont!
@@ -10943,17 +10826,17 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 87--91
+Overfull \hbox (20.0pt too wide) in paragraph at lines 80--84
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 87--91
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 80--84
 []
  []
 
 
-Overfull \hbox (57.7495pt too wide) in paragraph at lines 87--91
+Overfull \hbox (57.7495pt too wide) in paragraph at lines 80--84
 []\OT1/cmtt/m/n/10 OnInterrupt
  []
 
@@ -10964,7 +10847,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.92 \begin{figure}
+l.85 \begin{figure}
                    [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -10974,12 +10857,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 92--92
+Overfull \hbox (20.0pt too wide) in paragraph at lines 85--85
 [] 
  []
 
 ! Undefined control sequence.
-l.94   \captionsetup
+l.87   \captionsetup
                     {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -11011,7 +10894,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.95   \includegraphics
+l.88   \includegraphics
                        [width=1\textwidth]{pictures/iosharp/interrupt-uml}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -11030,7 +10913,7 @@ Missing character: There is no 1 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.95   \includegraphics[width=1\textwidth]
+l.88   \includegraphics[width=1\textwidth]
                                           {pictures/iosharp/interrupt-uml}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -11039,7 +10922,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.95   \includegraphics[width=1\textwidth]
+l.88   \includegraphics[width=1\textwidth]
                                           {pictures/iosharp/interrupt-uml}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -11086,7 +10969,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.96   \caption
+l.89   \caption
                {UML Diagram of NETMF Interrupt Port \label{fig:interrupt-uml}}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -11128,14 +11011,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.97 \end{center}\end{figure}
+l.90 \end{center}\end{figure}
                              
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 ! Undefined control sequence.
-l.99 \subsubsection
+l.92 \subsubsection
                    {Platform Invocation Services}\label{SSS:IOSharp-Interrup...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -11562,12 +11445,12 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 99--103
+Overfull \hbox (20.0pt too wide) in paragraph at lines 92--96
 []
  []
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 104--104
+Overfull \hbox (20.0pt too wide) in paragraph at lines 97--97
 [] 
  []
 
@@ -12347,42 +12230,42 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (29.22899pt too wide) in paragraph at lines 106--113
+Overfull \hbox (29.22899pt too wide) in paragraph at lines 99--106
 \OT1/cmr/bx/n/10 Static
  []
 
 
-Overfull \hbox (13.94437pt too wide) in paragraph at lines 106--113
+Overfull \hbox (13.94437pt too wide) in paragraph at lines 99--106
 \OT1/cmr/bx/n/10 Li-
  []
 
 
-Overfull \hbox (27.68042pt too wide) in paragraph at lines 106--113
+Overfull \hbox (27.68042pt too wide) in paragraph at lines 99--106
 \OT1/cmr/bx/n/10 brary 
  []
 
 
-Overfull \hbox (73.49936pt too wide) in paragraph at lines 106--113
+Overfull \hbox (73.49936pt too wide) in paragraph at lines 99--106
 []\OT1/cmtt/m/n/10 get_password()
  []
 
 
-Overfull \hbox (83.99927pt too wide) in paragraph at lines 106--113
+Overfull \hbox (83.99927pt too wide) in paragraph at lines 99--106
 []\OT1/cmtt/m/n/10 generate_token()
  []
 
 
-Overfull \hbox (104.99908pt too wide) in paragraph at lines 106--113
+Overfull \hbox (104.99908pt too wide) in paragraph at lines 99--106
 []\OT1/cmtt/m/n/10 hash(char[] plain())
  []
 
 
-Overfull \hbox (73.49936pt too wide) in paragraph at lines 106--113
+Overfull \hbox (73.49936pt too wide) in paragraph at lines 99--106
 []\OT1/cmtt/m/n/10 get_password()
  []
 
 
-Overfull \hbox (57.7495pt too wide) in paragraph at lines 106--113
+Overfull \hbox (57.7495pt too wide) in paragraph at lines 99--106
 []\OT1/cmtt/m/n/10 get_token()
  []
 
@@ -12847,17 +12730,17 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (44.75668pt too wide) in paragraph at lines 115--118
+Overfull \hbox (44.75668pt too wide) in paragraph at lines 108--111
 \OT1/cmr/bx/n/10 Dynamic
  []
 
 
-Overfull \hbox (13.94437pt too wide) in paragraph at lines 115--118
+Overfull \hbox (13.94437pt too wide) in paragraph at lines 108--111
 \OT1/cmr/bx/n/10 Li-
  []
 
 
-Overfull \hbox (27.68042pt too wide) in paragraph at lines 115--118
+Overfull \hbox (27.68042pt too wide) in paragraph at lines 108--111
 \OT1/cmr/bx/n/10 brary 
  []
 
@@ -13319,12 +13202,12 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (62.80518pt too wide) in paragraph at lines 124--128
+Overfull \hbox (62.80518pt too wide) in paragraph at lines 117--121
 \OT1/cmr/bx/n/10 Dynamically
  []
 
 
-Overfull \hbox (33.90955pt too wide) in paragraph at lines 124--128
+Overfull \hbox (33.90955pt too wide) in paragraph at lines 117--121
 \OT1/cmr/bx/n/10 Linked 
  []
 
@@ -13558,12 +13441,12 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (62.80518pt too wide) in paragraph at lines 128--131
+Overfull \hbox (62.80518pt too wide) in paragraph at lines 121--124
 \OT1/cmr/bx/n/10 Dynamically
  []
 
 
-Overfull \hbox (36.30534pt too wide) in paragraph at lines 128--131
+Overfull \hbox (36.30534pt too wide) in paragraph at lines 121--124
 \OT1/cmr/bx/n/10 Loaded 
  []
 
@@ -14926,32 +14809,32 @@ Missing character: There is no C in font nullfont!
 Missing character: There is no # in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (42.88321pt too wide) in paragraph at lines 134--145
+Overfull \hbox (42.88321pt too wide) in paragraph at lines 127--138
 []\OT1/cmr/bx/n/10 Pros
  []
 
 
-Overfull \hbox (18.36794pt too wide) in paragraph at lines 134--145
+Overfull \hbox (18.36794pt too wide) in paragraph at lines 127--138
 \OT1/cmr/bx/n/10 and
  []
 
 
-Overfull \hbox (21.78598pt too wide) in paragraph at lines 134--145
+Overfull \hbox (21.78598pt too wide) in paragraph at lines 127--138
 \OT1/cmr/bx/n/10 cons 
  []
 
 
-Overfull \hbox (15.74986pt too wide) in paragraph at lines 134--145
+Overfull \hbox (15.74986pt too wide) in paragraph at lines 127--138
 []\OT1/cmtt/m/n/10 int
  []
 
 
-Overfull \hbox (20.99982pt too wide) in paragraph at lines 134--145
+Overfull \hbox (20.99982pt too wide) in paragraph at lines 127--138
 []\OT1/cmtt/m/n/10 long
  []
 
 
-Overfull \hbox (20.99982pt too wide) in paragraph at lines 134--145
+Overfull \hbox (20.99982pt too wide) in paragraph at lines 127--138
 []\OT1/cmtt/m/n/10 byte
  []
 
@@ -14962,7 +14845,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.146 \begin{lstlisting}
+l.139 \begin{lstlisting}
                         [language=C, caption={IOSharp.c - Polling function}]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -15023,7 +14906,7 @@ Missing character: There is no 4 in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.147 uint64_
+l.140 uint64_
              t start_polling(int pin) {
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -15031,7 +14914,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.154 
+l.147 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -15039,7 +14922,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.154 
+l.147 
       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -15048,12 +14931,12 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 146--154
+Overfull \hbox (20.0pt too wide) in paragraph at lines 139--147
 []
  []
 
 
-Overfull \hbox (536.33649pt too wide) in paragraph at lines 146--154
+Overfull \hbox (536.33649pt too wide) in paragraph at lines 139--147
 $[]\OML/cmm/m/it/10 start[]olling\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 intpin\OT1/c
 mr/m/n/10 )[]$ 
  []
@@ -15126,7 +15009,7 @@ Missing character: There is no o in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.156     gpio_
+l.149     gpio_
                fd = gpio_fd_open(pin);
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -15134,23 +15017,23 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.157 
+l.150 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 155--157
+Overfull \hbox (20.0pt too wide) in paragraph at lines 148--150
 []
  []
 
 
-Overfull \hbox (20.94446pt too wide) in paragraph at lines 155--157
+Overfull \hbox (20.94446pt too wide) in paragraph at lines 148--150
 $[]\OML/cmm/m/it/10 d \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (74.01242pt too wide) in paragraph at lines 155--157
+Overfull \hbox (74.01242pt too wide) in paragraph at lines 148--150
 $\OML/cmm/m/it/10 gpio[]d[]pen\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 pin\OT1/cmr/m/n
 /10 );$ 
  []
@@ -15202,13 +15085,13 @@ Missing character: There is no o in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.159     ioctl(gpio_
+l.152     ioctl(gpio_
                      fd, FIONREAD, & count);
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Misplaced alignment tab character &.
-l.159     ioctl(gpio_fd, FIONREAD, &
+l.152     ioctl(gpio_fd, FIONREAD, &
                                      count);
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -15218,7 +15101,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.161         read(gpio_fd, &
+l.154         read(gpio_fd, &
                               c, 1);
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -15230,34 +15113,34 @@ might try typing `S' now just to see what is salvageable.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.162 
+l.155 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 158--162
+Overfull \hbox (20.0pt too wide) in paragraph at lines 151--155
 []
  []
 
 
-Overfull \hbox (147.33826pt too wide) in paragraph at lines 158--162
+Overfull \hbox (147.33826pt too wide) in paragraph at lines 151--155
 $[]\OML/cmm/m/it/10 d; FIONREAD; count\OT1/cmr/m/n/10 ); \OML/cmm/m/it/10 for\O
 T1/cmr/m/n/10 (\OML/cmm/m/it/10 i \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (23.44507pt too wide) in paragraph at lines 158--162
+Overfull \hbox (23.44507pt too wide) in paragraph at lines 151--155
 $\OT1/cmr/m/n/10 0; \OML/cmm/m/it/10 i <$
  []
 
 
-Overfull \hbox (44.51285pt too wide) in paragraph at lines 158--162
+Overfull \hbox (44.51285pt too wide) in paragraph at lines 151--155
 $\OML/cmm/m/it/10 count\OT1/cmr/m/n/10 ; + +$
  []
 
 
-Overfull \hbox (84.88342pt too wide) in paragraph at lines 158--162
+Overfull \hbox (84.88342pt too wide) in paragraph at lines 151--155
 $\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 read\OT1/cmr/m/n/10 (\OML/
 cmm/m/it/10 gpio[]d; c; \OT1/cmr/m/n/10 1);$ 
  []
@@ -15465,7 +15348,7 @@ Missing character: There is no o in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.165     fdset.fd = gpio_
+l.158     fdset.fd = gpio_
                           fd;
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -15473,24 +15356,24 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.167 
+l.160 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 163--167
+Overfull \hbox (20.0pt too wide) in paragraph at lines 156--160
 []
  []
 
 
-Overfull \hbox (81.11816pt too wide) in paragraph at lines 163--167
+Overfull \hbox (81.11816pt too wide) in paragraph at lines 156--160
 $[]\OML/cmm/m/it/10 d\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 fdset:events \OT1/cmr/m
 /n/10 =$
  []
 
 
-Overfull \hbox (52.76324pt too wide) in paragraph at lines 163--167
+Overfull \hbox (52.76324pt too wide) in paragraph at lines 156--160
 $\OML/cmm/m/it/10 POLLPRI\OT1/cmr/m/n/10 ;$ 
  []
 
@@ -15509,7 +15392,7 @@ Missing character: There is no f in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no , in font nullfont!
 ! Misplaced alignment tab character &.
-l.168     read(fdset.fd, &
+l.161     read(fdset.fd, &
                            buf, 64);
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -15527,7 +15410,7 @@ Missing character: There is no 4 in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no ; in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 168--169
+Overfull \hbox (20.0pt too wide) in paragraph at lines 161--162
 []
  []
 
@@ -15570,13 +15453,13 @@ Missing character: There is no L in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.170 ... Start polling the File Descriptor. POLL_
+l.163 ... Start polling the File Descriptor. POLL_
                                                   TIMEOUT variable contains ...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Misplaced alignment tab character &.
-l.171     rc = poll( &
+l.164     rc = poll( &
                        fdset, 1, POLL_TIMEOUT);
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -15588,25 +15471,25 @@ might try typing `S' now just to see what is salvageable.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.172 
+l.165 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 170--172
+Overfull \hbox (20.0pt too wide) in paragraph at lines 163--165
 []
  []
 
 
-Overfull \hbox (361.8736pt too wide) in paragraph at lines 170--172
+Overfull \hbox (361.8736pt too wide) in paragraph at lines 163--165
 $[]\OML/cmm/m/it/10 IMEOUTvariablecontains\OT1/cmr/m/n/10 (\OMS/cmsy/m/n/10  \O
 T1/cmr/m/n/10 1)\OML/cmm/m/it/10 whichstandsforinfiniteblockinguntilevent:rc \O
 T1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (147.42818pt too wide) in paragraph at lines 170--172
+Overfull \hbox (147.42818pt too wide) in paragraph at lines 163--165
 $\OML/cmm/m/it/10 poll\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 fdset; \OT1/cmr/m/n/10 
 1\OML/cmm/m/it/10 ; POLL[]IMEOUT\OT1/cmr/m/n/10 );$ 
  []
@@ -15661,13 +15544,13 @@ Missing character: There is no o in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.174     gpio_
+l.167     gpio_
                fd_close(gpio_fd);
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.176 }
+l.169 }
        
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -15682,7 +15565,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.177 \end{lstlisting}
+l.170 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -15691,7 +15574,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.177 \end{lstlisting}
+l.170 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -15700,12 +15583,12 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 173--178
+Overfull \hbox (20.0pt too wide) in paragraph at lines 166--171
 []
  []
 
 
-Overfull \hbox (108.85944pt too wide) in paragraph at lines 173--178
+Overfull \hbox (108.85944pt too wide) in paragraph at lines 166--171
 $[]\OML/cmm/m/it/10 d[]lose\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 gpio[]d\OT1/cmr/m/
 n/10 ); \OML/cmm/m/it/10 returnt\OT1/cmr/m/n/10 ;$ 
  []
@@ -15717,7 +15600,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.179 \begin{lstlisting}
+l.172 \begin{lstlisting}
                         [language=C, caption={IOSharp.h - Header file for th...
 
 Your command was ignored.
@@ -15779,7 +15662,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no ] in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.180 #
+l.173 #
        ifndef IOSHARP_H_INCLUDED
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -15802,18 +15685,18 @@ Missing character: There is no P in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.180 #ifndef IOSHARP_
+l.173 #ifndef IOSHARP_
                       H_INCLUDED
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Double subscript.
-l.180 #ifndef IOSHARP_H_
+l.173 #ifndef IOSHARP_H_
                         INCLUDED
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! You can't use `macro parameter character #' in math mode.
-l.181 #
+l.174 #
        define IOSHARP_H_INCLUDED
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -15821,25 +15704,25 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 ! Double subscript.
-l.181 #define IOSHARP_H_
+l.174 #define IOSHARP_H_
                         INCLUDED
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.182 
+l.175 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 179--182
+Overfull \hbox (20.0pt too wide) in paragraph at lines 172--175
 []
  []
 
 
-Overfull \hbox (218.35922pt too wide) in paragraph at lines 179--182
+Overfull \hbox (218.35922pt too wide) in paragraph at lines 172--175
 $[][]\OML/cmm/m/it/10 NCLUDEDdefineIOSHARP[][]NCLUDED$ 
  []
 
@@ -15878,7 +15761,7 @@ Missing character: There is no 4 in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.184 uint64_
+l.177 uint64_
              t start_polling(int pin);
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -15886,24 +15769,24 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.185 
+l.178 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 183--185
+Overfull \hbox (20.0pt too wide) in paragraph at lines 176--178
 []
  []
 
 
-Overfull \hbox (94.0054pt too wide) in paragraph at lines 183--185
+Overfull \hbox (94.0054pt too wide) in paragraph at lines 176--178
 $[]\OML/cmm/m/it/10 start[]olling\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 intpin\OT1/c
 mr/m/n/10 );$ 
  []
 
 ! You can't use `macro parameter character #' in vertical mode.
-l.186 #
+l.179 #
        endif
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -15922,14 +15805,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.187 \end{lstlisting}
+l.180 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 186--188
+Overfull \hbox (20.0pt too wide) in paragraph at lines 179--181
 []
  []
 
@@ -15940,7 +15823,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.189 \begin{lstlisting}
+l.182 \begin{lstlisting}
                         [language=CSharp, caption={GPIOManager.cs - P/Invoke...
 
 Your command was ignored.
@@ -16193,13 +16076,13 @@ Missing character: There is no t in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.196         ulong cback = GPIOManager.start_
+l.189         ulong cback = GPIOManager.start_
                                               polling(pin);
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Extra }, or forgotten $.
-l.198     }
+l.191     }
            
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -16208,7 +16091,7 @@ the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
 ! Extra }, or forgotten $.
-l.199 }
+l.192 }
        
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -16219,18 +16102,18 @@ deleted material, e.g., by typing `I$}'.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.200 
+l.193 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 189--200
+Overfull \hbox (20.0pt too wide) in paragraph at lines 182--193
 []
  []
 
 
-Overfull \hbox (234.60161pt too wide) in paragraph at lines 189--200
+Overfull \hbox (234.60161pt too wide) in paragraph at lines 182--193
 $[]\OML/cmm/m/it/10 olling\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 pin\OT1/cmr/m/n/10 
 ); \OML/cmm/m/it/10 th:Callback\OT1/cmr/m/n/10 (4\OML/cmm/m/it/10 ; \OT1/cmr/m/
 n/10 (\OML/cmm/m/it/10 uint\OT1/cmr/m/n/10 )0\OML/cmm/m/it/10 ; DateTime:Now\OT
@@ -16438,7 +16321,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no C in font nullfont!
 ! You can't use `macro parameter character #' in horizontal mode.
-l.201 ...ut taking into account that a ulong in C#
+l.194 ...ut taking into account that a ulong in C#
                                                    is a uint64_t on C.
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -16457,7 +16340,7 @@ Missing character: There is no 4 in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.201 ...o account that a ulong in C# is a uint64_
+l.194 ...o account that a ulong in C# is a uint64_
                                                   t on C.
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -16469,7 +16352,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.204 \end{lstlisting}
+l.197 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -16478,7 +16361,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.204 \end{lstlisting}
+l.197 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -16489,7 +16372,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.204 \end{lstlisting}
+l.197 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -16500,7 +16383,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.204 \end{lstlisting}
+l.197 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -16509,31 +16392,31 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 201--205
+Overfull \hbox (20.0pt too wide) in paragraph at lines 194--198
 []
  []
 
 
-Overfull \hbox (142.63722pt too wide) in paragraph at lines 201--205
+Overfull \hbox (142.63722pt too wide) in paragraph at lines 194--198
 $[]\OML/cmm/m/it/10 onC:\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 DllImport\OT1/cmr/m/n
 /10 ("\OML/cmm/m/it/10 libIOSharp \OMS/cmsy/m/n/10  $
  []
 
 
-Overfull \hbox (123.208pt too wide) in paragraph at lines 201--205
+Overfull \hbox (123.208pt too wide) in paragraph at lines 194--198
 $\OML/cmm/m/it/10 c:so\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 ; CallingConvention \OT
 1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (330.78705pt too wide) in paragraph at lines 201--205
+Overfull \hbox (330.78705pt too wide) in paragraph at lines 194--198
 $\OML/cmm/m/it/10 CallingConvention:StdCall\OT1/cmr/m/n/10 )]\OML/cmm/m/it/10 p
 ublicstaticexternulongstart[]olling\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 intgpio\OT
 1/cmr/m/n/10 );$ 
  []
 
 ! Undefined control sequence.
-l.206 \subsubsection
+l.199 \subsubsection
                     {Final implementation}\label{SSS:IOSharp-Interrupt-Imple...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16762,7 +16645,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...fig:interrupt-schema' on page \thepage 
                                                   \space undefined\on@line .
-l.207 ...hown on Figure \ref{fig:interrupt-schema}
+l.200 ...hown on Figure \ref{fig:interrupt-schema}
                                                   . The Interrupt Port inher...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16772,7 +16655,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `fig:interrupt-schema' on page  undefined on input lin
-e 207.
+e 200.
 
 Missing character: There is no . in font nullfont!
 Missing character: There is no T in font nullfont!
@@ -16823,7 +16706,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...fig:interrupt-schema' on page \thepage 
                                                   \space undefined\on@line .
-l.207 ...Port as Figure \ref{fig:interrupt-schema}
+l.200 ...Port as Figure \ref{fig:interrupt-schema}
                                                    shows.
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16833,7 +16716,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `fig:interrupt-schema' on page  undefined on input lin
-e 207.
+e 200.
 
 Missing character: There is no s in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -16842,17 +16725,17 @@ Missing character: There is no w in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 206--208
+Overfull \hbox (20.0pt too wide) in paragraph at lines 199--201
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 206--208
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 199--201
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 206--208
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 199--201
 []
  []
 
@@ -16863,7 +16746,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.209 \begin{figure}
+l.202 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -16873,12 +16756,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 209--209
+Overfull \hbox (20.0pt too wide) in paragraph at lines 202--202
 [] 
  []
 
 ! Undefined control sequence.
-l.211   \captionsetup
+l.204   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16910,7 +16793,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.212   \includegraphics
+l.205   \includegraphics
                         [width=1\textwidth]{pictures/iosharp/interrupt-schema}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -16929,7 +16812,7 @@ Missing character: There is no 1 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.212   \includegraphics[width=1\textwidth]
+l.205   \includegraphics[width=1\textwidth]
                                            {pictures/iosharp/interrupt-schema}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -16938,7 +16821,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.212   \includegraphics[width=1\textwidth]
+l.205   \includegraphics[width=1\textwidth]
                                            {pictures/iosharp/interrupt-schema}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -16988,7 +16871,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.213   \caption
+l.206   \caption
                 {Representation of the Interrupt Port flow \label{fig:interr...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -17037,7 +16920,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.214 \end{center}\end{figure}
+l.207 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -17545,7 +17428,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 216--217
+Overfull \hbox (20.0pt too wide) in paragraph at lines 209--210
 []
  []
 
@@ -17556,7 +17439,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.218 \begin{table}
+l.211 \begin{table}
                    [htb]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -17568,12 +17451,12 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no b in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 218--219
+Overfull \hbox (20.0pt too wide) in paragraph at lines 211--212
 [] 
  []
 
 ! Undefined control sequence.
-l.222 {\bf
+l.215 {\bf
            Trigger Type} & {\bf Micro Framework} & {\bf Linux}  \\ \hline \h...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17593,7 +17476,7 @@ Missing character: There is no y in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.222 {\bf Trigger Type} & {\bf
+l.215 {\bf Trigger Type} & {\bf
                                 Micro Framework} & {\bf Linux}  \\ \hline \h...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17616,7 +17499,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no k in font nullfont!
 ! Undefined control sequence.
-l.222 ...gger Type} & {\bf Micro Framework} & {\bf
+l.215 ...gger Type} & {\bf Micro Framework} & {\bf
                                                    Linux}  \\ \hline \hline
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -17752,7 +17635,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.230 \caption
+l.223 \caption
               {Interrupt Trigger Types}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -17785,7 +17668,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.233 \end{table}
+l.226 \end{table}
                  
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -18562,32 +18445,32 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 235--238
+Overfull \hbox (20.0pt too wide) in paragraph at lines 228--231
 []
  []
 
 
-Overfull \hbox (27.08873pt too wide) in paragraph at lines 235--238
+Overfull \hbox (27.08873pt too wide) in paragraph at lines 228--231
 \OT1/cmr/m/it/10 falling
  []
 
 
-Overfull \hbox (14.94989pt too wide) in paragraph at lines 235--238
+Overfull \hbox (14.94989pt too wide) in paragraph at lines 228--231
 \OT1/cmr/m/it/10 ris-
  []
 
 
-Overfull \hbox (13.2888pt too wide) in paragraph at lines 235--238
+Overfull \hbox (13.2888pt too wide) in paragraph at lines 228--231
 \OT1/cmr/m/it/10 ing
  []
 
 
-Overfull \hbox (17.6332pt too wide) in paragraph at lines 235--238
+Overfull \hbox (17.6332pt too wide) in paragraph at lines 228--231
 \OT1/cmr/m/it/10 both
  []
 
 ! Undefined control sequence.
-l.239 \subsection
+l.232 \subsection
                  {SPI}\label{SS:IOSharp-SPI}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18599,7 +18482,7 @@ Missing character: There is no S in font nullfont!
 Missing character: There is no P in font nullfont!
 Missing character: There is no I in font nullfont!
 ! Undefined control sequence.
-l.240 \textcolor
+l.233 \textcolor
                 {red}{Potser seria interesant explicar mosi, miso, sclk, cs}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -18660,7 +18543,7 @@ Missing character: There is no T in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.241 The \gls
+l.234 The \gls
               {SPI} is one of the important features to be implemented on IO...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -19134,7 +19017,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 239--242
+Overfull \hbox (20.0pt too wide) in paragraph at lines 232--235
 [][]
  []
 
@@ -19145,7 +19028,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.243 \begin{figure}
+l.236 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -19155,12 +19038,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 243--243
+Overfull \hbox (20.0pt too wide) in paragraph at lines 236--236
 [] 
  []
 
 ! Undefined control sequence.
-l.245   \captionsetup
+l.238   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -19192,7 +19075,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.246   \includegraphics
+l.239   \includegraphics
                         [width=1\textwidth]{pictures/iosharp/spi-modules}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -19211,7 +19094,7 @@ Missing character: There is no 1 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    ]
-l.246   \includegraphics[width=1\textwidth]
+l.239   \includegraphics[width=1\textwidth]
                                            {pictures/iosharp/spi-modules}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -19220,7 +19103,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    ]
-l.246   \includegraphics[width=1\textwidth]
+l.239   \includegraphics[width=1\textwidth]
                                            {pictures/iosharp/spi-modules}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -19265,7 +19148,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.247   \caption
+l.240   \caption
                 {SPI bus setup with one master and to slaves \label{fig:spi-...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -19313,7 +19196,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.248 \end{center}\end{figure}
+l.241 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -19506,12 +19389,12 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 250--251
+Overfull \hbox (20.0pt too wide) in paragraph at lines 243--244
 []
  []
 
 ! Undefined control sequence.
-l.252 \subsubsection
+l.245 \subsubsection
                     {Designing the SPI}\label{SSS:IOSharp-SPI-Design}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -20615,7 +20498,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...rence `fig:spi-modes' on page \thepage 
                                                   \space undefined\on@line .
-l.258 ...tand using the figure \ref{fig:spi-modes}
+l.251 ...tand using the figure \ref{fig:spi-modes}
                                                    which shows the different...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -20624,7 +20507,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:spi-modes' on page  undefined on input line 258.
+LaTeX Warning: Reference `fig:spi-modes' on page  undefined on input line 251.
 
 Missing character: There is no w in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -20732,37 +20615,37 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 252--259
+Overfull \hbox (20.0pt too wide) in paragraph at lines 245--252
 []
  []
 
 
-Overfull \hbox (104.99908pt too wide) in paragraph at lines 252--259
+Overfull \hbox (104.99908pt too wide) in paragraph at lines 245--252
 []\OT1/cmtt/m/n/10 <linux/spi/spidev.h>
  []
 
 
-Overfull \hbox (26.24977pt too wide) in paragraph at lines 252--259
+Overfull \hbox (26.24977pt too wide) in paragraph at lines 245--252
 []\OT1/cmtt/m/n/10 /dev/
  []
 
 
-Overfull \hbox (73.49936pt too wide) in paragraph at lines 252--259
+Overfull \hbox (73.49936pt too wide) in paragraph at lines 245--252
 []\OT1/cmtt/m/n/10 /dev/spidevX.Y
  []
 
 
-Overfull \hbox (5.24995pt too wide) in paragraph at lines 252--259
+Overfull \hbox (5.24995pt too wide) in paragraph at lines 245--252
 []\OT1/cmtt/m/n/10 X
  []
 
 
-Overfull \hbox (5.24995pt too wide) in paragraph at lines 252--259
+Overfull \hbox (5.24995pt too wide) in paragraph at lines 245--252
 []\OT1/cmtt/m/n/10 Y
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 252--259
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 245--252
 []
  []
 
@@ -20773,7 +20656,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.260 \begin{figure}
+l.253 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -20783,12 +20666,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 260--260
+Overfull \hbox (20.0pt too wide) in paragraph at lines 253--253
 [] 
  []
 
 ! Undefined control sequence.
-l.262   \captionsetup
+l.255   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -20820,7 +20703,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.263   \includegraphics
+l.256   \includegraphics
                         [scale=0.7]{pictures/iosharp/spi-modes}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -20872,7 +20755,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.264   \caption
+l.257   \caption
                 {SPI modes are defined with the parameters "CPOL" and "CPHA"...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -20991,7 +20874,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.265 \end{center}\end{figure}
+l.258 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -21031,7 +20914,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.267 This modes must be configured using the \gls
+l.260 This modes must be configured using the \gls
                                                   {IOCTL} function passing t...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -21063,7 +20946,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.267 ...the \gls{IOCTL} function passing the \gls
+l.260 ...the \gls{IOCTL} function passing the \gls
                                                   {FD} according to the SPI ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -21381,7 +21264,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...rence `fig:spi-modes' on page \thepage 
                                                   \space undefined\on@line .
-l.267 ...ed before, the figure \ref{fig:spi-modes}
+l.260 ...ed before, the figure \ref{fig:spi-modes}
                                                    shows each mode and the m...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -21390,7 +21273,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:spi-modes' on page  undefined on input line 267.
+LaTeX Warning: Reference `fig:spi-modes' on page  undefined on input line 260.
 
 Missing character: There is no s in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -21470,42 +21353,42 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 267--268
+Overfull \hbox (20.0pt too wide) in paragraph at lines 260--261
 []
  []
 
 
-Overfull \hbox (78.74931pt too wide) in paragraph at lines 267--268
+Overfull \hbox (78.74931pt too wide) in paragraph at lines 260--261
 []\OT1/cmtt/m/n/10 SPI_IOC_WR_MODE
  []
 
 
-Overfull \hbox (41.99963pt too wide) in paragraph at lines 267--268
+Overfull \hbox (41.99963pt too wide) in paragraph at lines 260--261
 []\OT1/cmtt/m/n/10 spidev.h
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 267--268
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 260--261
 []
  []
 
 
-Overfull \hbox (52.49954pt too wide) in paragraph at lines 267--268
+Overfull \hbox (52.49954pt too wide) in paragraph at lines 260--261
 []\OT1/cmtt/m/n/10 SPI_MODE_0
  []
 
 
-Overfull \hbox (52.49954pt too wide) in paragraph at lines 267--268
+Overfull \hbox (52.49954pt too wide) in paragraph at lines 260--261
 []\OT1/cmtt/m/n/10 SPI_MODE_1
  []
 
 
-Overfull \hbox (52.49954pt too wide) in paragraph at lines 267--268
+Overfull \hbox (52.49954pt too wide) in paragraph at lines 260--261
 []\OT1/cmtt/m/n/10 SPI_MODE_2
  []
 
 
-Overfull \hbox (52.49954pt too wide) in paragraph at lines 267--268
+Overfull \hbox (52.49954pt too wide) in paragraph at lines 260--261
 []\OT1/cmtt/m/n/10 SPI_MODE_3 
  []
 
@@ -21516,7 +21399,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.269 \begin{lstlisting}
+l.262 \begin{lstlisting}
                         [language=C, caption={IOSharp.c - SPI Mode configura...
 
 Your command was ignored.
@@ -21582,7 +21465,7 @@ Missing character: There is no 8 in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.270 uint8_
+l.263 uint8_
             t mode;
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -21590,18 +21473,18 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.272 
+l.265 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 269--272
+Overfull \hbox (20.0pt too wide) in paragraph at lines 262--265
 []
  []
 
 
-Overfull \hbox (60.34688pt too wide) in paragraph at lines 269--272
+Overfull \hbox (60.34688pt too wide) in paragraph at lines 262--265
 $[]\OML/cmm/m/it/10 mode\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 intret\OT1/cmr/m/n/1
 0 ;$ 
  []
@@ -21634,13 +21517,13 @@ Missing character: There is no I in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.273 //The mode variable can be SPI_
+l.266 //The mode variable can be SPI_
                                      MODE_0, SPI_MODE_1, SPI_MODE_2 and  SPI...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Misplaced alignment tab character &.
-l.274   ret = ioctl(fd, SPI_IOC_WR_MODE, &
+l.267   ret = ioctl(fd, SPI_IOC_WR_MODE, &
                                           mode);
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -21656,7 +21539,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.277 \end{lstlisting}
+l.270 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -21665,7 +21548,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.277 \end{lstlisting}
+l.270 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -21674,25 +21557,25 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 273--278
+Overfull \hbox (20.0pt too wide) in paragraph at lines 266--271
 []
  []
 
 
-Overfull \hbox (254.56165pt too wide) in paragraph at lines 273--278
+Overfull \hbox (254.56165pt too wide) in paragraph at lines 266--271
 $[]\OML/cmm/m/it/10 ODE[]; SPI[]ODE[]; SPI[]ODE[]andSPI[]ODE[]ret \OT1/cmr/m/n/
 10 =$
  []
 
 
-Overfull \hbox (208.42613pt too wide) in paragraph at lines 273--278
+Overfull \hbox (208.42613pt too wide) in paragraph at lines 266--271
 $\OML/cmm/m/it/10 ioctl\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 fd; SPI[]OC[]R[]ODE; m
 ode\OT1/cmr/m/n/10 ); \OML/cmm/m/it/10 if\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ret 
 \OT1/cmr/m/n/10 ==$
  []
 
 
-Overfull \hbox (136.71857pt too wide) in paragraph at lines 273--278
+Overfull \hbox (136.71857pt too wide) in paragraph at lines 266--271
 $\OMS/cmsy/m/n/10  \OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 pabort\OT1/cmr/m/n/10 ("\
 OML/cmm/m/it/10 can[]tsetspimode\OT1/cmr/m/n/10 ");$ 
  []
@@ -21902,7 +21785,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no , in font nullfont!
 ! Undefined control sequence.
-l.279 ...th the write and read buffers, \textcolor
+l.272 ...th the write and read buffers, \textcolor
                                                   {red}{and are used as poin...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -22417,52 +22300,52 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 279--280
+Overfull \hbox (20.0pt too wide) in paragraph at lines 272--273
 []
  []
 
 
-Overfull \hbox (83.99927pt too wide) in paragraph at lines 279--280
+Overfull \hbox (83.99927pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 spi_ioc_transfer
  []
 
 
-Overfull \hbox (41.99963pt too wide) in paragraph at lines 279--280
+Overfull \hbox (41.99963pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 spidev.h
  []
 
 
-Overfull \hbox (31.49973pt too wide) in paragraph at lines 279--280
+Overfull \hbox (31.49973pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 tx_buf
  []
 
 
-Overfull \hbox (31.49973pt too wide) in paragraph at lines 279--280
+Overfull \hbox (31.49973pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 rx_buf
  []
 
 
-Overfull \hbox (15.74986pt too wide) in paragraph at lines 279--280
+Overfull \hbox (15.74986pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 len
  []
 
 
-Overfull \hbox (57.7495pt too wide) in paragraph at lines 279--280
+Overfull \hbox (57.7495pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 delay_usecs
  []
 
 
-Overfull \hbox (41.99963pt too wide) in paragraph at lines 279--280
+Overfull \hbox (41.99963pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 speed_hz
  []
 
 
-Overfull \hbox (47.24959pt too wide) in paragraph at lines 279--280
+Overfull \hbox (47.24959pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 cs_change
  []
 
 
-Overfull \hbox (68.2494pt too wide) in paragraph at lines 279--280
+Overfull \hbox (68.2494pt too wide) in paragraph at lines 272--273
 []\OT1/cmtt/m/n/10 bits_per_word
  []
 
@@ -22473,7 +22356,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.281 \begin{lstlisting}
+l.274 \begin{lstlisting}
                         [language=C, caption={IOSharp.c - SPI struct configu...
 
 Your command was ignored.
@@ -22545,7 +22428,7 @@ Missing character: There is no i in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.282 struct spi_
+l.275 struct spi_
                  ioc_transfer tr = {
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -22557,7 +22440,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.291 \end{lstlisting}
+l.284 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -22566,7 +22449,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.291 \end{lstlisting}
+l.284 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -22575,17 +22458,17 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 281--292
+Overfull \hbox (20.0pt too wide) in paragraph at lines 274--285
 []
  []
 
 
-Overfull \hbox (71.16391pt too wide) in paragraph at lines 281--292
+Overfull \hbox (71.16391pt too wide) in paragraph at lines 274--285
 $[]\OML/cmm/m/it/10 oc[]ransfertr \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (823.77151pt too wide) in paragraph at lines 281--292
+Overfull \hbox (823.77151pt too wide) in paragraph at lines 274--285
 $[]\OT1/cmr/m/n/10 ;$ 
  []
 
@@ -22702,7 +22585,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.293 ...t self, in this case, along with the \gls
+l.286 ...t self, in this case, along with the \gls
                                                   {FD} corresponding to the ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -22984,17 +22867,17 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 293--294
+Overfull \hbox (20.0pt too wide) in paragraph at lines 286--287
 []
  []
 
 
-Overfull \hbox (78.74931pt too wide) in paragraph at lines 293--294
+Overfull \hbox (78.74931pt too wide) in paragraph at lines 286--287
 []\OT1/cmtt/m/n/10 SPI_IOC_MESSAGE
  []
 
 
-Overfull \hbox (94.49918pt too wide) in paragraph at lines 293--294
+Overfull \hbox (94.49918pt too wide) in paragraph at lines 286--287
 []\OT1/cmtt/m/n/10 SPI_IOC_MESSAGE(1)
  []
 
@@ -23005,7 +22888,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.295 \begin{lstlisting}
+l.288 \begin{lstlisting}
                         [language=C, caption={IOSharp.c - SPI transfer}]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -23091,13 +22974,13 @@ Missing character: There is no i in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.296 // Pass the preprocessor macro and the spi_
+l.289 // Pass the preprocessor macro and the spi_
                                                  ioc_transfer struct.
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Misplaced alignment tab character &.
-l.297 ioctl(fd, SPI_IOC_MESSAGE(1), &
+l.290 ioctl(fd, SPI_IOC_MESSAGE(1), &
                                      tr);
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -23113,7 +22996,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.298 \end{lstlisting}
+l.291 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -23122,7 +23005,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.298 \end{lstlisting}
+l.291 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -23131,18 +23014,18 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 295--299
+Overfull \hbox (20.0pt too wide) in paragraph at lines 288--292
 []
  []
 
 
-Overfull \hbox (245.0747pt too wide) in paragraph at lines 295--299
+Overfull \hbox (245.0747pt too wide) in paragraph at lines 288--292
 $[]\OML/cmm/m/it/10 oc[]ransferstruct:ioctl\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 fd
 ; SPI[]OC[]ESSAGE\OT1/cmr/m/n/10 (1)\OML/cmm/m/it/10 ; tr\OT1/cmr/m/n/10 );$ 
  []
 
 ! Undefined control sequence.
-l.300 \subsubsection
+l.293 \subsubsection
                     {Implementation in C\#}\label{SSS:IOSharp-SPI-Implementa...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -23375,7 +23258,7 @@ Missing character: There is no ( in font nullfont!
 ! Undefined control sequence.
 <write> ...SS:IOSharp-Interrupt' on page \thepage 
                                                   \space undefined\on@line .
-l.301 ...nterrupt part (\ref{SS:IOSharp-Interrupt}
+l.294 ...nterrupt part (\ref{SS:IOSharp-Interrupt}
                                                   . In this case some data w...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -23385,7 +23268,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `SS:IOSharp-Interrupt' on page  undefined on input lin
-e 301.
+e 294.
 
 Missing character: There is no . in font nullfont!
 Missing character: There is no I in font nullfont!
@@ -24190,7 +24073,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.303 ...nfiguration the required pins for the\gls
+l.296 ...nfiguration the required pins for the\gls
                                                   {MISO}, \gls{MOSI}, \gls{S...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -24204,7 +24087,7 @@ Missing character: There is no S in font nullfont!
 Missing character: There is no O in font nullfont!
 Missing character: There is no , in font nullfont!
 ! Undefined control sequence.
-l.303 ...the required pins for the\gls{MISO}, \gls
+l.296 ...the required pins for the\gls{MISO}, \gls
                                                   {MOSI}, \gls{SCLK} and \gl...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -24218,7 +24101,7 @@ Missing character: There is no S in font nullfont!
 Missing character: There is no I in font nullfont!
 Missing character: There is no , in font nullfont!
 ! Undefined control sequence.
-l.303 ... pins for the\gls{MISO}, \gls{MOSI}, \gls
+l.296 ... pins for the\gls{MISO}, \gls{MOSI}, \gls
                                                   {SCLK} and \gls{CS} are ob...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -24234,7 +24117,7 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no d in font nullfont!
 ! Undefined control sequence.
-l.303 ...ls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls
+l.296 ...ls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls
                                                   {CS} are obtained and rese...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -24530,7 +24413,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.306 \begin{figure}
+l.299 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -24540,27 +24423,27 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 300--306
+Overfull \hbox (20.0pt too wide) in paragraph at lines 293--299
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 300--306
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 293--299
 []
  []
 
 
-Overfull \hbox (26.24977pt too wide) in paragraph at lines 300--306
+Overfull \hbox (26.24977pt too wide) in paragraph at lines 293--299
 []\OT1/cmtt/m/n/10 Write
  []
 
 
-Overfull \hbox (47.24959pt too wide) in paragraph at lines 300--306
+Overfull \hbox (47.24959pt too wide) in paragraph at lines 293--299
 []\OT1/cmtt/m/n/10 WriteRead
  []
 
 ! Undefined control sequence.
-l.308   \captionsetup
+l.301   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -24592,7 +24475,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.309   \includegraphics
+l.302   \includegraphics
                         [scale=1]{pictures/iosharp/spi-uml}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -24640,7 +24523,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.310   \caption
+l.303   \caption
                 {UML representation of the SPI Configuration Class (Left) an...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -24722,7 +24605,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.311 \end{center}\end{figure}
+l.304 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -25061,7 +24944,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 313--316
+Overfull \hbox (20.0pt too wide) in paragraph at lines 306--309
 []
  []
 
@@ -25072,7 +24955,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.317 \begin{lstlisting}
+l.310 \begin{lstlisting}
                         [language=C, caption={IOSharp.h - spi\_config struct}]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -25143,7 +25026,7 @@ Missing character: There is no i in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.318 typedef struct spi_
+l.311 typedef struct spi_
                          config
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -25155,7 +25038,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.325 \end{lstlisting}
+l.318 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -25164,7 +25047,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.325 \end{lstlisting}
+l.318 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -25173,12 +25056,12 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 317--326
+Overfull \hbox (20.0pt too wide) in paragraph at lines 310--319
 []
  []
 
 
-Overfull \hbox (313.85263pt too wide) in paragraph at lines 317--326
+Overfull \hbox (313.85263pt too wide) in paragraph at lines 310--319
 $[]\OML/cmm/m/it/10 onfig[]SPI[]ONFIG\OT1/cmr/m/n/10 ;$ 
  []
 
@@ -25557,12 +25440,12 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 327--328
+Overfull \hbox (20.0pt too wide) in paragraph at lines 320--321
 []
  []
 
 
-Overfull \hbox (335.99707pt too wide) in paragraph at lines 327--328
+Overfull \hbox (335.99707pt too wide) in paragraph at lines 320--321
 []\OT1/cmtt/m/n/10 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unico
 de)]
  []
@@ -25574,7 +25457,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.329 \begin{lstlisting}
+l.322 \begin{lstlisting}
                         [language=CSharp, caption={SPI.cs - spi\_config stru...
 
 Your command was ignored.
@@ -25708,7 +25591,7 @@ Missing character: There is no i in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.331 public struct spi_
+l.324 public struct spi_
                         config {
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -25716,7 +25599,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.336 
+l.329 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -25724,7 +25607,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.336 
+l.329 
       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -25733,12 +25616,12 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 329--336
+Overfull \hbox (20.0pt too wide) in paragraph at lines 322--329
 []
  []
 
 
-Overfull \hbox (335.1421pt too wide) in paragraph at lines 329--336
+Overfull \hbox (335.1421pt too wide) in paragraph at lines 322--329
 $[]\OML/cmm/m/it/10 onfig[]$ 
  []
 
@@ -25754,7 +25637,7 @@ Missing character: There is no i in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.337     public spi_
+l.330     public spi_
                      config(Configuration config) {
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -25762,7 +25645,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.340 
+l.333 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -25770,7 +25653,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.340 
+l.333 
       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -25779,12 +25662,12 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 337--340
+Overfull \hbox (20.0pt too wide) in paragraph at lines 330--333
 []
  []
 
 
-Overfull \hbox (599.9803pt too wide) in paragraph at lines 337--340
+Overfull \hbox (599.9803pt too wide) in paragraph at lines 330--333
 $[]\OML/cmm/m/it/10 onfig\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Configurationconfig\
 OT1/cmr/m/n/10 )[]$ 
  []
@@ -25807,13 +25690,13 @@ Missing character: There is no k in font nullfont!
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.341         if (config.Clock_
+l.334         if (config.Clock_
                                Edge && !config.Clock_IdleState)
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Misplaced alignment tab character &.
-l.341         if (config.Clock_Edge &
+l.334         if (config.Clock_Edge &
                                      & !config.Clock_IdleState)
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -25823,7 +25706,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.341         if (config.Clock_Edge &&
+l.334         if (config.Clock_Edge &&
                                        !config.Clock_IdleState)
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -25833,7 +25716,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.343         else if (!config.Clock_Edge &
+l.336         else if (!config.Clock_Edge &
                                            & !config.Clock_IdleState)
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -25843,7 +25726,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.343         else if (!config.Clock_Edge &&
+l.336         else if (!config.Clock_Edge &&
                                              !config.Clock_IdleState)
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -25853,7 +25736,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.345         else if (config.Clock_Edge &
+l.338         else if (config.Clock_Edge &
                                           & config.Clock_IdleState)
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -25863,7 +25746,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.345         else if (config.Clock_Edge &&
+l.338         else if (config.Clock_Edge &&
                                             config.Clock_IdleState)
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -25873,7 +25756,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Extra }, or forgotten $.
-l.350     }
+l.343     }
            
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -25882,7 +25765,7 @@ the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
 ! Extra }, or forgotten $.
-l.351 }
+l.344 }
        
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -25897,7 +25780,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.352 \end{lstlisting}
+l.345 \end{lstlisting}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -25906,7 +25789,7 @@ or  <return>  to continue without it.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.352 \end{lstlisting}
+l.345 \end{lstlisting}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -25915,47 +25798,47 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 341--353
+Overfull \hbox (20.0pt too wide) in paragraph at lines 334--346
 []
  []
 
 
-Overfull \hbox (182.16624pt too wide) in paragraph at lines 341--353
+Overfull \hbox (182.16624pt too wide) in paragraph at lines 334--346
 $[]\OML/cmm/m/it/10 dge\OT1/cmr/m/n/10 !\OML/cmm/m/it/10 config:Clock[]dleState
 \OT1/cmr/m/n/10 )\OML/cmm/m/it/10 this:mode \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (282.80002pt too wide) in paragraph at lines 341--353
+Overfull \hbox (282.80002pt too wide) in paragraph at lines 334--346
 $\OT1/cmr/m/n/10 0; \OML/cmm/m/it/10 elseif\OT1/cmr/m/n/10 (!\OML/cmm/m/it/10 c
 onfig:Clock[]dge\OT1/cmr/m/n/10 !\OML/cmm/m/it/10 config:Clock[]dleState\OT1/cm
 r/m/n/10 )\OML/cmm/m/it/10 this:mode \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (277.24445pt too wide) in paragraph at lines 341--353
+Overfull \hbox (277.24445pt too wide) in paragraph at lines 334--346
 $\OT1/cmr/m/n/10 1; \OML/cmm/m/it/10 elseif\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 co
 nfig:Clock[]dgeconfig:Clock[]dleState\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 this:mod
 e \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (80.95215pt too wide) in paragraph at lines 341--353
+Overfull \hbox (80.95215pt too wide) in paragraph at lines 334--346
 $\OT1/cmr/m/n/10 2; \OML/cmm/m/it/10 elsethis:mode \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (64.5192pt too wide) in paragraph at lines 341--353
+Overfull \hbox (64.5192pt too wide) in paragraph at lines 334--346
 $\OT1/cmr/m/n/10 3; \OML/cmm/m/it/10 this:speed \OT1/cmr/m/n/10 =$
  []
 
 
-Overfull \hbox (106.46164pt too wide) in paragraph at lines 341--353
+Overfull \hbox (106.46164pt too wide) in paragraph at lines 334--346
 $\OML/cmm/m/it/10 config:Clock[]ateKHz \OMS/cmsy/m/n/10 $
  []
 
 
-Overfull \hbox (22.77785pt too wide) in paragraph at lines 341--353
+Overfull \hbox (22.77785pt too wide) in paragraph at lines 334--346
 $\OT1/cmr/m/n/10 1000;$ 
  []
 
@@ -26273,12 +26156,12 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 354--355
+Overfull \hbox (20.0pt too wide) in paragraph at lines 347--348
 []
  []
 
 ! Undefined control sequence.
-l.356 \subsection
+l.349 \subsection
                  {UART}\label{SS:IOSharp-UART}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -26385,7 +26268,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...ce `fig:uart-modules' on page \thepage 
                                                   \space undefined\on@line .
-l.357 ...devices. As figure \ref{fig:uart-modules}
+l.350 ...devices. As figure \ref{fig:uart-modules}
                                                    shows, each device have t...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -26395,7 +26278,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Reference `fig:uart-modules' on page  undefined on input line 35
-7.
+0.
 
 Missing character: There is no s in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -26437,7 +26320,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.357 ... device have two ports which are the \gls
+l.350 ... device have two ports which are the \gls
                                                   {TX} for transmissions and...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -26467,7 +26350,7 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no d in font nullfont!
 ! Undefined control sequence.
-l.357 ...e the \gls{TX} for transmissions and \gls
+l.350 ...e the \gls{TX} for transmissions and \gls
                                                   {RX} for receptions, the t...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -26591,12 +26474,12 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 356--358
+Overfull \hbox (20.0pt too wide) in paragraph at lines 349--351
 [][]
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 356--358
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 349--351
 []
  []
 
@@ -26607,7 +26490,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.359 \begin{figure}
+l.352 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -26617,12 +26500,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 359--359
+Overfull \hbox (20.0pt too wide) in paragraph at lines 352--352
 [] 
  []
 
 ! Undefined control sequence.
-l.361   \captionsetup
+l.354   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -26654,7 +26537,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.362   \includegraphics
+l.355   \includegraphics
                         [scale=0.60]{pictures/iosharp/uart-modules}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -26710,7 +26593,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.363   \caption
+l.356   \caption
                 {UART communication schema\label{fig:uart-modules}}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -26745,7 +26628,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.364 \end{center}\end{figure}
+l.357 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -27646,7 +27529,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 366--369
+Overfull \hbox (20.0pt too wide) in paragraph at lines 359--362
 []
  []
 
@@ -27657,7 +27540,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.370 \begin{figure}
+l.363 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -27667,12 +27550,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 370--370
+Overfull \hbox (20.0pt too wide) in paragraph at lines 363--363
 [] 
  []
 
 ! Undefined control sequence.
-l.372   \captionsetup
+l.365   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -27704,7 +27587,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.373   \includegraphics
+l.366   \includegraphics
                         [scale=1]{pictures/iosharp/serialport-uml}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -27759,7 +27642,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.374   \caption
+l.367   \caption
                 {UML representation of the original .NET Framework SerialPor...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -27870,7 +27753,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.375 \end{center}\end{figure}
+l.368 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -28240,22 +28123,22 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 377--378
+Overfull \hbox (20.0pt too wide) in paragraph at lines 370--371
 []
  []
 
 
-Overfull \hbox (62.99945pt too wide) in paragraph at lines 377--378
+Overfull \hbox (62.99945pt too wide) in paragraph at lines 370--371
 []\OT1/cmtt/m/n/10 DataReceived
  []
 
 
-Overfull \hbox (68.2494pt too wide) in paragraph at lines 377--378
+Overfull \hbox (68.2494pt too wide) in paragraph at lines 370--371
 []\OT1/cmtt/m/n/10 ErrorReceived
  []
 
 ! Undefined control sequence.
-l.379 \section
+l.372 \section
               {Port Mapping}\label{S:Port-Mapping}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -28511,12 +28394,12 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 379--381
+Overfull \hbox (20.0pt too wide) in paragraph at lines 372--374
 []
  []
 
 ! Undefined control sequence.
-l.382 \subsection
+l.375 \subsection
                  {HardwareProvider}\label{SS:HardwareProvider}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -28877,12 +28760,12 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 382--384
+Overfull \hbox (20.0pt too wide) in paragraph at lines 375--377
 [][]
  []
 
 
-Overfull \hbox (4.48613pt too wide) in paragraph at lines 382--384
+Overfull \hbox (4.48613pt too wide) in paragraph at lines 375--377
 $[]$
  []
 
@@ -28893,7 +28776,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.385 \begin{figure}
+l.378 \begin{figure}
                     [H]\begin{center}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -28903,12 +28786,12 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no H in font nullfont!
 Missing character: There is no ] in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 385--385
+Overfull \hbox (20.0pt too wide) in paragraph at lines 378--378
 [] 
  []
 
 ! Undefined control sequence.
-l.387   \captionsetup
+l.380   \captionsetup
                      {justification=centering}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -28940,7 +28823,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 ! Undefined control sequence.
-l.388   \includegraphics
+l.381   \includegraphics
                         [scale=0.30]{pictures/iosharp/mapping-raspberrypi}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -29003,7 +28886,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.389   \caption
+l.382   \caption
                 {Raspberry Pi available ports\label{fig:mapping-rpi}}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -29040,7 +28923,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.390 \end{center}\end{figure}
+l.383 \end{center}\end{figure}
                               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,

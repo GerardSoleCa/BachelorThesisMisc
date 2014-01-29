@@ -38,6 +38,12 @@ The gateway system has been entirely developed using .NET Micro Framework and de
 AlterNative is a language translating tool created by Alex Albal\'{a} and Juan L\'{o}pez. It can translate a compiled (.NET) assembly or library to standard C++ code, basically this program decompiles the the file to be translated, then it sketches how the program works, which are its classes, functions, nodes, etc and then start translating step-by-step all the program. After that it links the necessary C++ libraries to work, ones are from boost library, and the other ones are self-written to look like the original C\# classes.
 \\
 It is interesting to emphasize that the main difference of this translator between the other existing ones is that it tries to generate a code practically identical to the original C\# source code. By doing this, the resulting C++ source is really easy to read for people not used to C++ syntax and language.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+ \includegraphics[scale=0.65]{pictures/proposal/alternativeUI}
+  \caption{AlterNative interface \label{fig:Proposal-AN}}
+\end{center}\end{figure}
 
 \section{Thesis Proposal}\label{S:Proposal-Thesis-Proposal}
 After introducing HomeSense and AlterNative is time to explain the thesis proposal itself because it is related to the applications mentioned above. The idea is to take the code of the HomeSense gateway which is written using Micro Framework and make it run in a Linux device instead of a Netduino Mini because it is getting limited in terms of capabilities, performance and expansion for future characteristics.
@@ -45,9 +51,3 @@ After introducing HomeSense and AlterNative is time to explain the thesis propos
 The idea is to take the gateway code and port it to other devices capable of use minimum GPIO, Interruptions from this ports, the SPI communication protocol and UART because all of them are used in the HomeSense source code. It is important to point that the implemented classes must be similar to the Micro Framework code to avoid major changes on the HomeSense program. Minor changes such as port renaming and communication module name changing are acceptable because do not alter the original execution flow and design architecture. But not only this should be done on HomeSense, it is interesting to make portable between different hardware platforms any code that runs over Micro Framework.
 \\
 After accomplishing with this first goal, the second part of the thesis is use AlterNative to translate the IOSharp library to C++ in order to increase and analyse the performance of IOSharp running on C++ instead of C\#. To accomplish with this some C++ libraries will be need to be written in order to translate IOSharp.
-\begin{figure}[H]\begin{center}
- \centering
-  \captionsetup{justification=centering}
- \includegraphics[scale=0.65]{pictures/proposal/alternativeUI}
-  \caption{AlterNative interface \label{fig:Proposal-AN}}
-\end{center}\end{figure}

@@ -34,7 +34,16 @@ Apart from this, a C library will be written to interact with the functions prov
 In short, IOSharp will be able to run in any platform that uses Linux such as the Raspberry Pi, a Cubieboard or even a standard desktop.
 
 \section{Implementation}\label{S:Implementation}
-\textcolor{red}{Remember that as it was explained on the introduction, the goal of this thesis is deploy and run successfully the HomeSense platform on a RaspberryPi. Taking in mind this, some modules were required to develop in order to accomplish with this requirement. In this case the GPIO, Interrupts, SPI and UART need to work in order to use the different components of HomeSense.}
+In the following sections it will be explained how has been carried out the implementation of the IOSharp library. As a summary IOSharp works as Micro Framework but on a high level basis, so it is not a complete port of the original, instead of this it uses C\# to implement the same functions which are exposed by the framework. In this case the original source code has been downloaded from \url{http://netmf.codeplex.com/}. From the folder \verb!\Framework\Core\Native_Hardware! can be obtained the necessary files to implement at least the GPIO and the SPI port along with the files for port mapping or event UART. The native files make use of internal implements so when a method which does an internal implement is called the virtual machine will take the call and process the function internally. IOSharp instead of implementing the virtual machine it implements the functions as a normal method (opening and closing the brackets and inserting the code inside the method).
+\\
+\\
+The final implementation of IOSharp should look like the following figure.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[scale=0.75]{pictures/iosharp/iosharp-schema2}
+  \caption{Representation of the IOSharp \label{fig:interrupt-schema}}
+\end{center}\end{figure}
 
 \subsection{GPIO}\label{SS:GPIO}
 GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input with a certain level of voltage. Normally embedded systems work at 3.3V but low power devices can work at 2V.
@@ -196,34 +205,32 @@ Like the GPIO the triggering is configured on the SYSFS on a file called \verb!e
 The polling thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated function is called and this indicates that an interruption event occurred.
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
-\textcolor{red}{Potser seria interesant explicar mosi, miso, sclk, cs}
-The \gls{SPI} is one of the important features to be implemented on IOSharp. The SPI is a protocol used in embedded systems to communicate boards and components in a Master-Slave way. This protocol offers a full-duplex communication where the master and the slave can write and read at the same time on the channel. Normally this protocol accepts transmission frequencies in the range of 10 kHz to 100 MHz and in order to operate, the master configures its clock using a frequency less or equal to the maximum frequency supported by the slave which wants to communicate.
-
+The \gls{SPI} is one of the important features to be implemented on IOSharp. This protocol is used in embedded systems to communicate boards and components in a Master-Slave way. It offers a full-duplex communication channel where the master and the slave can write and read at the same time. Normally this protocol accepts transmission frequencies in the range of 10 kHz to 100 MHz and in order to operate the master configures its clock using a frequency less or equal to the maximum frequency supported by the slave which wants to communicate.
+\\
+Figure \ref{fig:spi-modules} show how is used a SPI bus, a master device can have several slaves attached to its ports. The minimal system is composed by three ports which are the bus itself, the \gls{MOSI} is the channel where the Master device writes and from where Slaves read the written information. The \gls{MISO} is the channel where the Master reads the information that the Slave writes. The \gls{SCLK} is used to set the clock of the system between the Master and the Slave. Finally for each Slave it must be \gls{CS} in order to select the slave that must active during the transmission.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
-  \includegraphics[width=1\textwidth]{pictures/iosharp/spi-modules}
-  \caption{SPI bus setup with one master and to slaves \label{fig:spi-modules}}
+  \includegraphics[scale=0.9]{pictures/iosharp/spi-modules}
+  \caption{SPI bus setup with one master and two slaves \label{fig:spi-modules}}
 \end{center}\end{figure}
 
-Both Netduino and RaspberryPi support the SPI communication protocol which makes easy the use of different modules. In case of this thesis, the SPI was required for HomeSense which make use of it to control the Nordic chip.
-
 \subsubsection{Designing the SPI}\label{SSS:IOSharp-SPI-Design}
-It was decided that the implementation of this component will be done in a similar way as it has been done in the interrupt port which has been explained on the previous section. The idea is to use the functions provided by the Linux Kernel by using the \verb!<linux/spi/spidev.h>! library. This makes easy the access to the SPI device, make the required configurations and write or read the channel.
+The SPI implementation has been carried out like the Interrupt Port explained in the section \ref{SS:IOSharp-Interrupt}. In this case it has been used the Linux Kernel by using the \verb!<linux/spi/spidev.h>! library which makes the control of a SPI device very easy.
 \\
-In Linux the SPI devices are mapped under the \verb!/dev/! directory with a convention naming like \verb!/dev/spidevX.Y! the \verb!X! is an integer and represents the device, a CPU can have multiple SPI devices so this number will indicate the device number, then the \verb!Y!, which is also an integer and it shows the Chip Enable, an SPI device can have multiple chip enablers, so it can has more than one slave.
+SPI devices are mapped under \verb!/dev/! directory with a naming like \verb!/dev/spidevX.Y! the \verb!X! is an integer and represents the device (a CPU can have multiple SPI devices so this number will indicate the device number), then the \verb!Y!, also an integer, enumerates the \gls{CS} (SPI devices have multiple chip selects, so they can have more than one slave).
 \\
 \\
-Before doing a transaction via the SPI bus this must be configured, first of all defining the operational mode. SPI modes are defined with the parameters Clock Polarity (CPOL) and Clock Phase (CPHA). Both are related to the sampling edge according to the clock (SCLK) used in the communication. The CPOL defines the polarity of the clock so the sampling will be done when de clock is in the edge low or in edge high according to the configured parameter, the second one, CPHA defines in which phase the sample must be done. This concept is much easy to understand using the figure \ref{fig:spi-modes} which shows the different CPHA and CPOL options with the equivalent SPI modes needed to configure the device in the C library.
+Before doing a transaction via the SPI this must be configured, first of all defining the operational mode. Modes are defined with the parameters Clock Polarity (CPOL) and Clock Phase (CPHA). Both are related to the sampling edge according to the clock (SCLK) used in the communication. The CPOL defines the polarity of the clock so the sampling will be done when de clock is in edge low or in edge high according to the configured parameter, CPHA defines in which phase the sample must be done. This concept is much easy to understand using the figure \ref{fig:spi-modes} which shows the different CPHA and CPOL options with the equivalent SPI modes required to be configured in the C library.
 
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.7]{pictures/iosharp/spi-modes}
-  \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the Clock (SCLK) state.\label{fig:spi-modes}}
+  \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the System Clock (SCLK) state.\label{fig:spi-modes}}
 \end{center}\end{figure}
 
-This modes must be configured using the \gls{IOCTL} function passing the \gls{FD} according to the SPI device and the desired Chip Enable, then the preprocessor macro, in this case the \verb!SPI_IOC_WR_MODE! which is defined in the \verb!spidev.h! and it is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro and corresponds to the operational mode explained before, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the ioctl function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
+This modes must be configured using the \gls{IOCTL} function passing the \gls{FD} according to the SPI device and the desired \gls{CS}, then the preprocessor macro \verb!SPI_IOC_WR_MODE! is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro which defines the operational mode, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the \gls{IOCTL} function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI Mode configuration}]
 uint8_t mode;
@@ -235,7 +242,7 @@ uint8_t mode;
     pabort("can't set spi mode");
 \end{lstlisting}
 
-Once the SPI mode has been configured a struct defining the transaction must be filled, this struct is the type of \verb!spi_ioc_transfer! specified in the \verb!spidev.h! library. This struct contains different variables, the \verb!tx_buf! and \verb!rx_buf! which are configured with the write and read buffers, \textcolor{red}{and are used as pointers???}. Apart from the buffers, the transmission length is configured using the variable \verb!len!. Then the delay is configured, this indicates how many microseconds the SPI driver must wait before starting the transmission, this is important because some slaves take awhile between they are selected and they are able to communicate, this is configured using the \verb!delay_usecs! variable. Another parameter to configure is the clock by using \verb!speed_hz!. In order to deselect a device before another transfer the parameter \verb!cs_change! must be true. Finally, to configure or override the wordsize of the transmission \verb!bits_per_word! is used.
+Once the SPI mode has been configured a struct defining the transaction must be filled, the struct type of is \verb!spi_ioc_transfer! specified in the \verb!spidev.h! library. This struct contains different variables, the \verb!tx_buf! and \verb!rx_buf! are configured with the write and read. Apart from the buffers, the transmission length is configured using the variable \verb!len!. Then the delay is configured, this indicates how many microseconds the SPI driver must wait before starting the transmission, this is important because some slaves take some time between they are selected and they are able to communicate, this is configured using the \verb!delay_usecs! variable. Another parameter to configure is the clock by using \verb!speed_hz!. In order to deselect a device before a transfer, the parameter \verb!cs_change! must be true. Finally, to configure or override the wordsize of a transmission the\verb!bits_per_word! is used.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI struct configuration}]
 struct spi_ioc_transfer tr = {
@@ -249,7 +256,7 @@ struct spi_ioc_transfer tr = {
   };
 \end{lstlisting}
 
-After configuring this struct, it can be passed to another ioctl call which will make the transfer it self, in this case, along with the \gls{FD} corresponding to the SPI device another preprocessor macro is passed as a parameter, this one is called \verb!SPI_IOC_MESSAGE! and must include the number of transfers that will be executed together, in case of IOSharp the ir only a transfer at a time, so the parameter will look like \verb!SPI_IOC_MESSAGE(1)!, finally the struct commented above is included in the ioctl call.
+Once the struct is configured another ioctl call is done which makes the transfer it self. In this case, along with the \gls{FD} corresponding to the SPI device another preprocessor macro is passed as a parameter, this one is called \verb!SPI_IOC_MESSAGE! and must include the number of transfers that will be executed together, in case of IOSharp there is only one transfer per call, so the parameter will look like \verb!SPI_IOC_MESSAGE(1)!, finally the struct commented above is included in the ioctl call.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI transfer}]
 // Pass the preprocessor macro and the spi_ioc_transfer struct.
@@ -257,9 +264,9 @@ ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 \end{lstlisting}
 
 \subsubsection{Implementation in C\#}\label{SSS:IOSharp-SPI-Implementation-CSharp}
-After writing the library part in C is time to modify IOSharp to add the necessary calls to this library in order to make Micro Framework use the SPI in Linux. In this case the calls will be done in a similar way as it has been done in the Interrupt part (\ref{SS:IOSharp-Interrupt}). In this case some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
+After writing the library part in C is time to modify IOSharp to add the necessary calls to this library in order to make Micro Framework use the SPI in Linux. In this case the calls will be done in a similar way as it has been done in the interruptions (\ref{SS:IOSharp-Interrupt}). In this case some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
 \\
-Essentially the method will be the same, do a P/Invoke from C\# in order to call the functions in the library. To facilitate the data exchange between the program and the library a struct is used, this contains the basic information in order to do the configurations explained on the previous section. This struct must be written in the header file of the library and also must be written in the C\# code. First of all the SPI implementation in Micro Framework is divided into two blocks, the first one represents the port configuration which is used to set the different properties that can be used with the SPI, for example the clock rate, the setup time of the slave, the SPI modes (CPHA and CPOL), etc. The second block, which is the SPI itself uses the configuration commented above to create an SPI instance, along with the configuration the required pins for the\gls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls{CS} are obtained and reserved, so the used can not create a port (for example an input or an output) over this pins.
+Essentially the method will be do a P/Invoke from C\# in order to call the functions in the library. To facilitate the data exchange between the program and the library a struct is used, this contains the basic information in order to do the configurations explained on the previous section. This struct must be written in the header file of the library and also must be written in the C\# code. First of all the SPI implementation in Micro Framework is divided into two blocks, the first one represents the port configuration which is used to set the different properties that can be used with the SPI, for example the clock rate, the setup time of the slave, the SPI modes (CPHA and CPOL), etc. The second block, which is the SPI itself uses the configuration commented above to create an SPI instance, along with the required pins for the \gls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls{CS}.
 \\
 When the SPI instance is created, the methods will be able to be used, basically there are different overloads of the \verb!Write! and \verb!WriteRead! methods, but all of them end calling the same internal function which will do the P/Invoke to the library.
 
@@ -270,7 +277,7 @@ When the SPI instance is created, the methods will be able to be used, basically
   \caption{UML representation of the SPI Configuration Class (Left) and the SPI Port (Right) \label{fig:spi-uml}}
 \end{center}\end{figure}
 
-In order to pass the configuration to the library, the configuration object is converted to a struct which its variables are the same as the struct from the header file of the library. This struct will be the one that is passed with the P/Invoke to the C implementation.
+In order to pass the configuration to the library, the configuration object is converted to a struct which its variables are the same as the struct from the header file of the library. This struct will be the one that is passed to the C library.
 \\
 The code shown below corresponds to the header file and represents the struct that will be interchanged between the two languages.
 
@@ -284,7 +291,9 @@ typedef struct spi_config
 } SPI_CONFIG;
 \end{lstlisting}
 
-In this case, this struct represents the C\# implementation, it contains the same parameters as the C versions and also implements a constructor which simplifies the conversion between the Configuration class and this structure, the important thing in this case is the \verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]! which is the attribute of the struct which is used by the P/Invoke to know how to serialize the structure and also which encoding must be applied to it when is passed to the library.
+The listing below represents the C\# implementation of the C struct used for the pin configuration, it contains the same parameters as the C version and also implements a constructor which simplifies the conversion between the Configuration class and this structure, the important thing in this case is the
+\\
+\verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This attribute is used by the P/Invoke to know how the marshalling must be done when is passed to the library.
 
 \begin{lstlisting}[language=CSharp, caption={SPI.cs - spi\_config struct}]
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -311,7 +320,7 @@ public struct spi_config {
 }
 \end{lstlisting}
 
-Using this method the configuration is passed to the library so SPI can work just as the developer wants. It is also interesting to remark that the buffers for the incoming or the outgoing data are not returned from C to C\# but the buffers have been read and written so C takes the pointer of that buffer, which is the same as the C\# and then writes or reads the information from there. 
+It is interesting to remark that the \gls{TX}/\gls{RX} buffers are not returned from C to C\# but the buffers have been read and written so C takes the pointer of that buffer, which is the same as the C\# and then writes or reads the information from there. 
 
 \subsection{UART}\label{SS:IOSharp-UART}
 UART is a really simple protocol that uses an asynchronous serial communication between two devices. As figure \ref{fig:uart-modules} shows, each device have two ports which are the \gls{TX} for transmissions and \gls{RX} for receptions. The transmission port must be connected to the reception port on the other device. Both devices must share the ground.
@@ -334,23 +343,27 @@ First of all and trying to avoid a new implementation of a SerialPort the classe
   \caption{UML SerialPort representation of the original .NET Framework (Left) and .NET Micro Framework (Right)\label{fig:serialport-uml}}
 \end{center}\end{figure}
 
-Is important to remark that IOSharp in Linux runs on Mono implementation of the .NET Framework classes, and in this case the SerialPort class has some disadvantages on Mono version, basically they do not support events such as \verb!DataReceived! or \verb!ErrorReceived! because the functions have not been implemented on its internal runtime.
+Is important to remark that IOSharp in Linux runs on Mono implementation of the .NET Framework classes, and in this case the SerialPort class has some disadvantages on Mono version, basically it does not support the \verb!DataReceived! or \verb!ErrorReceived! events because the functions have not been implemented on its internal runtime.
 
 \section{Port Mapping}\label{S:Port-Mapping}
-In order to make IOSharp portable between hardware platforms a port mapping must be done. The idea is to map the underlying hardware to variables in order to be used on the upper-layer taking into account its GPIO ports, the SPI devices and its corresponding ports and the Serial Pins.
+Although IOSharp is a cross-platform library some features require a specific configuration when deploying in different boards. Every board has its own port mapping and naming so it is necessary to have a specific library to describe that board.
+\\
+This is similar to the \gls{HAL} and \gls{PAL} concept:
+\begin{itemize}
+\item \textbf{HAL:} Hardware Abstraction Layer. In this case Linux acts as a HAL offering simple APIs to use features likes the kernel driven SPI device or the GPIO exposed in the SYSFS.
+\item \textbf{PAL:} Platform Abstraction Layer. Is the library that must be implemented in order to exploit the HAL functionalities. In this case, the Raspberry Pi requires a library to remap the GPIO pins or the SPI device to the name that the HAL uses.
+\end{itemize}
 
 \subsection{HardwareProvider}\label{SS:HardwareProvider}
-In fact, the original NETMF supports a hardware descriptor called HardwareProvider which do the mentioned things. The Raspberry Pi was the target platform for this project so a hardware descriptor was written, below is represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In this pins are located the GPIO, two SPI devices, two UART ports and an \gls{I2C} bus.
+In fact, the original Micro Framework supports a hardware descriptor which represents the \gls{PAL} of the Raspberry Pi and is called \verb!HardwareProvider!. Raspberry Pi is the target platform for this project so a hardware descriptor was written, below are represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In the image are also shown where are the different pins used for the SPI and the \gls{I2C}.
 
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.30]{pictures/iosharp/mapping-raspberrypi}
-  \caption{Raspberry Pi available ports\label{fig:mapping-rpi}}
+  \caption{Raspberry Pi pin mapping according to the GPIO\label{fig:mapping-rpi}}
 \end{center}\end{figure}
 
-The mapping has been divided on two classes, the first one maps the Pins so it will contain the references to the platform pins, in case of this thesis, both versions are mapped.
-The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. For the SPI the device is called spidev0.0 and spidev0.1 in case of the Raspberry Pi, this shows basically that there are two SPI devices which shares the MISO, MOSI and SCLK pins it has two different chip selects so it can connect to two different slaves. In case of the UART it is also represented as a device and will have a name like \verb!/dev/ttyAMA0! in case of Raspberry Pi.
+The mapping has been divided into two classes, the first one maps the Pins so it will contain the naming according to the platform pins, in case of this thesis, both versions are mapped.
 \\
-\\
-This is not the unique case, for example the Netduino provides the same classes for the pins for the CPU.
+The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. Raspberry Pi SPI device can have two slaves by using the \verb!spidev0.0! and \verb!spidev0.1!. This indicates that there are one device capable of having two slaves. The MISO, MOSI and SCLK pins are shared whereas each slave has its own chip select. In case of the UART it is also represented as a device and is named \verb!/dev/ttyAMA0! on the Raspberry Pi.

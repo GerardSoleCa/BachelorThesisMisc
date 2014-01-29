@@ -2,68 +2,66 @@
 In this chapter it will be explained how was defined and architected, designed and implemented the core of IOSharp disaggregating the different parts and explaining each one.
 \\
 \\
-First of all it will be explained the project design explaining which two options where at project definition, then the implementation is explained for the different IO ports and communication standards used in this project. Finally, it will be explained how is done the port mapping to work between different boards and devices.
+First of all it will be explained the project design evaluating the two options at project definition, then the implementation is explained for the different I/O ports and protocol standards used in this project. Finally, it is explained how is done the port mapping to work between different boards and devices.
 
 \section{Planning the development}\label{S:IOSharp-Design}
-At project start, the development was focused on a tiny Linux board called RaspberryPi. This device was designed by RaspberryPi Foundation in England taking in mind the kids around the world and helping them to provide cheap tools to be introduced in computer science. It is an interesting board for its features, offering basic IO using the provided GPIOs, it also provides a SPI module for peripheral communication, an I$^{2}$C and UART interface also for transmissions between external components and the device itself.
+At project start, the development was focused on a tiny Linux board called Raspberry Pi. This device was designed by Raspberry Pi Foundation in England taking in mind the kids around the world introducing them in computer science. It is an interesting board for its features like basic I/O through GPIOs, \gls{SPI} for serial peripheral communication, \gls{I2C} and UART interface also for transmissions between external components and the device itself.
 \\
-In addition to the interfaces mentioned above, it also has some desktop interesting features like USB ports which practically can accept any device that works on Linux for instance a WiFi, Bluetooth, ZigBee or any stick for wireless transmissions, HDMI for graphics and user interface and Ethernet for network communications. Apart from this IO characteristics, it also mounts a decent ARMv6 (CPU) running at 700MHz on stock frequency and being overclocked to 1GHz without problems. Together with the CPU 512MB of RAM are provided which is enough for normal desktop usage (surfing, emailing and office) and for embedded projects.
+In addition to the interfaces mentioned above, it also has some desktop interesting features like USB ports which practically can accept any device that works on Linux for instance a Wi-Fi, Bluetooth, ZigBee or any stick for wireless transmissions, HDMI for graphics and Ethernet for network communications. Apart from this I/O characteristics, it also mounts a decent ARMv6 (CPU) running at 700MHz on stock frequency along with 512MB of RAM which are enough for normal desktop usage (surfing, emailing and office) and for embedded projects.
 \\
 \\
-After choosing the target device, two implementing options where designed and analysed. Each one has its own benefits and problems that are going to be explained in the following sections. As an introduction to the options that were considered where the use of the specific tools and libraries for the RaspberryPi and its CPU, this should help on achieving high efficiency when deployed on the device. On the other hand, trying to develop the project as widely as possible to give the chance of running under any Linux (or similar operating systems like Unix or Android) avoiding the exclusion of other devices.
+After choosing the target device, two implementation options were suitable for this project so each one was analysed. Each one has its own benefits and problems that are going to be explained in the following sections. As an introduction to the options that were considered are the use of the specific tools and libraries for the Raspberry Pi and its CPU, this should help on achieving high efficiency when deployed on the device but on the other hand, there was the idea to develop the project in a manner that it could be executed in any device running a Linux/Unix Kernel by doing this many boards can be compatible with this solution.
 
-\subsection{Focused on RaspberryPi}\label{SS:IOSharp-RPI}
-Initially IOSharp was started taking in mind the Raspberry Pi computer, a library written on native C was found. Using this library let native control over all the features provided by its CPU including a wide range of pins for the GPIO, different protocol communications like \gls{SPI} and \gls{UART} and other features like \gls{PWM} in some pins.
+\subsection{Focused on Raspberry Pi}\label{SS:IOSharp-RPI}
+Initially IOSharp was started focusing on the Raspberry Pi so a search was done in order to find useful libraries for this project one of the results was a native C  library. This library gives control over all the features provided by the microprocessor integrated on the board which includes a wide range of \gls{GPIO} pins, different protocol communications like \gls{SPI} and \gls{UART} and other features like \gls{PWM}.
 \\
-This methodology is interesting when is important to achieve high performance on the execution of the programs that make use of its hardware, in this case the modules of the CPU are used on a low-level way by changing its registers. This normally let the programs run faster, but in principle this is not required for HomeSense usage, although later in this thesis it will be explained that the performance of HomeSense has not been as it should be.
+This method is interesting when achieving high performance on the programs is important so using the library the CPU features are used on a low-level way by using the CPU registers. This normally let the programs run faster but the programs only work on platforms using the same CPU or in other words is a specific hardware implementation.
 \\
-The library written for the bcm2835 is the one that should be used in case of this methodology is chosen. The idea is to make calls from C\# to this library using a specific call methodology that will be explained on future sections on this thesis.
+The library written for the \gls{BCM2835} is the one that should be used in case of a program had high performance requirements. The idea is to make calls from C\# to this library using a specific call methodology that will be explained on future sections on this thesis.
 
 \subsection{Focused on Linux}\label{SS:IOSharp-Linux}
-It may also be interesting to get a wider public for IOSharp because more users implies more implementations, tests and in general feedback for the development and improvement of this project. The idea is to make it run on any devices capable of execute C\# and C code and in general any device that runs Linux or any similar stack like Unix, Android, being able to use hardware features such us the GPIOs, SPI, serial port, ...
+Thinking on a more wider way it could be interesting to make IOSharp available to much more devices or even real computers. This implies more developers using this software which can provide useful feedback that is interesting for the improvement and evolution of the library. Any computer running some kind of Linux Kernel should be able to use this software facilitating the usage of the the hardware features.
 \\
-In case of this project, it has been chosen to develop using this method because Linux offers the appropriate tools like the SPI Kernel functions or the mapping of Ports through the user space. To use any of this features, the modules must be loaded to the Kernel in order to have access to this functions or devices.
+The idea is use C\# combined with C to generate cross-platform assemblies which making use of Mono can run practically on any Linux device but this has a little drawback related with the performance. Mono is a virtual machine which executes .NET code (C\#), the implementation of this VM is not as good as the .NET framework on Windows so normally the performance of the programs running on it is not really good.
+
+\subsection{Chosen implementation}\label{SS:IOSharp-choosen}
+Finally the chosen strategy was use the Linux approach because it offers the appropriate tools like the \verb!spidev.h! to manage the SPI or even the GPIO mappings through the \gls{SYSFS}. To use any of this features the only requirement is that the necessary modules must be loaded into the Kernel.
 \\
-Apart from this, the Micro Framework offers the possibility to configure the port mapping to the corresponding pins and devices of its underlying hardware. Apart from this, implementations of C will be used in order to exploit the functions provided by the Linux Kernel as it has been commented before.
+Apart from this, Micro Framework natively offers the required classes to configure the port mapping according to the pins and devices of the underlying hardware.
 \\
-In short, IOSharp will be capable of run in any platform that uses Linux such as the RaspberryPi, a Cubieboard or a standard desktop.
+Apart from this, a C library will be written to interact with the functions provided by the Linux Kernel to control the \gls{SPI} and the \gls{GPIO}s.
+\\
+In short, IOSharp will be able to run in any platform that uses Linux such as the Raspberry Pi, a Cubieboard or even a standard desktop.
 
 \section{Implementation}\label{S:Implementation}
-Remember that as it was explained on the introduction, the goal of this thesis is deploy and run successfully the HomeSense platform on a RaspberryPi. Taking in mind this, some modules where required to develop in order to accomplish with this requirement. In this case the GPIO, Interrupts, SPI and UART need to work in order to use the different components of HomeSense.
+\textcolor{red}{Remember that as it was explained on the introduction, the goal of this thesis is deploy and run successfully the HomeSense platform on a RaspberryPi. Taking in mind this, some modules were required to develop in order to accomplish with this requirement. In this case the GPIO, Interrupts, SPI and UART need to work in order to use the different components of HomeSense.}
 
 \subsection{GPIO}\label{SS:GPIO}
-In order to implement the GPIO ports in NETMF it will be used the IOPorts.cs file which contain the structure for Input, Output, Tristate and Interrupt ports, the first three will be explained in this section whereas the interrupt port will have a dedicated one.
-\\
-Below is explained the different options on implementing GPIOs in Linux, which has been chosen and how has been implemented in this project.
+GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input with a certain level of voltage. Normally embedded systems work at 3.3V but low power devices can work at 2V.
 
 \subsubsection{Implementation Options}\label{SSS:Implementation-Options}
-GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input. Normally embedded systems work with ports at 3.3V, other devices had low power supply like 2V. And it is not strange that many of them are tolerant to 5V in input.
+In order to implement the GPIO ports in Micro Framework it will be used the \verb!IOPorts.cs! file which contains the structure for Input, Output, Tristate and Interrupt ports, the first three will be explained in this section whereas the interrupt port will have a dedicated one.
 \\
-In case of the Netduino and RaspberryPi the ports on both devices run at 3.3V and also the different test hardware modules used in this thesis.
+The GPIOs in Linux can be controlled in several ways, the most common and simple is use the \gls{SYSFS} which stands for a set of directories with readable and writeable files representing the ports of the CPU. On the other hand the Linux kernel also provides a library to control the pins.
 \\
+The decision must be done between this two systems, in order to use any of this solutions the GPIO module must be loaded into the kernel, many desktop Linux distributions have GPIOs disabled and that's why the kernel must be recompiled enabling this feature.
 \\
-The GPIOs in Linux can be controlled in several ways, the most common and simple is use the userspace which stands for a set of directories with readable and writeable files representing the ports of the MCU or CPU. On the other hand the Linux kernel also provides a library and a module in order to control the different pins.
+In case of Linux operating systems designated for embedded devices, for example the Raspberry Pi or CubieBoard, will have the I/O Ports enabled by default.
 \\
-The decision must be done between this two systems, in order to use any of this solutions the GPIO must be activated in kernel, many desktop Linux distributions have GPIO disabled and that's why the kernel must be recompiled enabling this feature. Basically GPIOs and SYSFS must be activated on kernel configuration, after compiling and installing the new kernel both methods will be enabled.
-\\
-In case of Linux operating systems designated for embedded devices, for example the RaspberryPi or CubieBoard, will have the Input/Output Ports enabled by default.
-\\
-One of the most curious things that where found at studding this possibilities was that Android is capable to use this ports. Although it cannot seem an interesting feature nowadays android is everywhere and can run in many devices, so is another reason to try to fetch this this sector in future versions of this software.
+It is interesting to point that Android is capable to use GPIO ports for example. Although it cannot seem an interesting feature nowadays android is everywhere and can run in many devices, so this is another reason to try to fetch this sector in future versions of IOSharp.
 
 \subsubsection{Using GPIO from SYSFS}\label{SSS:IOSharp-GPIO-SYSFS}
-Since each solution can be used in this project and both are available in any Linux OS when the kernel is properly compiled the chosen option was control the GPIO through the SYSFS in order to simplify both the development and the testing.
-\\
-Use the Input/Output ports using the userspace is really simple and that one of the biggest reasons, the easiness of testing and debugging the functionality. It is easier to read or write a file in order to test if the control of the GPIOs is successful rather than debugging a C function embedded in a library.
+Since each solution can be used in this project and both are available in any Linux it was decided to use the SYSFS access because it is much easier to use and test the implementation. It only requires having read/write access to a certain set of files and directories and by reading or writing in this ones is possible to change the port states.
 \\
 \\
-As it was said before, in userspace the control of the GPIOs is carried by several files and directories located under \textit{/sys/class/gpio} directory. In this directory there are two files which are called export and unexport, the first one is used to enable a GPIO while the second one will be used to disable it. After enabling a GPIO a new folder will be created representing the enabled port, for instance if port 2 is enabled, a folder called gpio2 will be created. Inside this new folder there will be several files, the direction file describes how port should work, if the desired function is as an input port an "in" must be written in the file whereas "out" must be write for an output port. After setting the port direction the value file comes in which will do the functions of reading the port in case of input ports, or write 0 or 1 through it if the port is described as an output. To do this, just read this file to read an incoming value, or write 1 for active-high or 0 for active-low.
+As it was said before, in SYSFS the control of the GPIOs is carried by several files and directories located under \verb!/sys/class/gpio! directory. In this directory there are two files which are called \verb!export! and \verb!unexport!, the first one is used to enable a GPIO while the second one disables it. After enabling a GPIO a new folder is created representing the enabled port, for instance if port 2 is enabled, a folder called gpio2 will be created. Inside this new folder there are several files, the \verb!direction! file describes how port should work, if the desired function is as an input port an \verb!in! must be written in the file whereas \verb!out! is used for an output port. After setting the port direction the next relevant file is \verb!value! which is used to set the port state in case of an Output Port (write 0 for a state-low or a 1 for a state-high) or in case of an Input Port it will read the incoming value through the port.
 
 \subsubsection{Implementing in NETMF}\label{SSS:Implementing-GPIO-NETMF}
-Taking in mind that this implementation has to be done over the existing code extracted from the \textit{IOPorts.cs} is important to design how to do it properly, in this case a \textbf{GPIOManager} has been created using a singleton pattern, in order to restrict one instantiation of this class among all the code, and simplify the use of this class.
+Taking in mind that this implementation has to be done over the existing code extracted from the \verb!IOPorts.cs! file, is important to design how to do it properly, in this case a \verb!GPIOManager! has been created using a singleton pattern. This class will restrict the number of instantiations that a port can have in order to avoid problems on the hardware. The instance of this singleton is shared across all the code.
 \\
-This manager will be in charge of enabling, disabling and operating the different ports. Also it will control which ports are enabled in order to avoid problems, \textcolor{red}{i.e instantiating the same port twice will make the GPIOManager throw an exception so it can prevent hardware damages.}
+This manager will be in charge of enabling, disabling and operating the different I/O ports. Apart from this it also controls if a port is instantiated to avoid problems related to instantiate two port types in a unique pin.
 \\
-For GPIO implementation Output, Input and Tristate ports will be required, below you can see how look the classes provided by NETMF. This classes will consume the GPIOManager explained above.
+The figure \ref{fig:gpio-uml} shows the UML diagram of the \verb!IOPorts.cs! file from Micro Framework. Each class uses the \verb!GPIOManager! to control the read/write functions and port creation.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -72,15 +70,19 @@ For GPIO implementation Output, Input and Tristate ports will be required, below
   \caption{UML Diagram of NETMF Port and its inheritance \label{fig:gpio-uml}}
 \end{center}\end{figure}
 
-As is shown each Port type inherit from Port object which implements the methods to enable or disable a port (Port and Dispose methods), Read which is used to obtain the current state of the port i.e read an input value or know in which state is configured the output port. Finally it also has a ReservePin and as its name says, it is used to reserve a pin for future usage. Taking a look on the left box it can be seen the InputPort which inherits from Port. It does not have any special method and its constructor suppers to Port class. On the right side there is an OutputPort also inheriting from Port which implements a new method called Write that its used to write a state through the port, active high or active low. TristatePort also inherits from OutputPort, a NETMF TristatePort is a type of port capable of commuting between input or output port, i.e with a TristatePort is possible to control 2 leds which one of them is connected in pull-up and the other one in pull-down, so with this TristatePort is possible to light one, the other, if it is configured as an output port either on active high or low, or turning the TristatePort to an input port will avoid the lightning of any led.
+As is shown each port type inherits from the \verb!Port! object which implements the methods to enable or disable a port. \verb!Read! method is used to obtain the current state of the port i.e read an input value or even know the configured state in an output port. Finally the \verb!ReservePin! method permits to reserve a pin for a future usage.
+\\
+The \verb!InputPort! inherits from Port and it does not have any special method apart from its constructor which bases to the \verb!Port! class. 
+\\
+The \verb!OutputPort! which also inherits \verb!Port! implements a new \verb!Write! method which is used to write a state through the port (active-high or active-low).
+\\
+The \verb!TristatePort! inherits from \verb!OutputPort!. This port can change its functional work between an input or an output mode.
 
-\subsection{Interrupt}\label{SS:IOSharp-Interrupt}
-After implementing the GPIO and taking in mind the requirement of HomeSense an interrupt system was needed for the future \gls{SPI}  code block. Although the \gls{BCM2835} supports native interruptions via \gls{IRQ} at the time of this project the RaspberryPi did not support GPIO interruptions from the Linux Kernel using \gls{IRQ}, but when this thesis was being written this interrupt types where implemented. It was decided to maintain the current implementation to avoid problems of the same kind in other platforms and devices.
+\subsection{Interruptions}\label{SS:IOSharp-Interrupt}
+The interruptions which are needed for the interruptions that are required in the HomeSense program when using the \gls{SPI}. Although the \gls{BCM2835} supports native interruptions via \gls{IRQ} at the time of this project was developed the Raspberry Pi did not support GPIO interruptions using \gls{IRQ}.
 
 \subsubsection{Designing the Interruptions}\label{SSS:IOSharp-Interrupt-Design}
-The interruption system will be written in C because of the simplicity to detect an interruption on a GPIO port, after doing some research a solution was found which uses a C function called poll, this is commonly used by developers that want to intercept GPIO interruptions in Linux environments where IRQ interruptions from GPIO are not available. The poll function is configured to wait certain events on a \gls{FD} obtained from the GPIO file enabled on the SYSFS in a similar way as it was explained in the \ref{SS:GPIO} GPIO section. The poll is configured to wait the execution of the file until the POLLPRI event is detected. This event will be triggered by the OS when the file had urgent data to be read and the poll function will collect this event and then will continue executing code block which basically will read the state of the port (active high or active low). As it is really important to notify the running program of an interruption on the port, a delegate will be used, this delegate is configured by the developer on the \verb!OnInterrupt! using NETMF and basically it contains three parameters which are the port, the state and the time of the event.
-\\
-The interruptions can be disabled at any time and the port can also be disposed.
+The interruption system has been written in C in order to use a function called \verb!poll! which is commonly used by developers that want to detect GPIO interruptions using the SYSFS. The \verb!poll! function must be configured to wait and block until certain events occur on a \gls{FD} corresponding to a GPIO port enabled on the SYSFS. This function is configured to wait and block the program execution until the a \verb!POLLPRI! event on the \gls{FD} is detected. This event will be triggered by the OS when the file had urgent data to be read. Poll function will dectect the event and then will proceed with the following instructions to read different parameters from the port (i.e. the port state). Then, in C\# a delegate pattern will be used to notify to the upper layers of the program that interruption. The developer will configure the function which acts as the delegate by passing it to the \verb!OnInterrupt! property in the Interrupt Port.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -90,52 +92,18 @@ The interruptions can be disabled at any time and the port can also be disposed.
 \end{center}\end{figure}
 
 \subsubsection{Platform Invocation Services}\label{SSS:IOSharp-Interrupt-PInvoke}
-In C\# is possible to invoke external libraries which they do not have to be written in the same language, in this case the library has been written in C and then compiled into a shared library making it available to any program suitable for it, IOSharp in this case.
-\\
-The Platform Invocation Services is the methodology that has been chosen to do this external calls to written libraries. This calls are known as P/Invokes and are used to call unmanaged code from managed code. 
-
-\begin{itemize}
-  \item 
-  \textbf{Static Library}
-  \\
-  This kind of library is that one that is imported while programming, and when the source code is the library is linked statically in the generated binary, this means that the compiler takes the library functions used along the program and then are embedded statically to the compiled binary, in this way, the functions are fiscally located with the program. 
-\\
-For example, imagine that you create a library with 3 functions, called \verb!get_password()!, \verb!generate_token()! and \verb!hash(char[] plain())!,  but in the current project you only use two of this functions, which are \verb!get_password()! and \verb!get_token()!. When the compiler builds the project code will only take the functions from the library that are currently used in the program and then insert them into the binary. At this point, deleting that library won't affect the generated binary, and it will be able to use it without any dependency problems related to missing libraries (dependencies).
-\\
-The typical files for this type is .lib for Windows and .a for UNIX systems.
-  
-  \item
-  \textbf{Dynamic Library}
-  \\
-  In order to avoid the replication of libraries that occurs in static ones, the dynamic libraries were created. This type of libraries is normally used along the operating systems to let applications use the offered functions and APIs written from the OS. In this case, and instead of the functional way of static libraries, any function from the library will be embedded on the generated binary, in this case is important to check that the dependencies are well satisfied when the binary is used, because a missing dependency will break the execution.
-
-In this case, the usual extension files are .dll for Windows and .so for UNIX. But .so files are also used in Windows, especially in web browsers, which use this types of library to load browser plugins such us Flash.
-
-There are two subtypes of dynamic libraries which are explained below:
-  \begin{itemize}
-    \item 
-    \textbf{Dynamically Linked}
-  	\\
-  	These libraries must be available at compiling/link phase, because the compiler will verify that the function exists and that it is used properly. The libraries will be loaded at start time of the program. In this case, all the functions are mapped into the code.
-    \item
-    \textbf{Dynamically Loaded}
-    \\
-    Instead of the previous library, the dynamic loading is used by programs to load or unload libraries and use its functions at run time. When the program needs to use a function it loads the library, then it uses the required functions and finally the library is unloaded again.
-    \end{itemize}
-\end{itemize}
-
-\textbf{Pros and cons}
-\\
-The main problem of using static libraries is that the compiled binary takes much more memory and the library is embedded in every program that needs some functions from that library. But, on the other hand, using static libraries the access to its functions by programs is much fast than dynamic ones. Using them also avoids dependency problems, because the dependencies are embedded instead of being located in the file system like dynamic ones.
-\\
-Regarding the dynamic libraries, they help to avoid replications and memory consumption, and also help to maintain the library updated in all programs that use them, although this can seem pretty good, it can have two bad effects into the generated program. First of all, if the library is missing in the system, the program will not run or will crash in execution time. Secondly, if the library is updated but some methods are changed, the program will crash because the non-existing function, and it will be necessary to readjust the code again, recompile and redistribute it.
+In C\# is possible to invoke external libraries which are not written in the same language. In this case, the library used for the interruptions is written in C and it will be compiled into a shared library making it available to any program, or in this case, IOSharp.
 \\
 \\
-P/Invokes in .NET makes use of dynamic loaded libraries in order to use the contained functions. The implementation difficulty of P/Invokes increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int!, \verb!long!, \verb!byte!, etc is really simple to make a P/Invoke call, but when passing object parameters things get much difficult because they must be passed to unmanaged code which sometimes can be impossible to do without using structs as interchange objects.
+Take a look into the appendix \ref{S:appendices-libraries-types} to know more about the different library types.
 \\
 \\
-Below is shown the important parts of the implementation of the library and how P/Invoke is done in C\#.
-
+P/Invokes in .NET make use of dynamic loaded libraries in order to use the contained functions. The implementation difficulty of a P/Invoke increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int!, \verb!long!, \verb!byte! is really simple to make a P/Invoke call, but when passing object parameters things get much more difficult because this requires doing marshalling in this objects. Marshalling is similar to serializing but maintaining some information related to the object. The marshalling is used to pass from managed to unmanaged code and sometimes is impossible without using intermediate structs as interchange objects.
+\\
+\\
+Below are shown the important parts of the implementation of this library and then how P/Invoke is done in C\# code.
+\\
+This first block shows the function which is used to detect the interruptions on the GPIOs. The interesting parts are commented explaining what they do or what some macros mean.
 \begin{lstlisting}[language=C, caption={IOSharp.c - Polling function}]
 uint64_t start_polling(int pin) {
     struct pollfd fdset;
@@ -168,7 +136,7 @@ uint64_t start_polling(int pin) {
     return t;
 }
 \end{lstlisting}
-
+After writing the function this must be exposed using a header file which is shown below.
 \begin{lstlisting}[language=C, caption={IOSharp.h - Header file for the library}]
 #ifndef IOSHARP_H_INCLUDED
 #define IOSHARP_H_INCLUDED
@@ -178,7 +146,7 @@ uint64_t start_polling(int pin);
 
 #endif
 \end{lstlisting}
-
+And finally this block represents how is done a P/Invoke in a C\# program. The function is exposed using a \verb!public static extern! and then an attribute is attached which corresponds to the \verb!DllImport! which specifies the shared library to call.
 \begin{lstlisting}[language=CSharp, caption={GPIOManager.cs - P/Invoke section}]
 // The function which calls the external function
 private void Listen(object obj) {
@@ -197,16 +165,14 @@ public static extern ulong start_polling(int gpio);
 \end{lstlisting}
 
 \subsubsection{Final implementation}\label{SSS:IOSharp-Interrupt-Implementation}
-After defining and writing the library, and studding how to make calls to native functions it was time to code de final implementation making work together, the library and the IOSharp code. In this case, the program flow is shown on Figure \ref{fig:interrupt-schema}. The Interrupt Port inherits from Input Port as Figure \ref{fig:interrupt-schema} shows.
-
+The program flow is shown on Figure \ref{fig:interrupt-schema} which represents the steps that IOSharp does for the interruptions system. The Interrupt Port inherits from Input Port as Figure \ref{fig:interrupt-uml} shows.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[width=1\textwidth]{pictures/iosharp/interrupt-schema}
   \caption{Representation of the Interrupt Port flow \label{fig:interrupt-schema}}
 \end{center}\end{figure}
-
-The idea is to do the exact same steps like the other ports do, the GPIO enabling is done by the Port implementation which is the base class for Input Port, then the port type is set to be an Interrupt Port, after this is important to configure the triggering. NETMF boards usually supports four kinds of interruptions whereas Linux supports a few less, in the following table is shown which are supported. It is important to know that the Edges are the point where the port changes from one state to another one, and the Level is used for to trigger interruptions where there is a continuity on a certain state.
+The idea is to do the exact same steps like the other ports do, the port enabling is done by the Port implementation which is the base class for Interrupt Port, then the port type is set to be an Interrupt Port, after doing this is the triggering must be configures. Micro Framework boards usually support four kinds of interruptions whereas Linux supports a few less, in the table \ref{T:Interrupt-Trigger-Types} are shown the ones that are supported. It is important to know that the edges are the point where the read state changes from one level to the other one. The Level is used when the state is maintained several time without changing.
 
 \begin{table}[htb]
 \begin{center}
@@ -225,9 +191,9 @@ InterruptEdgeLevelLow        & X    &        \\ \hline
 \end{center}
 \end{table}
 
-Like the GPIO the triggering is configured on the SYSFS on a file called edge located inside of the enabled GPIO folder, this file can be configured on three different ways without counting on None interruptions. In order to configure EdgeLow interruptions the word \textit{falling} must be written, in case of EdgeHigh will be used \textit{rising} and finally \textit{both} is used for EdgeBoth.
+Like the GPIO the triggering is configured on the SYSFS on a file called \verb!edge! located inside of the enabled GPIO folder. This file can be configured on three different. \verb!EdgeLow! interruptions require the word \textit{falling} be written in that file, in case of \verb!EdgeHigh! \textit{rising} is used and finally \textit{both} is for \verb!EdgeBoth!.
 \\
-Once the triggering is configured IOSharp will wait for a delegate to be configured by the user in which will receive the interrupt events, once a delegate is passed to the OnInterrupt a thread will be assigned to the task of polling a GPIO using the library previously explained. This thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated passed by the user is called and in this way the interruption event is passed straight to the program which uses IOSharp. Finally the interrupt port can be disabled as the other ones.
+The polling thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated function is called and this indicates that an interruption event occurred.
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
 \textcolor{red}{Potser seria interesant explicar mosi, miso, sclk, cs}
@@ -291,16 +257,17 @@ ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 \end{lstlisting}
 
 \subsubsection{Implementation in C\#}\label{SSS:IOSharp-SPI-Implementation-CSharp}
-After writing the library part in C is time to modify IOSharp to add the necessary calls to this library in order to make Micro Framework use the SPI in Linux. In this case the calls will be done in a similar way as it has been done in the Interrupt part (\ref{SS:IOSharp-Interrupt}. In this case some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
+After writing the library part in C is time to modify IOSharp to add the necessary calls to this library in order to make Micro Framework use the SPI in Linux. In this case the calls will be done in a similar way as it has been done in the Interrupt part (\ref{SS:IOSharp-Interrupt}). In this case some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
 \\
 Essentially the method will be the same, do a P/Invoke from C\# in order to call the functions in the library. To facilitate the data exchange between the program and the library a struct is used, this contains the basic information in order to do the configurations explained on the previous section. This struct must be written in the header file of the library and also must be written in the C\# code. First of all the SPI implementation in Micro Framework is divided into two blocks, the first one represents the port configuration which is used to set the different properties that can be used with the SPI, for example the clock rate, the setup time of the slave, the SPI modes (CPHA and CPOL), etc. The second block, which is the SPI itself uses the configuration commented above to create an SPI instance, along with the configuration the required pins for the\gls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls{CS} are obtained and reserved, so the used can not create a port (for example an input or an output) over this pins.
 \\
 When the SPI instance is created, the methods will be able to be used, basically there are different overloads of the \verb!Write! and \verb!WriteRead! methods, but all of them end calling the same internal function which will do the P/Invoke to the library.
+
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=1]{pictures/iosharp/spi-uml}
-  \caption{UML representation of the SPI Configuration Class (Left) and the SPI Port (Right)\label{fig:spi-uml}}
+  \caption{UML representation of the SPI Configuration Class (Left) and the SPI Port (Right) \label{fig:spi-uml}}
 \end{center}\end{figure}
 
 In order to pass the configuration to the library, the configuration object is converted to a struct which its variables are the same as the struct from the header file of the library. This struct will be the one that is passed with the P/Invoke to the C implementation.
@@ -347,7 +314,7 @@ public struct spi_config {
 Using this method the configuration is passed to the library so SPI can work just as the developer wants. It is also interesting to remark that the buffers for the incoming or the outgoing data are not returned from C to C\# but the buffers have been read and written so C takes the pointer of that buffer, which is the same as the C\# and then writes or reads the information from there. 
 
 \subsection{UART}\label{SS:IOSharp-UART}
-The UART is a really simple protocol using asynchronous serial communication between two devices. As figure \ref{fig:uart-modules} shows, each device have two ports which are the \gls{TX} for transmissions and \gls{RX} for receptions, the transmission port must be connected to the reception port on the other device. Both devices must share the ground.
+UART is a really simple protocol that uses an asynchronous serial communication between two devices. As figure \ref{fig:uart-modules} shows, each device have two ports which are the \gls{TX} for transmissions and \gls{RX} for receptions. The transmission port must be connected to the reception port on the other device. Both devices must share the ground.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -356,24 +323,24 @@ The UART is a really simple protocol using asynchronous serial communication bet
   \caption{UART communication schema\label{fig:uart-modules}}
 \end{center}\end{figure}
 
-Unlike the above functions which are not implemented on the standard .NET Framework the UART has a class on it with the same naming and namespacing, so this can be problematic in case of class reimplementation maintaining the original namespacing used in Micro Framework.
+Unlike the above features which were not implemented on the standard .NET Framework the UART it is with also the same name and in the namespace, so this is problematic in case of a class reimplementation if maintaining the original namespace is desired.
 \\
-Before start writing a new implementation a comparison and evaluation was carried on for the implementation of .NET Framework and the Micro Framework version, after comparing them, they where so similar that a new implementation for IOSharp was not required, at least until the missing functions were required. This decision is due two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, a class on the standard framework will be much more stable and tested than a code written from scratch. The other reason on choosing the existing class that although it is not exactly as the NETMF class it has all the required functions that are needed for deploying HomeSense.
+First of all and trying to avoid a new implementation of a SerialPort the classes from the Micro Framework and the .NET Framework were compared. After doing this it was realised that the two classes were so similar that IOSharp did not require a new reimplementation. The reason of avoiding a new implementation is due to two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, and .NET Framework is much more stable and tested than a code written from scratch. The other reason of this choose is that although the .NET Framework class is not exactly as the Micro Framework class, it has all the required methods that are needed for HomeSense.
 
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=1]{pictures/iosharp/serialport-uml}
-  \caption{UML representation of the original .NET Framework SerialPort (Left) and the SerialPort in Micro Framework (Right)\label{fig:serialport-uml}}
+  \caption{UML SerialPort representation of the original .NET Framework (Left) and .NET Micro Framework (Right)\label{fig:serialport-uml}}
 \end{center}\end{figure}
 
-Is important to emphasize that IOSharp in Linux runs using the Mono implementation of the standard Framework classes, and in this case the SerialPort class has some disadvantages on the Mono version, basically they do not support events such as \verb!DataReceived! or \verb!ErrorReceived! because the functions have not been implemented on its internal runtime, but as it was said, this feature is not used in HomeSense so it does not influence on the execution of the platform.
+Is important to remark that IOSharp in Linux runs on Mono implementation of the .NET Framework classes, and in this case the SerialPort class has some disadvantages on Mono version, basically they do not support events such as \verb!DataReceived! or \verb!ErrorReceived! because the functions have not been implemented on its internal runtime.
 
 \section{Port Mapping}\label{S:Port-Mapping}
 In order to make IOSharp portable between hardware platforms a port mapping must be done. The idea is to map the underlying hardware to variables in order to be used on the upper-layer taking into account its GPIO ports, the SPI devices and its corresponding ports and the Serial Pins.
 
 \subsection{HardwareProvider}\label{SS:HardwareProvider}
-In fact, the original NETMF supports a hardware descriptor called HardwareProvider which do the mentioned things. The Raspberry Pi was the target platform for this project so a hardware descriptor was written, below is represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In this pins are located the GPIO, two SPI devices, two UART ports and an I$^{2}$C bus.
+In fact, the original NETMF supports a hardware descriptor called HardwareProvider which do the mentioned things. The Raspberry Pi was the target platform for this project so a hardware descriptor was written, below is represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In this pins are located the GPIO, two SPI devices, two UART ports and an \gls{I2C} bus.
 
 \begin{figure}[H]\begin{center}
  \centering

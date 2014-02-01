@@ -14,10 +14,6 @@ To summarize the following sections the figure \ref{fig:AN-Process} shows the pr
   \caption{AlterNative process\label{fig:AN-Process}}
 \end{center}\end{figure}
 
-\subsection{Decompilation}\label{SS:AN-Process-Decom}
-First of all the Assembly (compiled program/binary) is passed through a decompiler in order to extract the source code. In this case the original code is in C\# and to decompile it is used a program called ILSpy which is an open-source .NET assembly decompiler. Instead of extracting the code in text format is extracted as an AST (Abstract Syntax Tree) that is an abstract representation with nodes and hierarchies of the original code. This representation is organized in a tree format from the top-level (assembly) until the low-level (instructions, types and constants).
-\\
-\\
 To explain the AlterNative process will be used the \verb!Main! method which both languages make use of it. In the following table is shown how this method looks like in each language.
 \begin{table}[htb]
 \begin{center}
@@ -31,6 +27,11 @@ C++        & \verb!void Main(string args[]){}!    & Figure \ref{fig:AN-AST-Conve
 \label{T:AN-Language-Main-Methods}
 \end{center}
 \end{table}
+
+\subsection{Decompilation}\label{SS:AN-Process-Decom}
+First of all the Assembly (compiled program/binary) is passed through a decompiler in order to extract the source code. In this case the original code is in C\# and to decompile it is used a program called ILSpy which is an open-source .NET assembly decompiler. Instead of extracting the code in text format is extracted as an AST (Abstract Syntax Tree) that is an abstract representation with nodes and hierarchies of the original code. This representation is organized in a tree format from the top-level (assembly) until the low-level (instructions, types and constants).
+\\
+\\
 The figure \ref{fig:AN-AST} shows how \verb!void Main(string[] args){}! method would look like in AST format. The top node designates that the child nodes correspond to a method, then in the first row child is described the primitive type (what method returns) which in this case is a \verb!void!, the identifier which shows the method name (\verb!Main!) and finally the parameter declaration which describes the parameters that the function takes. The example method has one parameter corresponding to an array of strings. The parameter declaration node has two nodes defining it, the first one describes that \verb!string[]! is a composed type which is also defined by a string and an array specifier, the second node is the identifier name of the parameter, in this case, \verb!args!.
 \begin{figure}[H]\begin{center}
  \centering

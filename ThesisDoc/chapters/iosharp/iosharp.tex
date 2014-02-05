@@ -1,40 +1,40 @@
 \chapter{IOSharp}\label{C:IOSharp development}
-In this chapter it will be explained how was defined and architected, designed and implemented the core of IOSharp disaggregating the different parts and explaining each one.
+In this chapter it will be explained how was defined and architected, designed and implemented the core of IOSharp, disaggregating the different parts and explaining each one.
 \\
 \\
-First of all it will be explained the project design evaluating the two options at project definition, then the implementation is explained for the different I/O ports and protocol standards used in this project. Finally, it is explained how is done the port mapping to work between different boards and devices.
+First of all, it will be explained the project design evaluating the two options at project definition, then the implementation is explained for the different I/O ports and protocol standards used in this project. Finally, it is explained how has been done the port mapping to work between different boards and devices.
 
 \section{Planning the development}\label{S:IOSharp-Design}
-At project start, the development was focused on a tiny Linux board called Raspberry Pi. This device was designed by Raspberry Pi Foundation in England taking in mind the kids around the world introducing them in computer science. It is an interesting board for its features like basic I/O through GPIOs, \gls{SPI} for serial peripheral communication, \gls{I2C} and UART interface also for transmissions between external components and the device itself.
+At the beginning of the project, the development was focused on a tiny Linux board called Raspberry Pi. This device was designed by Raspberry Pi Foundation in England taking in mind the kids around the world introducing them in computer science. It is an interesting board for its features like basic I/O through GPIOs, \gls{SPI} for serial peripheral communication, \gls{I2C} and UART interface also for transmissions between external components and the device itself.
 \\
-In addition to the interfaces mentioned above, it also has some desktop interesting features like USB ports which practically can accept any device that works on Linux for instance a Wi-Fi, Bluetooth, ZigBee or any stick for wireless transmissions, HDMI for graphics and Ethernet for network communications. Apart from this I/O characteristics, it also mounts a decent ARMv6 (CPU) running at 700MHz on stock frequency along with 512MB of RAM which are enough for normal desktop usage (surfing, emailing and office) and for embedded projects.
+In addition to the interfaces mentioned above, it also has some desktop interesting features like USB ports which, practically can accept any device that works on Linux (for instance a Wi-Fi, Bluetooth, ZigBee or any stick for wireless transmissions, HDMI for graphics and Ethernet for network communications). Apart from this I/O characteristics, it also mounts an ARMv6 (CPU) running at 700MHz on stock frequency along with 512MB of RAM, that is enough for normal desktop usage (surfing, emailing and office) and for embedded projects.
 \\
 \\
-After choosing the target device, two implementation options were suitable for this project so each one was analysed. Each one has its own benefits and problems that are going to be explained in the following sections. As an introduction to the options that were considered are the use of the specific tools and libraries for the Raspberry Pi and its CPU, this should help on achieving high efficiency when deployed on the device but on the other hand, there was the idea to develop the project in a manner that it could be executed in any device running a Linux/Unix Kernel by doing this many boards can be compatible with this solution.
+After choosing the target device, two implementation options were suitable for this project so each one was analysed. Each one has its own benefits and problems that are going to be explained in the following sections. As an introduction to the options that were considered, are the use of the specific tools and libraries for the Raspberry Pi and its CPU, this should help on achieving high efficiency when deployed on the device but on the other hand, there was the idea to develop the project in a manner that it could be executed in any device running a Linux/Unix Kernel by doing this many boards can be compatible with this solution.
 
 \subsection{Focused on Raspberry Pi}\label{SS:IOSharp-RPI}
-Initially IOSharp was started focusing on the Raspberry Pi so a search was done in order to find useful libraries for this project one of the results was a native C  library. This library gives control over all the features provided by the microprocessor integrated on the board which includes a wide range of \gls{GPIO} pins, different protocol communications like \gls{SPI} and \gls{UART} and other features like \gls{PWM}.
+Initially IOSharp was started focusing on the Raspberry Pi, so a search was done in order to find useful libraries for this project and one of the results was a native C library. This library gives control over all the features provided by the microprocessor integrated on the board which includes a wide range of \gls{GPIO} pins, different protocol communications like \gls{SPI} and \gls{UART}, and other features like \gls{PWM}.
 \\
-This method is interesting when achieving high performance on the programs is important so using the library the CPU features are used on a low-level way by using the CPU registers. This normally let the programs run faster but the programs only work on platforms using the same CPU or in other words is a specific hardware implementation.
+This method is interesting when achieving high performance on the programs is important, so using the library the CPU features are used on a low-level way by using the CPU registers. This normally let the programs run faster but the programs only work on platforms using the same CPU, or in other words, is a specific hardware implementation.
 \\
-The library written for the \gls{BCM2835} is the one that should be used in case of a program had high performance requirements. The idea is to make calls from C\# to this library using a specific call methodology that will be explained on future sections on this thesis.
+The library written for the \gls{BCM2835} is the one that should be used in the case that a program has high performance requirements. The idea is to make calls from C\# to this library using a specific call methodology that will be explained on future sections on this thesis.
 
 \subsection{Focused on Linux}\label{SS:IOSharp-Linux}
 Thinking on a more wider way it could be interesting to make IOSharp available to much more devices or even real computers. This implies more developers using this software which can provide useful feedback that is interesting for the improvement and evolution of the library. Any computer running some kind of Linux Kernel should be able to use this software facilitating the usage of the the hardware features.
 \\
-The idea is use C\# combined with C to generate cross-platform assemblies which making use of Mono can run practically on any Linux device but this has a little drawback related with the performance. Mono is a virtual machine which executes .NET code (C\#), the implementation of this VM is not as good as the .NET framework on Windows so normally the performance of the programs running on it is not really good.
+The idea is to use C\# combined with C to generate cross-platform assemblies, which making use of Mono, can run practically on any Linux device, but this has a little drawback related with the performance. Mono is a virtual machine which executes .NET code (C\#), the implementation of this VM is not as good as the .NET framework on Windows so normally the performance of the programs running on it is not really good.
 
 \subsection{Chosen implementation}\label{SS:IOSharp-choosen}
-Finally the chosen strategy was use the Linux approach because it offers the appropriate tools like the \verb!spidev.h! to manage the SPI or even the GPIO mappings through the \gls{SYSFS}. To use any of this features the only requirement is that the necessary modules must be loaded into the Kernel.
+Finally the chosen strategy was to use the Linux approach because it offers the appropriate tools like the \verb!spidev.h! to manage the SPI or even the GPIO mappings through the \gls{SYSFS}. To use any of this features the only requirement is that the necessary modules must be loaded into the Kernel.
 \\
-Apart from this, Micro Framework natively offers the required classes to configure the port mapping according to the pins and devices of the underlying hardware.
+Micro Framework natively offers the required classes to configure the port mapping according to the pins and devices of the underlying hardware.
 \\
-Apart from this, a C library will be written to interact with the functions provided by the Linux Kernel to control the \gls{SPI} and the \gls{GPIO}s.
+Along with the C\# implementation, a C library will be written to interact with the functions provided by the Linux Kernel to control the \gls{SPI} and the \gls{GPIO}s.
 \\
 In short, IOSharp will be able to run in any platform that uses Linux such as the Raspberry Pi, a Cubieboard or even a standard desktop.
 
 \section{Implementation}\label{S:Implementation}
-In the following sections it will be explained how has been carried out the implementation of the IOSharp library. As a summary IOSharp works as Micro Framework but on a high level basis, so it is not a complete port of the original, instead of this it uses C\# to implement the same functions which are exposed by the framework. In this case the original source code has been downloaded from \url{http://netmf.codeplex.com/}. From the folder \verb!\Framework\Core\Native_Hardware! can be obtained the necessary files to implement at least the GPIO and the SPI port along with the files for port mapping or event UART. The native files make use of internal implements so when a method which does an internal implement is called the virtual machine will take the call and process the function internally. IOSharp instead of implementing the virtual machine it implements the functions as a normal method (opening and closing the brackets and inserting the code inside the method).
+In the following sections it will be explained how has been carried out the implementation of the IOSharp library. As a summary IOSharp works as Micro Framework but on a high level basis, so it is not a complete port of the original, instead of this it uses C\# to implement the same functions which are exposed by the framework. In this case, the original source code has been downloaded from \url{http://netmf.codeplex.com/}. From the folder \verb!\Framework\Core\Native_Hardware! can be obtained the necessary files to implement at least the GPIO and the SPI port along with the files for port mapping or event UART. The native files make use of internal implements, so when a method which does an internal implement, is called the virtual machine will take the call and process the function internally. IOSharp instead of implementing the virtual machine implements the functions as a normal method (opening and closing the brackets and inserting the code inside the method).
 \\
 \\
 The final implementation of IOSharp should look like the following figure.
@@ -46,18 +46,18 @@ The final implementation of IOSharp should look like the following figure.
 \end{center}\end{figure}
 
 \subsection{GPIO}\label{SS:GPIO}
-GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input with a certain level of voltage. Normally embedded systems work at 3.3V but low power devices can work at 2V.
+GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input with a certain level of voltage. Normally embedded systems work at 3.3V, but low power devices can work at 2V.
 
 \subsubsection{Implementation Options}\label{SSS:Implementation-Options}
-In order to implement the GPIO ports in Micro Framework it will be used the \verb!IOPorts.cs! file which contains the structure for Input, Output, Tristate and Interrupt ports, the first three will be explained in this section whereas the interrupt port will have a dedicated one.
+In order to implement the GPIO ports in Micro Framework, it will be used the \verb!IOPorts.cs! file which contains the structure for Input, Output, Tristate and Interrupt ports. The first three will be explained in this section whereas the interrupt port will have a dedicated one.
 \\
-The GPIOs in Linux can be controlled in several ways, the most common and simple is use the \gls{SYSFS} which stands for a set of directories with readable and writeable files representing the ports of the CPU. On the other hand the Linux kernel also provides a library to control the pins.
+The GPIOs in Linux can be controlled in several ways. The most common and simple is to use the \gls{SYSFS}, which stands for a set of directories with readable and writeable files representing the ports of the CPU. On the other hand, the Linux kernel also provides a library to control the pins.
 \\
-The decision must be done between this two systems, in order to use any of this solutions the GPIO module must be loaded into the kernel, many desktop Linux distributions have GPIOs disabled and that's why the kernel must be recompiled enabling this feature.
+The decision must be done between these two systems. In order to use any of this solutions the GPIO module must be loaded into the kernel. Many desktop Linux distributions have GPIOs disabled and that's why the kernel must be recompiled enabling this feature.
 \\
-In case of Linux operating systems designated for embedded devices, for example the Raspberry Pi or CubieBoard, will have the I/O Ports enabled by default.
+In case of Linux operating systems designated for embedded devices, for example the Raspberry Pi or CubieBoard, they will have the I/O Ports enabled by default.
 \\
-It is interesting to point that Android is capable to use GPIO ports for example. Although it cannot seem an interesting feature nowadays android is everywhere and can run in many devices, so this is another reason to try to fetch this sector in future versions of IOSharp.
+It is interesting to point that Android is capable to use GPIO ports. Although it cannot seem an interesting feature nowadays, android is everywhere and can run in many devices, so this is another reason to try to fetch this sector in future versions of IOSharp.
 
 \subsubsection{Using GPIO from SYSFS}\label{SSS:IOSharp-GPIO-SYSFS}
 Since each solution can be used in this project and both are available in any Linux it was decided to use the SYSFS access because it is much easier to use and test the implementation. It only requires having read/write access to a certain set of files and directories and by reading or writing in this ones is possible to change the port states.

@@ -10,7 +10,7 @@ At the beginning of the project, the development was focused on a tiny Linux boa
 In addition to the interfaces mentioned above, it also has some desktop interesting features like USB ports which, practically can accept any device that works on Linux (for instance a Wi-Fi, Bluetooth, ZigBee or any stick for wireless transmissions, HDMI for graphics and Ethernet for network communications). Apart from this I/O characteristics, it also mounts an ARMv6 (CPU) running at 700MHz on stock frequency along with 512MB of RAM, that is enough for normal desktop usage (surfing, emailing and office) and for embedded projects.
 \\
 \\
-After choosing the target device, two implementation options were suitable for this project so each one was analysed. Each one has its own benefits and problems that are going to be explained in the following sections. As an introduction to the considered options, are the use of a specific library designed for the Raspberry Pi which should provide high efficiency. Or develop the implementation in a way that could be executed in any device running a Linux Kernel which makes the project platform independent.
+After choosing the target device, two implementation options were suitable for this project so each one was analysed. Each one has its own benefits and problems that are going to be explained in the following sections. Some options have been considered, as the use of a specific library designed for the Raspberry Pi which should provide high efficiency. Or develop the implementation in a way that could be executed in any device running a Linux Kernel which makes the project platform independent.
 
 \subsection{Focused on Raspberry Pi}\label{SS:IOSharp-RPI}
 Initially IOSharp was started focusing on the Raspberry Pi, so a search was done in order to find useful libraries for this project and one of the results was a native C library. This library gives control over all the features provided by the microprocessor integrated on the board which includes a wide range of \gls{GPIO} pins, different protocol communications like \gls{SPI} and \gls{UART}, and other features like \gls{PWM}.
@@ -226,7 +226,7 @@ Before doing a transaction via the SPI this must be configured, first of all def
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
-  \includegraphics[scale=0.7]{pictures/iosharp/spi-modes}
+  \includegraphics[width=0.7\textwidth]{pictures/iosharp/spi-modes}
   \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the System Clock (SCLK) state.\label{fig:spi-modes}}
 \end{center}\end{figure}
 

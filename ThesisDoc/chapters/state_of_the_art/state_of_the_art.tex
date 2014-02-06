@@ -1,5 +1,5 @@
 \chapter{State of the art}\label{C:State-Art}
-This chapter sketches out briefly the state of the art of the embedded operating systems and its capabilities.
+This chapter briefly sketches out the state of the art of the embedded operating systems and its capabilities.
 
 \section{Embedded Systems}\label{S:SOTA-Embedded-Systems}
 Embedded Systems nowadays are taking relevance again with the Internet of Things, environment sensing, Wireless Sensor Networks and all new coming technologies that require low power consumption, small size, mobility environments, etc.
@@ -10,9 +10,9 @@ In Embedded Systems or Resource Constrained Systems it is interesting to take a 
 \\
 An operating system (OS) offers an interface with the hardware to make it independent from the applications that the device runs, making easy the interactions between hardware and the programs running on the machine.
 \\
-Until now, embedded devices did not make use of operating systems and they where totally oriented to the designated application but as it has been explained in the introduction, the cost reduction in the production of systems has helped to increase the capacities so now is usual to embed a Linux system to simplify the manage of the resources.
+Until now, most embedded devices did not make use of operating systems and they where totally oriented to the designated application but as it has been explained in the introduction, the cost reduction in the production of systems has helped to increase the capacities so now is not unusual to embed a Linux system to simplify the manage of the resources.
 \\
-An OS is an important program that makes easy to develop applications, but it is important to maintain the features that the processor offers, avoiding performance or capabilities degradation. 
+An OS is an important software that makes easy to develop applications, but it is important to maintain the features that the processor offers, avoiding performance or capabilities degradation. 
 This bachelor thesis is focused on constrained-resource devices, where the processing capabilities and memory resources are limited, is fundamental to respect the above criteria.
 
 \subsection{Operating Systems Architectures}\label{SOTA-Operating-Systems-Architectures}
@@ -23,7 +23,7 @@ In general, there are three types of operating system architectures for embedded
 
 \item \textbf{Modular:} The OS is running as a standalone program in the processor and has the ability of loading programs as modules. In terms of the development, it's possible to develop applications without writing in the core of the OS. Normally using modules developers can expand the capabilities of its software.
 
-\item \textbf{Virtual-Machine:} The virtual machine creates an abstraction layer of its underlying hardware. This abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. Although using virtual-machine devices simplifies the development on multiple devices, the performance of the platform normally will be reduced and in Real Time environments it isn't recommended to use it. It is interesting to remark that embedded virtual machines run on the bare metal so they also act as an operating system.
+\item \textbf{Virtual-Machine:} The virtual machine creates an abstraction layer of its underlying hardware. This abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. Although using virtual-machine devices simplifies the development on multiple devices, the performance of the platform normally will be reduced and in Real Time environments it isn't recommended to use it. It is interesting to remark that embedded virtual machines, differently from VMs in desktop or server environments, run on the bare metal so they also act as an operating system.
 \end{itemize}
 
 \subsection{Embedded Operating Systems}\label{SOTA-Embedded-Operating-Systems}

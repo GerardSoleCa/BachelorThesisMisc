@@ -22,36 +22,31 @@ The library written for the \gls{BCM2835} is the one that should be used in the 
 \subsection{Focused on Linux}\label{SS:IOSharp-Linux}
 Thinking on a more wider way it could be interesting to make IOSharp available to much more devices or even real computers. This implies more developers using this software which can provide useful feedback that is interesting for the improvement and evolution of the library. Any computer running some kind of Linux Kernel should be able to use this software facilitating the usage of the the hardware features.
 \\
-The idea is to use C\# combined with C to generate cross-platform assemblies, which making use of Mono, can run practically on any Linux device, but this has a little drawback related with the performance. Mono is a virtual machine which executes .NET code (C\#), the implementation of this VM is not as good as the .NET framework on Windows so normally the performance of the programs running on it is not really good.
+The idea is to use C\# combined with C to generate cross-platform assemblies, which making use of Mono, can run practically on any Linux device, but this has a little drawback related with the performance. Mono is a virtual machine which executes .NET code (C\#), the implementation of this VM is not as good as the .NET framework on Windows so normally the performance of the programs running on it show some degradation.
 
 \subsection{Chosen implementation}\label{SS:IOSharp-choosen}
-Finally the chosen strategy was to use the Linux approach because it offers the appropriate tools like the \verb!spidev.h! to manage the SPI or even the GPIO mappings through the \gls{SYSFS}. To use any of this features the only requirement is that the necessary modules must be loaded into the Kernel.
-\\
-Micro Framework natively offers the required classes to configure the port mapping according to the pins and devices of the underlying hardware.
-\\
-Along with the C\# implementation, a C library will be written to interact with the functions provided by the Linux Kernel to control the \gls{SPI} and the \gls{GPIO}s.
-\\
-In short, IOSharp will be able to run in any platform that uses Linux such as the Raspberry Pi, a Cubieboard or even a standard desktop.
+Finally the chosen strategy was to use the Linux approach because it offers the appropriate tools like the \verb!spidev.h! to manage the SPI or even the GPIO mappings through the \gls{SYSFS}. To use any of this features the only requirement is that the necessary modules must be loaded into the Kernel. Along with the C\# implementation, a C library will be written to interact with the functions provided by the Linux Kernel to control the \gls{SPI} and the \gls{GPIO}s.
+Micro Framework natively offers the required classes to configure the port mapping according to the pins and devices of the underlying hardware. In short, IOSharp will be able to run in any platform that uses the standard Linux Kernel such as the Raspberry Pi, a Cubieboard or even a standard desktop. This also has to be provided by IOSharp to map the Kernel devices into the specific hardware pins.
 
 \section{Implementation}\label{S:Implementation}
-In the following sections it will be explained how has been carried out the implementation of the IOSharp library. As a summary IOSharp works as Micro Framework but on a high level basis, so it is not a complete port of the original, instead of this it uses C\# to implement the same functions which are exposed by the framework. In this case, the original source code has been downloaded from \url{http://netmf.codeplex.com/}. From the folder \verb!\Framework\Core\Native_Hardware! can be obtained the necessary files to implement at least the GPIO and the SPI port along with the files for port mapping or event UART. The native files make use of internal implements, so when a method which does an internal implement, is called the virtual machine will take the call and process the function internally. IOSharp instead of implementing the virtual machine implements the functions as a normal method (opening and closing the brackets and inserting the code inside the method).
+In the following sections it will be explained how has been carried out the implementation of the IOSharp library. As a summary IOSharp works as Micro Framework but on a high level basis, so it is not a complete port of the original, instead of this it uses C\# to implement the same functions which are exposed by the framework. In this case, the original source code has been downloaded from \url{http://netmf.codeplex.com/}. From the folder \verb!\Framework\Core\Native_Hardware! can be obtained the necessary files to implement at least the GPIO and the SPI port along with the files for port mapping or even UART. The native files make use of internal implements, so when a method which does an internal implement, is called the virtual machine will take the call and process the function internally. IOSharp instead of implementing the virtual machine implements the functions as a normal method (opening and closing the brackets and inserting the code inside the method).
 \\
 \\
-The final implementation of IOSharp should look like the following figure.
+The final implementation of IOSharp should look like the figure \ref{fig:iosharp-schema}. The board uses Linux and then Mono is used to execute the Embedded Application. This one uses the IOSharp implementation which is composed by 4 modules. The SYSFS is used by the GPIO to control the different I/O ports. The interrupt system and the SPI uses a custom library named IOSharp-C. Finally, the UART uses the SerialPort implementation from the Mono library.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.75]{pictures/iosharp/iosharp-schema2}
-  \caption{Representation of the IOSharp \label{fig:interrupt-schema}}
+  \caption{Representation of the IOSharp \label{fig:iosharp-schema}}
 \end{center}\end{figure}
 
 \subsection{GPIO}\label{SS:GPIO}
 GPIO acronym stands for General Purpose Input Output which are Ports on systems that are capable of generating an output or reading an input with a certain level of voltage. Normally embedded systems work at 3.3V, but low power devices can work at 2V.
 
 \subsubsection{Implementation Options}\label{SSS:Implementation-Options}
-In order to implement the GPIO ports in Micro Framework, it will be used the \verb!IOPorts.cs! file which contains the structure for Input, Output, Tristate and Interrupt ports. The first three will be explained in this section whereas the interrupt port will have a dedicated one.
+In order to implement the GPIO ports in Micro Framework, it will be used the \verb!IOPorts.cs! file which contains the structure for Input, Output, Tristate and Interrupt ports. The first three ports will be explained in this section whereas the interrupt port will have a dedicated one.
 \\
-The GPIOs in Linux can be controlled in several ways. The most common and simple is to use the \gls{SYSFS}, which stands for a set of directories with readable and writeable files representing the ports of the CPU. On the other hand, the Linux kernel also provides a library to control the pins.
+The GPIOs in Linux can be controlled in several ways. The most common and simple is to use the \gls{SYSFS}, which stands for a set of directories with readable and writeable files representing the ports of the CPU. On the other hand, the Linux kernel also provides a Kernel API to control the pins.
 \\
 The decision must be done between these two systems. In order to use any of this solutions the GPIO module must be loaded into the kernel. Many desktop Linux distributions have GPIOs disabled and that's why the kernel must be recompiled enabling this feature.
 \\
@@ -66,11 +61,7 @@ Since each solution can be used in this project and both are available in any Li
 As it was said before, in SYSFS the control of the GPIOs is carried by several files and directories located under \verb!/sys/class/gpio! directory. In this directory there are two files which are called \verb!export! and \verb!unexport!, the first one is used to enable a GPIO while the second one disables it. After enabling a GPIO a new folder is created representing the enabled port, for instance if port 2 is enabled, a folder called gpio2 will be created. Inside this new folder there are several files, the \verb!direction! file describes how port should work, if the desired function is as an input port an \verb!in! must be written in the file whereas \verb!out! is used for an output port. After setting the port direction the next relevant file is \verb!value! which is used to set the port state in case of an Output Port (write 0 for a state-low or a 1 for a state-high) or in case of an Input Port it will read the incoming value through the port.
 
 \subsubsection{Implementing in NETMF}\label{SSS:Implementing-GPIO-NETMF}
-Taking in mind that this implementation has to be done over the existing code extracted from the \verb!IOPorts.cs! file, is important to design how to do it properly, in this case a \verb!GPIOManager! has been created using a singleton pattern. This class will restrict the number of instantiations that a port can have in order to avoid problems on the hardware. The instance of this singleton is shared across all the code.
-\\
-This manager will be in charge of enabling, disabling and operating the different I/O ports. Apart from this it also controls if a port is instantiated to avoid problems related to instantiate two port types in a unique pin.
-\\
-The figure \ref{fig:gpio-uml} shows the UML diagram of the \verb!IOPorts.cs! file from Micro Framework. Each class uses the \verb!GPIOManager! to control the read/write functions and port creation.
+Taking in mind that this implementation has to be done over the existing code extracted from the \verb!IOPorts.cs! file, it is important to design it properly. In this case, a \verb!GPIOManager! has been created using a singleton pattern. This class will restrict the number of instantiations that a port can have in order to avoid problems on the hardware. The instance of this singleton is shared across all the code. This manager will be in charge of enabling, disabling and operating the different I/O ports. The figure \ref{fig:gpio-uml} shows the UML diagram of the \verb!IOPorts.cs! file from Micro Framework. Each class uses the \verb!GPIOManager! to control the read/write functions and port creation.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -79,7 +70,7 @@ The figure \ref{fig:gpio-uml} shows the UML diagram of the \verb!IOPorts.cs! fil
   \caption{UML Diagram of NETMF Port and its inheritance \label{fig:gpio-uml}}
 \end{center}\end{figure}
 
-As is shown each port type inherits from the \verb!Port! object which implements the methods to enable or disable a port. \verb!Read! method is used to obtain the current state of the port i.e read an input value or even know the configured state in an output port. Finally the \verb!ReservePin! method permits to reserve a pin for a future usage.
+As it is shown in the figure, each port type inherits from the \verb!Port! object which implements the methods to enable or disable a port. \verb!Read! method is used to obtain the current state of the port i.e read an input value or even know the configured state in an output port. Finally the \verb!ReservePin! method permits to reserve a pin for a future usage.
 \\
 The \verb!InputPort! inherits from Port and it does not have any special method apart from its constructor which bases to the \verb!Port! class. 
 \\
@@ -87,11 +78,11 @@ The \verb!OutputPort! which also inherits \verb!Port! implements a new \verb!Wri
 \\
 The \verb!TristatePort! inherits from \verb!OutputPort!. This port can change its functional work between an input or an output mode.
 
-\subsection{Interruptions}\label{SS:IOSharp-Interrupt}
-The interruptions which are needed for the interruptions that are required in the HomeSense program when using the \gls{SPI}. Although the \gls{BCM2835} supports native interruptions via \gls{IRQ} at the time of this project was developed the Raspberry Pi did not support GPIO interruptions using \gls{IRQ}.
+\subsection{Interrupts}\label{SS:IOSharp-Interrupt}
+Interrupts are required in the HomeSense program when using the \gls{SPI}. Although the \gls{BCM2835} supports native interrupts via \gls{IRQ} at the time this project was developed the Raspberry Pi did not support GPIO interrupts using \gls{IRQ}, so an alternate mechanism was designed.
 
-\subsubsection{Designing the Interruptions}\label{SSS:IOSharp-Interrupt-Design}
-The interruption system has been written in C in order to use a function called \verb!poll! which is commonly used by developers that want to detect GPIO interruptions using the SYSFS. The \verb!poll! function must be configured to wait and block until certain events occur on a \gls{FD} corresponding to a GPIO port enabled on the SYSFS. This function is configured to wait and block the program execution until the a \verb!POLLPRI! event on the \gls{FD} is detected. This event will be triggered by the OS when the file had urgent data to be read. Poll function will dectect the event and then will proceed with the following instructions to read different parameters from the port (i.e. the port state). Then, in C\# a delegate pattern will be used to notify to the upper layers of the program that interruption. The developer will configure the function which acts as the delegate by passing it to the \verb!OnInterrupt! property in the Interrupt Port.
+\subsubsection{Designing the Interrupts}\label{SSS:IOSharp-Interrupt-Design}
+The interrupt system has been written in C in order to use a function called \verb!poll! which is commonly used by developers that want to detect GPIO interrupts using the SYSFS. The \verb!poll! function must be configured to block until certain events occur on a \gls{FD} corresponding to a GPIO port enabled on the SYSFS. This function is configured to wait and block the program execution until a \verb!POLLPRI! event on the \gls{FD} is detected. This event will be triggered by the OS when the file had urgent data to be read. Poll function will dectect the event and then will proceed with the following instructions to read different parameters from the port (i.e. the port state). Then, in C\# a delegate pattern will be used to notify to the upper layers of the program that interrupts. The developer will configure the function which acts as the delegate by passing it to the \verb!OnInterrupt! property in the Interrupt Port.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -101,18 +92,13 @@ The interruption system has been written in C in order to use a function called 
 \end{center}\end{figure}
 
 \subsubsection{Platform Invocation Services}\label{SSS:IOSharp-Interrupt-PInvoke}
-In C\# is possible to invoke external libraries which are not written in the same language. In this case, the library used for the interruptions is written in C and it will be compiled into a shared library making it available to any program, or in this case, IOSharp.
+In C\# is possible to invoke external libraries which are not written in the same language by using a mechanism called P/Invoke. In this case, the library used for the interrupts is written in C and it will be compiled into a shared library making it available to any program, or in this case, IOSharp. Take a look into the appendix \ref{S:appendices-libraries-types} to know more about the different library types.
 \\
 \\
-Take a look into the appendix \ref{S:appendices-libraries-types} to know more about the different library types.
+P/Invokes in .NET make use of dynamic loaded libraries in order to use the contained functions. The implementation difficulty of a P/Invoke increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int!, \verb!long!, \verb!byte! is really simple to make a P/Invoke call, but when passing object parameters things get much more difficult because this requires doing marshalling in these objects. Marshalling is similar to serializing but maintaining some information related to the object. The marshalling is used to pass from managed to unmanaged code and sometimes is impossible without using intermediate structs as interchange objects.
 \\
 \\
-P/Invokes in .NET make use of dynamic loaded libraries in order to use the contained functions. The implementation difficulty of a P/Invoke increases on how complex is the function to be called regarding its parameters, for basic type parameters such us \verb!int!, \verb!long!, \verb!byte! is really simple to make a P/Invoke call, but when passing object parameters things get much more difficult because this requires doing marshalling in this objects. Marshalling is similar to serializing but maintaining some information related to the object. The marshalling is used to pass from managed to unmanaged code and sometimes is impossible without using intermediate structs as interchange objects.
-\\
-\\
-Below are shown the important parts of the implementation of this library and then how P/Invoke is done in C\# code.
-\\
-This first block shows the function which is used to detect the interruptions on the GPIOs. The interesting parts are commented explaining what they do or what some macros mean.
+Below are shown the important parts of the implementation of this library and then how P/Invoke is done in C\# code. This first block shows the function which is used to detect the interrupts on the GPIOs. The interesting parts are commented explaining what they do or what some macros mean.
 \begin{lstlisting}[language=C, caption={IOSharp.c - Polling function}]
 uint64_t start_polling(int pin) {
     struct pollfd fdset;
@@ -174,14 +160,14 @@ public static extern ulong start_polling(int gpio);
 \end{lstlisting}
 
 \subsubsection{Final implementation}\label{SSS:IOSharp-Interrupt-Implementation}
-The program flow is shown on Figure \ref{fig:interrupt-schema} which represents the steps that IOSharp does for the interruptions system. The Interrupt Port inherits from Input Port as Figure \ref{fig:interrupt-uml} shows.
+The program flow is shown on Figure \ref{fig:interrupt-schema} which represents the steps that IOSharp does for the interrupts system. The Interrupt Port inherits from Input Port as Figure \ref{fig:interrupt-uml} shows.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[width=1\textwidth]{pictures/iosharp/interrupt-schema}
   \caption{Representation of the Interrupt Port flow \label{fig:interrupt-schema}}
 \end{center}\end{figure}
-The idea is to do the exact same steps like the other ports do, the port enabling is done by the Port implementation which is the base class for Interrupt Port, then the port type is set to be an Interrupt Port, after doing this is the triggering must be configures. Micro Framework boards usually support four kinds of interruptions whereas Linux supports a few less, in the table \ref{T:Interrupt-Trigger-Types} are shown the ones that are supported. It is important to know that the edges are the point where the read state changes from one level to the other one. The Level is used when the state is maintained several time without changing.
+The idea is to do the exact same steps like the other ports do, the port enabling is done by the Port implementation which is the base class for Interrupt Port, then the port type is set to be an Interrupt Port, after doing this is the triggering must be configured. Micro Framework boards usually support four kinds of interrupts whereas Linux supports a few less, in the table \ref{T:Interrupt-Trigger-Types} are shown the ones that are supported. It is important to know that the edges are the point where the read state changes from one level to the other one. The Level is used when the state is maintained several time without changing.
 
 \begin{table}[htb]
 \begin{center}
@@ -200,9 +186,9 @@ InterruptEdgeLevelLow        & X    &        \\ \hline
 \end{center}
 \end{table}
 
-Like the GPIO the triggering is configured on the SYSFS on a file called \verb!edge! located inside of the enabled GPIO folder. This file can be configured on three different. \verb!EdgeLow! interruptions require the word \textit{falling} be written in that file, in case of \verb!EdgeHigh! \textit{rising} is used and finally \textit{both} is for \verb!EdgeBoth!.
+Like the GPIO the triggering is configured on the SYSFS on a file called \verb!edge! located inside of the enabled GPIO folder. This file can be configured on three different. \verb!EdgeLow! interrupts require the word \textit{falling} be written in that file, in case of \verb!EdgeHigh! \textit{rising} is used and finally \textit{both} is for \verb!EdgeBoth!.
 \\
-The polling thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated function is called and this indicates that an interruption event occurred.
+The polling thread works as an infinite loop P/Invoking to C and waiting for the call return, when this occurs the delegated function is called and this indicates that an interrupt event occurred.
 
 \subsection{SPI}\label{SS:IOSharp-SPI}
 The \gls{SPI} is one of the important features to be implemented on IOSharp. This protocol is used in embedded systems to communicate boards and components in a Master-Slave way. It offers a full-duplex communication channel where the master and the slave can write and read at the same time. Normally this protocol accepts transmission frequencies in the range of 10 kHz to 100 MHz and in order to operate the master configures its clock using a frequency less or equal to the maximum frequency supported by the slave which wants to communicate.
@@ -230,7 +216,7 @@ Before doing a transaction via the SPI this must be configured, first of all def
   \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the System Clock (SCLK) state.\label{fig:spi-modes}}
 \end{center}\end{figure}
 
-This modes must be configured using the \gls{IOCTL} function passing the \gls{FD} according to the SPI device and the desired \gls{CS}, then the preprocessor macro \verb!SPI_IOC_WR_MODE! is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro which defines the operational mode, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the \gls{IOCTL} function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
+These modes must be configured using the \gls{IOCTL} function passing the \gls{FD} according to the SPI device and the desired \gls{CS}, then the preprocessor macro \verb!SPI_IOC_WR_MODE! is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro which defines the operational mode, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the \gls{IOCTL} function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI Mode configuration}]
 uint8_t mode;
@@ -242,7 +228,7 @@ uint8_t mode;
     pabort("can't set spi mode");
 \end{lstlisting}
 
-Once the SPI mode has been configured a struct defining the transaction must be filled, the struct type of is \verb!spi_ioc_transfer! specified in the \verb!spidev.h! library. This struct contains different variables, the \verb!tx_buf! and \verb!rx_buf! are configured with the write and read. Apart from the buffers, the transmission length is configured using the variable \verb!len!. Then the delay is configured, this indicates how many microseconds the SPI driver must wait before starting the transmission, this is important because some slaves take some time between they are selected and they are able to communicate, this is configured using the \verb!delay_usecs! variable. Another parameter to configure is the clock by using \verb!speed_hz!. In order to deselect a device before a transfer, the parameter \verb!cs_change! must be true. Finally, to configure or override the wordsize of a transmission the\verb!bits_per_word! is used.
+Once the SPI mode has been configured a struct defining the transaction must be filled, the struct type of is \verb!spi_ioc_transfer! specified in the \verb!spidev.h! library. This struct contains different variables, the \verb!tx_buf! and \verb!rx_buf! are configured with the write and read buffers. Apart from the buffers, the transmission length is configured using the variable \verb!len!. Then the delay is configured, using the \verb!delay_usecs! variable. This indicates how many microseconds the SPI driver must wait before starting the transmission, this is important because some slaves take some time between they are selected and when they are able to communicate. Another parameter to configure is the clock by using \verb!speed_hz!. In order to deselect a device before a transfer, the parameter \verb!cs_change! must be true. Finally, to configure or override the wordsize of a transmission the \verb!bits_per_word! is used.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI struct configuration}]
 struct spi_ioc_transfer tr = {
@@ -256,7 +242,7 @@ struct spi_ioc_transfer tr = {
   };
 \end{lstlisting}
 
-Once the struct is configured another ioctl call is done which makes the transfer it self. In this case, along with the \gls{FD} corresponding to the SPI device another preprocessor macro is passed as a parameter, this one is called \verb!SPI_IOC_MESSAGE! and must include the number of transfers that will be executed together, in case of IOSharp there is only one transfer per call, so the parameter will look like \verb!SPI_IOC_MESSAGE(1)!, finally the struct commented above is included in the ioctl call.
+Once the struct is configured another ioctl call is done which makes the transfer itself. In this case, along with the \gls{FD} corresponding to the SPI device another preprocessor macro is passed as a parameter, this one is called \verb!SPI_IOC_MESSAGE! and must include the number of transfers that will be executed together, in case of IOSharp there is only one transfer per call, so the parameter will look like \verb!SPI_IOC_MESSAGE(1)!, finally the struct commented above is included in the ioctl call.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI transfer}]
 // Pass the preprocessor macro and the spi_ioc_transfer struct.
@@ -264,11 +250,11 @@ ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
 \end{lstlisting}
 
 \subsubsection{Implementation in C\#}\label{SSS:IOSharp-SPI-Implementation-CSharp}
-After writing the library part in C is time to modify IOSharp to add the necessary calls to this library in order to make Micro Framework use the SPI in Linux. In this case the calls will be done in a similar way as it has been done in the interruptions (\ref{SS:IOSharp-Interrupt}). In this case some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
+After writing the library part in C is time to modify IOSharp to add the necessary calls to this library. In this case, the calls will be done in a similar way as it has been done in the interrupts (\ref{SS:IOSharp-Interrupt}). However, some data will need to be serialized in order to pass the configuration of the SPI from C\# to C.
 \\
-Essentially the method will be do a P/Invoke from C\# in order to call the functions in the library. To facilitate the data exchange between the program and the library a struct is used, this contains the basic information in order to do the configurations explained on the previous section. This struct must be written in the header file of the library and also must be written in the C\# code. First of all the SPI implementation in Micro Framework is divided into two blocks, the first one represents the port configuration which is used to set the different properties that can be used with the SPI, for example the clock rate, the setup time of the slave, the SPI modes (CPHA and CPOL), etc. The second block, which is the SPI itself uses the configuration commented above to create an SPI instance, along with the required pins for the \gls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls{CS}.
+Essentially the method will be doing a P/Invoke from C\# in order to call the functions in the C library. To facilitate the data exchange between the program and the library a struct is used, this contains the basic information in order to do the configuration explained on the previous section. This struct must be written in the header file of the library and also must be written in the C\# code. The SPI implementation, in Micro Framework, is divided into two blocks. The first one represents the port configuration which is used to set the different properties that can be used with the SPI, for example the clock rate, the setup time of the slave, the SPI modes (CPHA and CPOL), etc. The second block, which is the SPI itself uses the configuration commented above to create an SPI instance, along with the required pins for the \gls{MISO}, \gls{MOSI}, \gls{SCLK} and \gls{CS}.
 \\
-When the SPI instance is created, the methods will be able to be used, basically there are different overloads of the \verb!Write! and \verb!WriteRead! methods, but all of them end calling the same internal function which will do the P/Invoke to the library.
+When the SPI instance is created, its methods will be able to be used. Basically, there are different overloads of the \verb!Write! and \verb!WriteRead! methods, but all of them end calling the same internal function which will do the P/Invoke to the C library.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -277,7 +263,7 @@ When the SPI instance is created, the methods will be able to be used, basically
   \caption{UML representation of the SPI Configuration Class (Left) and the SPI Port (Right) \label{fig:spi-uml}}
 \end{center}\end{figure}
 
-In order to pass the configuration to the library, the configuration object is converted to a struct which its variables are the same as the struct from the header file of the library. This struct will be the one that is passed to the C library.
+In order to pass the configuration to the library, the configuration object is converted to a struct which its variables are the same as the struct from the header file of the library.
 \\
 The code shown below corresponds to the header file and represents the struct that will be interchanged between the two languages.
 
@@ -291,9 +277,7 @@ typedef struct spi_config
 } SPI_CONFIG;
 \end{lstlisting}
 
-The listing below represents the C\# implementation of the C struct used for the pin configuration, it contains the same parameters as the C version and also implements a constructor which simplifies the conversion between the Configuration class and this structure, the important thing in this case is the
-\\
-\verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This attribute is used by the P/Invoke to know how the marshalling must be done when is passed to the library.
+The listing below represents the C\# implementation of the C struct used for the pin configuration. It contains the same parameters as the C version and also implements a constructor which simplifies the conversion between the Configuration class and this structure. It is important to note the \verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This attribute is used by the P/Invoke to know how the marshalling must be done when is passed to the C library.
 
 \begin{lstlisting}[language=CSharp, caption={SPI.cs - spi\_config struct}]
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -320,7 +304,7 @@ public struct spi_config {
 }
 \end{lstlisting}
 
-It is interesting to remark that the \gls{TX}/\gls{RX} buffers are not returned from C to C\# but the buffers have been read and written so C takes the pointer of that buffer, which is the same as the C\# and then writes or reads the information from there. 
+It is interesting to remark that the \gls{TX}/\gls{RX} buffers are not returned from C to C\# , instead their pointers are sent from C\# to C, so the same memory is reused in both environments. 
 
 \subsection{UART}\label{SS:IOSharp-UART}
 UART is a really simple protocol that uses an asynchronous serial communication between two devices. As figure \ref{fig:uart-modules} shows, each device have two ports which are the \gls{TX} for transmissions and \gls{RX} for receptions. The transmission port must be connected to the reception port on the other device. Both devices must share the ground.
@@ -343,19 +327,17 @@ First of all and trying to avoid a new implementation of a SerialPort the classe
   \caption{UML SerialPort representation of the original .NET Framework (Left) and .NET Micro Framework (Right)\label{fig:serialport-uml}}
 \end{center}\end{figure}
 
-Is important to remark that IOSharp in Linux runs on Mono implementation of the .NET Framework classes, and in this case the SerialPort class has some disadvantages on Mono version, basically it does not support the \verb!DataReceived! or \verb!ErrorReceived! events because the functions have not been implemented on its internal runtime.
+It is important to remark that IOSharp in Linux runs on Mono implementation of the .NET Framework classes, and in this case the SerialPort class has some disadvantages on Mono version, basically it does not support the \verb!DataReceived! or \verb!ErrorReceived! events because the functions have not been implemented on its internal runtime.
 
 \section{Port Mapping}\label{S:Port-Mapping}
-Although IOSharp is a cross-platform library some features require a specific configuration when deploying in different boards. Every board has its own port mapping and naming so it is necessary to have a specific library to describe that board.
-\\
-This is similar to the \gls{HAL} and \gls{PAL} concept:
+Although IOSharp is a cross-platform library some features require a specific configuration when deploying in different boards. Every board has its own port mapping and naming so it is necessary to have a specific library to describe that board. This is similar to the \gls{HAL} and \gls{PAL} concept:
 \begin{itemize}
 \item \textbf{HAL:} Hardware Abstraction Layer. In this case Linux acts as a HAL offering simple APIs to use features likes the kernel driven SPI device or the GPIO exposed in the SYSFS.
 \item \textbf{PAL:} Platform Abstraction Layer. Is the library that must be implemented in order to exploit the HAL functionalities. In this case, the Raspberry Pi requires a library to remap the GPIO pins or the SPI device to the name that the HAL uses.
 \end{itemize}
 
 \subsection{HardwareProvider}\label{SS:HardwareProvider}
-In fact, the original Micro Framework supports a hardware descriptor which represents the \gls{PAL} of the Raspberry Pi and is called \verb!HardwareProvider!. Raspberry Pi is the target platform for this project so a hardware descriptor was written, below are represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In the image are also shown where are the different pins used for the SPI and the \gls{I2C}.
+In fact, the original Micro Framework supports a hardware descriptor which represents the \gls{PAL} of the specific boards and is called \verb!HardwareProvider!. Raspberry Pi is the target platform for this project so a hardware descriptor was written, below are represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In the image are also shown where are the different pins used for the SPI and the \gls{I2C}.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -364,6 +346,6 @@ In fact, the original Micro Framework supports a hardware descriptor which repre
   \caption{Raspberry Pi pin mapping according to the GPIO\label{fig:mapping-rpi}}
 \end{center}\end{figure}
 
-The mapping has been divided into two classes, the first one maps the Pins so it will contain the naming according to the platform pins, in case of this thesis, both versions are mapped.
+The mapping has been divided into two classes, the first one maps the Pins so it will contain the naming according to the platform pins. Both versions of Raspberry Pi are mapped.
 \\
 The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. Raspberry Pi SPI device can have two slaves by using the \verb!spidev0.0! and \verb!spidev0.1!. This indicates that there are one device capable of having two slaves. The MISO, MOSI and SCLK pins are shared whereas each slave has its own chip select. In case of the UART it is also represented as a device and is named \verb!/dev/ttyAMA0! on the Raspberry Pi.

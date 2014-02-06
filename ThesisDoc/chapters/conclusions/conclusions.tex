@@ -6,7 +6,7 @@ An implementation of Micro Framework has been done with the necessary features t
 Another of the goals was to create a portable implementation. IOSharp is implemented using C\# with some calls to Linux SYSFS or Kernel functions. By using this way the implementation is architecture independent, so it is capable of running either on a standard desktop or on an ARMv6, like the Raspberry Pi. The only requirement is having an underlying Linux with the Mono interpreter executing .NET code.
 \\
 \\
-In order to try to improve the IOSharp performance it was translated to C++ using AlterNative which is a code translating tool. Currently, it can partially transform the original code to C++ but it still needs a lot of work on its core because many classes are not implemented yet. The parts that AlterNative could not translate where fixed by hand, however this the amount of time saved with this tool is bigger than the required time to implement the same code from scratch. After all, once IOSharp is translated to C++, the performance is increased as it is shown in the chapter \ref{C:Performance-Test}. For example, in 10k iterations in the state of an Output GPIO the C\# version needs around 10 seconds to finish the task while the translated one only takes around 3 seconds. This implies an increase of a 62\% in performance.
+In order to try to improve the IOSharp performance it was translated to C++ using AlterNative which is a code translating tool. Currently, it can partially transform the original code to C++ but it still needs some work on its core because many classes are not implemented yet. The parts that AlterNative could not translate where fixed by hand, however this the amount of time saved with this tool is bigger than the required time to implement the same code from scratch. After all, once IOSharp is translated to C++, the performance is increased as it is shown in the chapter \ref{C:Performance-Test}. For example, in 10k iterations in the state of an Output GPIO the C\# version needs around 10 seconds to finish the task while the translated one only takes around 3 seconds. This implies an increase of a 62\% in performance.
 \\
 \\
 And finally, the best of AlterNative is that the generated code is still cross platform because it uses standard C++ or libraries which are also available on different platforms, so once the source is generated it can be taken to an ARM Linux and then compile it to an executable assembly.
@@ -30,8 +30,6 @@ In case of IOSharp:
 \item \textbf{Addition of new protocols:} Currently IOSharp offers the simple GPIOs, UART and SPI but there are other common protocols or interfaces that could be developed to extend the features, such as the \gls{I2C} bus protocol. It could also be nice to implement the analogical ports or even \gls{PWM} control in I/O ports.
 
 \item \textbf{Performance optimization:} The implementation in .NET is too much slow running on Mono, probably related to the use of the \gls{SYSFS}. It could be interesting to do some performance tests using the \gls{SYSFS} and the Kernel functions provided by Linux. Apart from this, the interruptions are not implemented using \gls{IRQ} so using \gls{IRQ} instead of polling interruptions could be a good improvement on performance although it could affect on the portability between boards, some distributions do not accept IRQ interruptions from the GPIOs.
-
-\item \textbf{Extend capabilities:} It could be interesting to make IOSharp work with MAREA2 which is a Middleware for distributed embedded systems in different areas such as: telecommunications, avionics, health-care, automotive, defense, etc. MAREA is a software specifically designed to fulfil Unmanned Aircraft Systems (UAS) communications and their application to the design of complex distributed UAS avionics.
 \end{itemize}
 
 In the case of AlterNative translating tool:
@@ -39,6 +37,8 @@ In the case of AlterNative translating tool:
 \item \textbf{Garbage Collector:} Although AlterNative has a garbage collector implemented using the Boehm GC library, it does not get called periodically so programs with a big footprint in RAM can get out of memory easily. To solve this issue the Boehm GC could be called to release unused RAM and make it available again to the program or the system.
 
 \item \textbf{Continuous Integration:} Changes on the core of AlterNative are very susceptible to break some implemented functionalities, this is why regression tests were created to test if the different functionalities are working well. The problem is that this test takes a huge amount of time to finish so introducing continuous integration tools such as Jenkins or Hudson can provide an easy way to quickly test these changes on a server capable of detecting new commits to a git repository. After executing all the test an inform could be mailed to know the results of it.
+
+\item \textbf{Extend capabilities:} It could be interesting to make IOSharp work with MAREA2 which is a Middleware for distributed embedded systems in different areas such as: telecommunications, avionics, health-care, automotive, defense, etc. MAREA is a software specifically designed to fulfil Unmanned Aircraft Systems (UAS) communications and their application to the design of complex distributed UAS avionics.
 \end{itemize}
 
 \section{Environmental Impact}\label{S:Environmental-Impact}

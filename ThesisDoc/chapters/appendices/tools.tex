@@ -5,16 +5,16 @@ Below there are explained the different types of libraries, its characteristics 
   \item 
   \textbf{Static Library}
   \\
-  This kind of library is that one that is imported while programming, and when the source code is the library is linked statically in the generated binary, this means that the compiler takes the library functions used along the program and then are embedded statically to the compiled binary. In this way, the functions are physically located with the program. 
+  This kind of library is the one that is imported while compiling, and when the source code in the library is linked statically in the generated binary, the compiler takes the library functions used along the program and then they are embedded statically to the compiled binary. In this way, the functions are physically located with the program. 
 \\
-For example, imagine that you create a library with 3 functions, called \verb!get_password()!, \verb!generate_token()! and \verb!hash(char[] plain())!,  but in the current project you only use two of this functions, which are \verb!get_password()! and \verb!get_token()!. When the compiler builds the project code will only take the functions from the library that are currently used in the program and then insert them into the binary. At this point, deleting that library won't affect the generated binary, and it will be able to use it without any dependency problems related to missing libraries (dependencies).
+For example, imagine that you create a library with 3 functions, called \verb!get_password()!, \verb!generate_token()! and \verb!hash(char[] plain())!,  but in the current project you only use two of this functions, which are \verb!get_password()! and \verb!get_token()!. When the compiler builds the project, it code will only take the functions from the library that are currently used in the program and then insert them into the binary. At this point, deleting that library won't affect the generated binary, and it will be able to use it without any dependency problems related to missing libraries (dependencies).
 \\
 The typical files for this type is .lib for Windows and .a for UNIX systems.
   
   \item
   \textbf{Dynamic Library}
   \\
-  In order to avoid the replication of libraries that occurs in static ones, the dynamic libraries were created. This type of libraries is normally used along the operating systems to let applications use the offered functions and APIs written from the OS. In this case, and instead of the functional way of static libraries, any function from the library will be embedded on the generated binary, it is important to check that the dependencies are well satisfied when the binary is used, because a missing dependency will break the execution.
+  In order to avoid the replication of libraries that occurs in static ones, the dynamic libraries were created. This type of libraries is normally used along the operating systems to let applications use the offered functions and APIs written from the OS. In this case, and instead of the functional behaviour of static libraries. It is important to check that the dependencies are well satisfied when the binary is used, because a missing dependency will break the execution.
 
 The usual extension files are .dll for Windows and .so for UNIX. But .so files are also used in Windows, especially in web browsers, which use this types of library to load browser plugins such us Flash.
 
@@ -23,7 +23,7 @@ There are two subtypes of dynamic libraries which are explained below:
     \item 
     \textbf{Dynamically Linked}
   	\\
-  	These libraries must be available at compiling/link phase, because the compiler will verify that the function exists and that it is used properly. The libraries will be loaded at start time of the program. In this case, all the functions are mapped into the code.
+  	These libraries must be available at compiling/linking phase, because the compiler will verify that the function exists and that it is used properly. The libraries will be loaded at start time of the program. In this case, all the functions are mapped into the code.
     \item
     \textbf{Dynamically Loaded}
     \\
@@ -33,9 +33,9 @@ There are two subtypes of dynamic libraries which are explained below:
 
 \textbf{Pros and cons}
 \\
-The main problem of using static libraries is that the compiled binary takes much more memory and the library is embedded in every program that needs some functions from that library. But, on the other hand, by using static libraries, the access to its functions by programs is much faster than dynamic ones. Using them also avoids dependency problems, because the dependencies are embedded instead of being located in the file system as dynamic do.
+The main problem of using static libraries is that the compiled binary takes much more memory and the library is embedded in every program that needs some functions from that library. But, on the other hand, by using static libraries, the access to its functions by programs is much faster than dynamic ones. Using them also avoids dependency problems, because the dependencies are embedded instead of being located in the file system as dynamic libraries do.
 \\
-Regarding the dynamic libraries, they help to avoid replications and memory consumption, and also help to maintain the library updated in all programs that use them. Although this can seem pretty good, it can provoke two bad effects into the generated program. First of all, if the library is missing in the system, the program will not run or will crash in execution time. Secondly, if the library is updated but some methods are changed, the program will crash because the non-existing function, and it will be necessary to readjust the code again, recompile and redistribute it.
+Regarding the dynamic libraries, they help to avoid replications and memory consumption, and also help to maintain the library updated in all programs that use them. Although this can seem pretty good, it can generate two bad effects into the compiled program. First of all, if the library is missing in the system, the program will not run or will crash in execution time. Secondly, if the library is updated but some methods are changed, the program will crash because the non-existing function, and it will be necessary to readjust the code again, recompile and redistribute it.
 
 \section{spidev.h}\label{S:linux-spi-spidev}
 Source code of the library spidev.h used along this project. The different macros needed to configure the ioctl calls.

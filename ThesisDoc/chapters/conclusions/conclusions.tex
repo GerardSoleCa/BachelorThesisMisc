@@ -11,6 +11,27 @@ In order to try to improve the IOSharp performance it was translated to C++ usin
 \\
 And finally, the best of AlterNative is that the generated code is still cross platform because it uses standard C++ or libraries which are also available on different platforms, so once the source is generated it can be taken to an ARM Linux and then compile it to an executable assembly.
 
+\subsection{Achieved Objectives}\label{Conclusions-objectives}
+On Chapter \ref{C:project-overview} (Project Overview) the objectives for this thesis where listed, now, are listed the results in terms of objective achievements.
+\begin{itemize}
+	\item \textbf{IOSharp:} all objectives had been achieved.
+		\begin{itemize}
+		\item \textbf{GPIO}
+		\item \textbf{Interrupts}
+		\item \textbf{SPI}
+		\item \textbf{UART}
+		\item \textbf{HomeSense}
+		\end{itemize}
+	\item \textbf{AlterNative:} most of the objectives where achieved.
+		\begin{itemize}
+		\item \textbf{Cross-Platform:} any operating system capable of execute .NET code can use AlterNative.
+		\item \textbf{Library:} all the necessary methods for translation IOSharp had been implemented.
+		\item \textbf{Tests:} each method implemented above has its own functional test.
+		\item \textbf{Performance analysis:} shown in chapter \ref{C:Performance-Test}.
+		\item \textbf{Translate HomeSense:} although AlterNative translates IOSharp, the HomeSense complete translation couldn't be achieved.
+		\end{itemize}
+\end{itemize}
+
 \section{Personal Conclusions}\label{S:Personal-Conclusions}
 Beyond academic achievements, all the process involving this bachelor's thesis has been rewarding. This project has given me a real chance to start working with embedded strategies, protocols and it also has provided an introduction to C++ development.
 \\
@@ -43,3 +64,5 @@ In the case of AlterNative translating tool:
 
 \section{Environmental Impact}\label{S:Environmental-Impact}
 At last but not least it is relevant to talk about the environmental impact of the work described in this document. It can be seen from the present document, this project consists in the design and development of a software application. This has not a direct environmental benefit, but IOSharp is an implementation on a high-level basis of .NET Micro Framework which is an operating system for embedded devices, so it makes easy to develop applications which helps control different kind of situations like home installations (i.e. lights, temperature or humidity) to applications capable of detect and analyse different parameters from the environment (i.e. weather and wind stations).
+\\
+AlterNative also reduces the power consumption required to execute a program by removing the .NET virtual machine in which non-translated programs relay on. The translated binary runs directly on the operating system avoiding all the overhead that a virtual machine implies.

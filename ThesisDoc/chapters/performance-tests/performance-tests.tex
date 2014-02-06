@@ -184,3 +184,6 @@ Then the same test is performed using the C++ version. The result is pretty good
   \caption{Response time of an interruption in C++\label{fig:interrupt-cxx}}
 \end{center}\end{figure}
 It is important to remark that the interruptions in operating systems cannot be considered real-time interruptions, this implies that sometimes an event is attended at a certain time but in another moment the time required can be much more different due to the non real-time kernel that usually Linux uses. If a hard real-time is needed it is recommended to use other platforms like FreeRTOS which is intended to do tasks that require controlled response times.
+
+\section{Conclusions}\label{S:PerformanceTests-Conclusions}
+The iteration test is important because in embedded systems the highest speed that can achieve a board is related to the maximum rate that the board can interact with external devices. Whereas the second test, which analyses the interrupt-response time is useful to determine the response delay in front of an interrupt.

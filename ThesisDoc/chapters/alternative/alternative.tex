@@ -75,9 +75,15 @@ At the beginning AlterNative only worked on Windows because some classes from th
 \\
 The first attempt to translate IOSharp was unsuccessful but it helped to determine how near the translation was of being successful. There where several major features that AlterNative was not able to translate like the threading, the delegates used in the interruptions, the P/Invokes or some functions like DateTime, Timer and file reading/writing. Many of those features where required to be implemented on the proprietary library because this is the one that is linked to the translated program in order to run properly.
 \\
-To implement this features the C++ boost library has been used. This library uses standard C++ functions so it can work practically in any device or operating system. The classes currently implemented either totally or partially are shown in the Appendix \ref{SS:Libs-AlterNative}.
 \\
-\\
+To implement this features the C++ boost library has been used. This library uses standard C++ functions so it can work practically in any device or operating system. The classes currently implemented either totally or partially are shown in the Appendix \ref{SS:Libs-AlterNative}. There are marked in red the libraries that where contributed to the AlterNative in order to translate IOSharp. Essentially the written ones are:
+\begin{itemize}
+\item \textbf{DateTime:} needed to get the moment of an interrupt.
+\item \textbf{TimeSpan:} to be used on the Timer.
+\item \textbf{File:} used to write or read values in the SYSFS in order to control the GPIO.
+\item \textbf{Encoding:} used to properly encode strings to UTF-8.
+\end{itemize}
+
 In the figure \ref{fig:AN-Example-IOSharp} is shown the differences between the original Micro Framework, the IOSharp implementation in C\# and the translated one. Each one includes some new layers on the stack either to implement the functionalities of the Micro Framework as IOSharp layer does or to implement the functionalities of C\# like the layer named AlterNative Library which is the implementation of the C\# classes. The first one shows the original implementation which runs on the bare metal of the board as it has been explained on the state of the art. The second column represents the IOSharp original implementation, in this case, the underlying hardware has an operating system (Linux) and then it uses a virtual machine (Mono) to run the program that makes use of IOSharp. Finally, the translated version swaps Mono to AlterNative System classes and the IOSharp C++ version, but maintaining the original IOSharp-C library.
 
 \begin{figure}[H]\begin{center}

@@ -3,14 +3,7 @@ Simultaneously with the development of IOSharp some small tests were created so 
 
 \section{UART. Raspberry Pi and Netduino}\label{S:IOEx-UART}
 This example shows that is possible to use the .NET Framework SerialPort implementation as a replacement of the original Micro Framework one. In this case a Raspberry Pi and a Netduino is used, the first one will send a message through the UART port, when the Netduino receives that message will send it back to the Raspberry Pi.
-\begin{figure}[H]\begin{center}
- \centering
-  \captionsetup{justification=centering}
-  \includegraphics[width=1\textwidth]{pictures/sample/red}
-  \caption{Bytes exchanged between a Raspberry Pi and a Netduino using the UART \label{fig:IOEx-UART}}
-\end{center}\end{figure}
 
-The figure \ref{fig:IOEx-UART} shows the bytes sent through the \gls{TX} channel of the Raspberry Pi which are the same as the \gls{RX} connected to the Netduino.
 
 \section{SPI. RFID and IOSharp}\label{S:rfid-iosharp}
 This was the first test to verify the SPI in a real environment using a RFID card reader connected through the SPI bus. This test derives from a proof of concept made for VR gym in Argentona under the Spanish project "Activat" from "Proyecto Impacto", this project requested to develop a method to authenticate and authorize users for a secure entrance on a complex by using a RFID card reader and different cards, tags and wristbands with an ID which can be associated with a certain user.

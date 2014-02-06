@@ -41,7 +41,10 @@ int main( )
 \end{itemize}
 
 \section{GPIO}\label{SS:IOEx-GPIO}
-GPIO test consists on how much time takes the board to perform a certain number of iterations changing an output port between the high and low states. Two channels are used in this test, the first one will activate the Logic16 to start sniffing the second channel which will be the one that performs the changes. The following code shows the test using the C\# implementation.
+GPIO test consists on how much time takes the board to perform a certain number of iterations changing an output port between the high and low states. Two channels are used in this test, the first one will activate the Logic16 to start sniffing the second channel which will be the one that performs the changes. 
+\\
+\\
+The following code shows the test using the C\# implementation. This is the minimum test to analyse the performance of Mono and C++ when I/O is involved using the original IOSharp and its translation. In this case, it will be measured the whole time that the system takes to change the state of an output port on a certain number of iterations.
 \begin{lstlisting}[language=CSharp, caption={GPIO Performance test in C\#}]
 using System;
 using System.Collections.Generic;
@@ -173,7 +176,7 @@ In the figure \ref{fig:interrupt-csharp} is shown the triggering of the interrup
   \includegraphics[scale=0.65]{pictures/performance-tests/Interruptions/csharp}
   \caption{Response time of an interruption in C\# and Mono\label{fig:interrupt-csharp}}
 \end{center}\end{figure}
-Then the same test is performed using the C++ version. The result is pretty good because the interruption is attended only 0.879 ms after the triggering. This implies that C++ is 447 μs faster than C\#.
+Then the same test is performed using the C++ version. The result is pretty good because the interruption is attended only 0.879 ms after the triggering. This implies that C++ is 447 $\mu$s faster than C\#.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}

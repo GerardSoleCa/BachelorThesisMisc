@@ -84,8 +84,8 @@ After doing this, this project can be opened as Micro Framework in order to depl
 \end{center}\end{figure}
 
 \section{HomeSense}\label{S:IOEx-HomeSense}
-HomeSense is a Wireless Healthcare Sensor Platform designed by AlterAid. Its basis are the aim of control and care taking of the elderly and relatives. The current implementation uses a Netduino Mini which makes the function of the gateway which controls the sensor network, receiving all the data and uploading this to internet.
-Some sensors are spread around the house which are capable of fetch     data, for example a sensor installed on the door of a medicine cabinet let the network know if that cabinet has been opened. So with all of this sensors is possible to acquire information from the environment and then send that information to the internet using the gateway.
+HomeSense is a Wireless Healthcare Sensor Platform designed by AlterAid. The current implementation uses a Netduino Mini board which is the gateway. This board controls the sensor network, receiving all the data and uploading it to internet.
+Some sensors are spread around the house which are used to fetch data. So with all of those sensors is possible to acquire information from the environment and then send that information to internet using the gateway.
 \\
 This sensors are programmed using C and all of them use the \gls{SoC} nRF24LE1 which mounts a low-power RF ISM band (2.4 GHz) from Nordic Semiconductor.
 \begin{figure}[H]\begin{center}
@@ -107,6 +107,13 @@ Basically it will use all the features implemented in this library.
 \item \textbf{SPI}: The Nordic nRF24L01+ is controlled using the SPI protocol. This chip is used to create the physical meshed network which connects with the different nodes. The channel created using the Nordic is half-duplex so there is only one communication at a time either transmission or reception.
 \item \textbf{Interruptions}: When the gateway's Nordic receives information form other nodes it must alert that new data is waiting to be read, to make this alert an interruption is used on a GPIO
 \end{itemize}
+Figure \ref{fig:IOEx-GW-Diagram} summarizes the connections and devices used with the Raspberry Pi and HomeSense. On the left is shown the Nordic which uses the SPI protocol and it send interrupts to the Raspberry Pi. On the right, the Wifly uses the UART protocol to exchange data.
+\begin{figure}[H]\begin{center}
+ \centering
+  \captionsetup{justification=centering}
+  \includegraphics[width=0.8\textwidth]{pictures/examples/gateway-diagram}
+  \caption{Diagram showing the protocols and devices used in HomeSense\label{fig:IOEx-GW-Diagram}}
+\end{center}\end{figure}
 With all this devices attached to the shield used in the Raspberry Pi will be possible to test all the functions working at the same time and how the system response compared to the original one.
 \begin{figure}[H]\begin{center}
  \centering
@@ -128,6 +135,6 @@ HomeSense has a program which shows the network status with its gateway and the 
 \end{center}\end{figure}
 
 \section{Conclusions}\label{S:Results-overview}
-After testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. Raspberry Pi, need more time to send the network events than the Netduino and this is probably related to the time needed to attend the interruptions on Mono. In this case the IOSharp with Mono needs two transmissions to send the same information that is send with only one transmission using the Netduino.
+All the functional tests show that IOSharp has been successfully done. Each test works on the Raspberry Pi with doing only minor changes on the code. With IOSharp working and being able to be used on existing Micro Framework projects to make them run on other platforms the development milestone has been done. But, after testing the different parts of IOSharp and deploying HomeSense on the Raspberry Pi using Mono it was seen that the performance was not as good as it was expected. Raspberry Pi, need more time to send the network events than the Netduino and this is probably related to the time needed to attend the interruptions on Mono. In this case the IOSharp with Mono needs two transmissions to send the same information that is send with only one transmission using the Netduino.
 \\
 To try to solve these issues with the performance of the library, IOSharp will be translated to C++ using a translating tool called AlterNative which is capable of translate .NET assemblies to C++ while maintaining a similar C\# syntax.

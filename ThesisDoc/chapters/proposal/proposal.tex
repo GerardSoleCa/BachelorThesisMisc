@@ -36,3 +36,27 @@ After introducing HomeSense and AlterNative is time to explain the thesis propos
 The idea is to take the gateway code and port it to other devices capable of use minimum GPIO, interrupts from this ports, the SPI communication protocol and UART because all of them are used in the HomeSense source code. It is important to point that the implemented classes must be similar to the Micro Framework code to avoid major changes on the HomeSense program. Minor changes such as port renaming and communication module name changing are acceptable because they do not alter the original execution flow and design architecture. But not only this should be done on HomeSense, it is interesting to make portable between different hardware platforms any code that runs over Micro Framework.
 \\
 After accomplishing with this first goal, the second part of the thesis is to use AlterNative to translate the IOSharp library to C++ in order to increase and analyse the performance of IOSharp running on C++ instead of C\#. To accomplish with this objective, some C++ libraries must be written in order to translate IOSharp.
+
+\subsection{Objectives}\label{SS:Proposal-Objectives}
+The proposed objectives are listed below explaining briefly each one:  
+\begin{itemize}
+	\item \textbf{IOSharp:} objectives to be accomplished during the first part of this thesis.
+		\begin{itemize}
+		\item \textbf{GPIO:} Simple I/O functions (Input, Output ports).
+		\item \textbf{Interrupts:} enable interrupts through GPIOs.
+		\item \textbf{SPI:} get a working SPI bus on the implementation.
+		\item \textbf{UART:} get a functional SerialPort
+		\item \textbf{HomeSense:} deploy this WSN as a functional test to show the correct function of the library.
+		\end{itemize}
+	\item \textbf{AlterNative:} second part of the thesis involving the code translation tool.
+		\begin{itemize}
+		\item \textbf{Library:} write the necessary methods to let IOSharp be translated.
+		\item \textbf{Tests:} write functional tests to determine the correct functionality of the library.
+		\item \textbf{Performance analysis:} do some performance analysis to check the performance increase when the code is translated.
+		\item \textbf{Translate HomeSense:} do a complete translation of the WSN platform using AlterNative.
+		\end{itemize}
+\end{itemize}
+
+
+\section{Document Structure}\label{SS:Proposal-Doc-Structure}
+This document is structured on seven chapters that shows the project definition when this thesis was proposed, then a state of the art shows the current technologies or systems that are similar to this thesis. Then the development steps are enumerated where GPIO, interrupts, SPI and UART are involved. Another chapter is dedicated to the functional tests to proof that the IOSharp proposed objectives where done. After these tests an introduction to AlterNative is done along with the performance tests chapter which shows the results for the AlterNative part. Finally, the conclusions chapter summarizes the thesis.

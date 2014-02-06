@@ -216,7 +216,7 @@ Before doing a transaction via the SPI this must be configured, first of all def
   \caption{SPI modes are defined with the parameters "CPOL" and "CPHA" relatives to the data sampling acording to the System Clock (SCLK) state.\label{fig:spi-modes}}
 \end{center}\end{figure}
 
-These modes must be configured using the \gls{IOCTL} function passing the \gls{FD} according to the SPI device and the desired \gls{CS}, then the preprocessor macro \verb!SPI_IOC_WR_MODE! is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro which defines the operational mode, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the \gls{IOCTL} function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
+These modes must be configured using the \gls{IOCTL} function passing the file descriptor of the SPI device and the desired \gls{CS}, then the preprocessor macro \verb!SPI_IOC_WR_MODE! is used to specify which parameter will be configured, in this case its the SPI mode that has been explained before, the last parameter corresponds to another macro which defines the operational mode, the figure \ref{fig:spi-modes} shows each mode and the macro that must be passed to the \gls{IOCTL} function, this modes are \verb!SPI_MODE_0!, \verb!SPI_MODE_1!, \verb!SPI_MODE_2! and \verb!SPI_MODE_3!.
 
 \begin{lstlisting}[language=C, caption={IOSharp.c - SPI Mode configuration}]
 uint8_t mode;
@@ -277,7 +277,9 @@ typedef struct spi_config
 } SPI_CONFIG;
 \end{lstlisting}
 
-The listing below represents the C\# implementation of the C struct used for the pin configuration. It contains the same parameters as the C version and also implements a constructor which simplifies the conversion between the Configuration class and this structure. It is important to note the \verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This attribute is used by the P/Invoke to know how the marshalling must be done when is passed to the C library.
+The listing below represents the C\# implementation of the C struct used for the pin configuration. It contains the same parameters as the C version and also implements a constructor which simplifies the conversion between the Configuration class and this structure. It is important to note the attribute located over the method 
+\\
+\verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This is used by the P/Invoke to know how the marshalling must be done when is passed to the C library.
 
 \begin{lstlisting}[language=CSharp, caption={SPI.cs - spi\_config struct}]
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -345,7 +347,4 @@ In fact, the original Micro Framework supports a hardware descriptor which repre
   \includegraphics[scale=0.30]{pictures/iosharp/mapping-raspberrypi}
   \caption{Raspberry Pi pin mapping according to the GPIO\label{fig:mapping-rpi}}
 \end{center}\end{figure}
-
-The mapping has been divided into two classes, the first one maps the Pins so it will contain the naming according to the platform pins. Both versions of Raspberry Pi are mapped.
-\\
-The second file is used to pass the specific pins to the program, for example it configures the pins for the SPI or the UART. It is interesting to mention that in Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. Raspberry Pi SPI device can have two slaves by using the \verb!spidev0.0! and \verb!spidev0.1!. This indicates that there are one device capable of having two slaves. The MISO, MOSI and SCLK pins are shared whereas each slave has its own chip select. In case of the UART it is also represented as a device and is named \verb!/dev/ttyAMA0! on the Raspberry Pi.
+The mapping is divided into two different classes, the first one gives the Pin names that must be used on Linux to control the I/O ports. The second one, is related to the required pins to use a specific protocol. For example, it configures the pins for the SPI or the UART. In Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. Raspberry Pi SPI device can have two slaves by using the \verb!spidev0.0! and \verb!spidev0.1!. This indicates that there is one device capable of having two slaves. The MISO, MOSI and SCLK pins are shared whereas each slave has its own chip select. In case of the UART it is also represented as a device and is named \verb!/dev/ttyAMA0! on the Raspberry Pi.

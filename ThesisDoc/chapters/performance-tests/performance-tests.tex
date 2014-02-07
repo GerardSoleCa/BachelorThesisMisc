@@ -164,26 +164,26 @@ As it was done in the previous test a graph has been done comparing the differen
 \end{center}\end{figure}
 At this number of iterations the C++ performs much better than C\# and also is possible to see an improvement between the debug and release versions of C++ being the optimized version 741 ms faster than the non-optimized one.
 
-\section{Interruptions}\label{S:Performance-Interruptions}
-It was observed that in HomeSense the response time in the sensor events was poor, probably because of the time that Mono takes between the interruption detection and the interception response. To analyse the elapsed time between the trigger and the response the example will be polling events from a pin, when an event occurs another pin  will be used in output mode with an active high state.
+\section{Interrupts}\label{S:Performance-Interruptions}
+It was observed that in HomeSense the response time in the sensor events was poor, probably because of the time that Mono takes between the interrupt detection and the interception response. To analyse the elapsed time between the trigger and the response the example will be polling events from a pin, when an event occurs another pin  will be used in output mode with an active high state.
 \\
 Like the previous test, the C++ code has been generated using AlterNative so it also will be used to test some special functionalities like the delegates or the timer. The program will start and create a delegate which will be the called function when an interrupt occurs.
 \\
-In the figure \ref{fig:interrupt-csharp} is shown the triggering of the interruption (the top channel with the falling edge), after 1.326 ms the second channel is activated in state high which represents the interruption response.
+In the figure \ref{fig:interrupt-csharp} is shown the triggering of the interrupt (the top channel with the falling edge), after 1.326 ms the second channel is activated in state high which represents the interrupt response.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.65]{pictures/performance-tests/Interruptions/csharp}
-  \caption{Response time of an interruption in C\# and Mono\label{fig:interrupt-csharp}}
+  \caption{Response time of an interrupt in C\# and Mono\label{fig:interrupt-csharp}}
 \end{center}\end{figure}
-Then the same test is performed using the C++ version. The result is pretty good because the interruption is attended only 0.879 ms after the triggering. This implies that C++ is 447 $\mu$s faster than C\#.
+Then the same test is performed using the C++ version. The result is pretty good because the interrupt is attended only 0.879 ms after the triggering. This implies that C++ is 447 $\mu$s faster than C\#.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.65]{pictures/performance-tests/Interruptions/cxx}
-  \caption{Response time of an interruption in C++\label{fig:interrupt-cxx}}
+  \caption{Response time of an interrupt in C++\label{fig:interrupt-cxx}}
 \end{center}\end{figure}
-It is important to remark that the interruptions in operating systems cannot be considered real-time interruptions, this implies that sometimes an event is attended at a certain time but in another moment the time required can be much more different due to the non real-time kernel that usually Linux uses. If a hard real-time is needed it is recommended to use other platforms like FreeRTOS which is intended to do tasks that require controlled response times.
+It is important to remark that the interrupts in operating systems cannot be considered real-time interrupts, this implies that sometimes an event is attended at a certain time but in another moment the time required can be much more different due to the non real-time kernel that usually Linux uses. If a hard real-time is needed it is recommended to use other platforms like FreeRTOS which is intended to do tasks that require controlled response times.
 
 \section{Conclusions}\label{S:PerformanceTests-Conclusions}
 The iteration test is important because in embedded systems the highest speed that can achieve a board is related to the maximum rate that the board can interact with external devices. Whereas the second test, which analyses the interrupt-response time is useful to determine the response delay in front of an interrupt.

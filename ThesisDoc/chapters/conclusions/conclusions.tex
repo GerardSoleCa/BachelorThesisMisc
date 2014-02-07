@@ -24,11 +24,11 @@ On Chapter \ref{C:project-overview} (Project Overview) the objectives for this t
 		\end{itemize}
 	\item \textbf{AlterNative:} most of the objectives where achieved.
 		\begin{itemize}
-		\item \textbf{Cross-Platform:} any operating system capable of execute .NET code can use AlterNative.
-		\item \textbf{Library:} all the necessary methods for translation IOSharp had been implemented.
-		\item \textbf{Tests:} each method implemented above has its own functional test.
+		\item \textbf{Cross-Platform:} now is possible to use this tool in any operating system capable of run .NET programs.
+		\item \textbf{Library:} the necessary methods for IOSharp translation are done.
+		\item \textbf{Tests:} each implemented method has its own functional test.
 		\item \textbf{Performance analysis:} shown in chapter \ref{C:Performance-Test}.
-		\item \textbf{Translate HomeSense:} although AlterNative translates IOSharp, the HomeSense complete translation couldn't be achieved.
+		\item \textbf{Translate HomeSense:} although AlterNative translates IOSharp, HomeSense is not completely translated.
 		\end{itemize}
 \end{itemize}
 
@@ -50,7 +50,7 @@ In case of IOSharp:
 \begin{itemize}
 \item \textbf{Addition of new protocols:} Currently IOSharp offers the simple GPIOs, UART and SPI but there are other common protocols or interfaces that could be developed to extend the features, such as the \gls{I2C} bus protocol. It could also be nice to implement the analogical ports or even \gls{PWM} control in I/O ports.
 
-\item \textbf{Performance optimization:} The implementation in .NET is too much slow running on Mono, probably related to the use of the \gls{SYSFS}. It could be interesting to do some performance tests using the \gls{SYSFS} and the Kernel functions provided by Linux. Apart from this, the interruptions are not implemented using \gls{IRQ} so using \gls{IRQ} instead of polling interruptions could be a good improvement on performance although it could affect on the portability between boards, some distributions do not accept IRQ interruptions from the GPIOs.
+\item \textbf{Performance optimization:} The implementation in .NET is too much slow running on Mono, probably related to the use of the \gls{SYSFS}. It could be interesting to do some performance tests using the \gls{SYSFS} and the Kernel functions provided by Linux. Apart from this, the interrupts are not implemented using \gls{IRQ} so using \gls{IRQ} instead of polling interrupts could be a good improvement on performance although it could affect on the portability between boards, some distributions do not accept IRQ interrupts from the GPIOs.
 \end{itemize}
 
 In the case of AlterNative translating tool:

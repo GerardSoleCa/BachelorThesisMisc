@@ -73,12 +73,12 @@ To achieve the translation (or partial translation) of IOSharp through AlterNati
 At the beginning AlterNative only worked on Windows because some classes from the ILSpy had mixed the view and the decompiler functions so it was unable to run in Linux because the part of the view could not compile. In order to solve that an AlterNative.Core was created which could work in any system that could run C\# code. This core version has its own solution and csproj file but they are pointed to the same code files of the original program. In this way, AlterNative can run either on .NET Framework in Windows or on Mono in Linux and MacOSX.
 \\
 \\
-The first attempt to translate IOSharp was unsuccessful but it helped to determine how near the translation was of being successful. There where several major features that AlterNative was not able to translate like the threading, the delegates used in the interruptions, the P/Invokes or some functions like DateTime, Timer and file reading/writing. Many of those features where required to be implemented on the proprietary library because this is the one that is linked to the translated program in order to run properly.
+The first attempt to translate IOSharp was unsuccessful but it helped to determine how near the translation was of being successful. There where several major features that AlterNative was not able to translate like the threading, the delegates used in the interrupts, the P/Invokes or some functions like DateTime, Timer and file reading/writing. Many of those features where required to be implemented on the proprietary library because this is the one that is linked to the translated program in order to run properly.
 \\
 \\
 To implement this features the C++ boost library has been used. This library uses standard C++ functions so it can work practically in any device or operating system. The classes currently implemented either totally or partially are shown in the Appendix \ref{SS:Libs-AlterNative}. There are marked in red the libraries that where contributed to the AlterNative in order to translate IOSharp. Essentially the written ones are:
 \begin{itemize}
-\item \textbf{DateTime:} needed to get the moment of an interrupt.
+\item \textbf{DateTime:} used for storing the time stamp of the interrupt.
 \item \textbf{TimeSpan:} to be used on the Timer.
 \item \textbf{File:} used to write or read values in the SYSFS in order to control the GPIO.
 \item \textbf{Encoding:} used to properly encode strings to UTF-8.

@@ -32,12 +32,12 @@ Micro Framework natively offers the required classes to configure the port mappi
 In the following sections it will be explained how has been carried out the implementation of the IOSharp library. As a summary IOSharp works as Micro Framework but on a high level basis, so it is not a complete port of the original, instead of this it uses C\# to implement the same functions which are exposed by the framework. In this case, the original source code has been downloaded from \url{http://netmf.codeplex.com/}. From the folder \verb!\Framework\Core\Native_Hardware! can be obtained the necessary files to implement at least the GPIO and the SPI port along with the files for port mapping or even UART. The native files make use of internal implements, so when a method which does an internal implement, is called the virtual machine will take the call and process the function internally. IOSharp instead of implementing the virtual machine implements the functions as a normal method (opening and closing the brackets and inserting the code inside the method).
 \\
 \\
-The final implementation of IOSharp should look like the figure \ref{fig:iosharp-schema}. The board uses Linux and then Mono is used to execute the Embedded Application. This one uses the IOSharp implementation which is composed by 4 modules. The SYSFS is used by the GPIO to control the different I/O ports. The interrupt system and the SPI uses a custom library named IOSharp-C. Finally, the UART uses the SerialPort implementation from the Mono library.
+The final implementation of IOSharp should look like the figure \ref{fig:iosharp-schema}. The board uses Linux and then Mono is used to execute the Embedded Application. The application references IOSharp library which it currently has 4 features. The SYSFS is used by the GPIO to control the different I/O ports. The interrupt system and the SPI uses a custom library named IOSharp-C. Finally, the UART uses the SerialPort implementation from the Mono libraries.
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.75]{pictures/iosharp/iosharp-schema2}
-  \caption{Representation of the IOSharp \label{fig:iosharp-schema}}
+  \caption{Representation of IOSharp\label{fig:iosharp-schema}}
 \end{center}\end{figure}
 
 \subsection{GPIO}\label{SS:GPIO}
@@ -279,7 +279,7 @@ typedef struct spi_config
 
 The listing below represents the C\# implementation of the C struct used for the pin configuration. It contains the same parameters as the C version and also implements a constructor which simplifies the conversion between the Configuration class and this structure. It is important to note the attribute located over the method 
 \\
-\verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This is used by the P/Invoke to know how the marshalling must be done when is passed to the C library.
+\verb![StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]!. This attribute is used by the P/Invoke to know how the marshalling must be done when is passed to the C library.
 
 \begin{lstlisting}[language=CSharp, caption={SPI.cs - spi\_config struct}]
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -306,7 +306,7 @@ public struct spi_config {
 }
 \end{lstlisting}
 
-It is interesting to remark that the \gls{TX}/\gls{RX} buffers are not returned from C to C\# , instead their pointers are sent from C\# to C, so the same memory is reused in both environments. 
+It is interesting to remark that the \gls{TX}/\gls{RX} buffers are not returned from C to C\# , instead, their pointers are sent from C\# to C, so the same memory is reused in both environments. 
 
 \subsection{UART}\label{SS:IOSharp-UART}
 UART is a really simple protocol that uses an asynchronous serial communication between two devices. As figure \ref{fig:uart-modules} shows, each device have two ports which are the \gls{TX} for transmissions and \gls{RX} for receptions. The transmission port must be connected to the reception port on the other device. Both devices must share the ground.
@@ -318,9 +318,9 @@ UART is a really simple protocol that uses an asynchronous serial communication 
   \caption{UART communication schema\label{fig:uart-modules}}
 \end{center}\end{figure}
 
-Unlike the above features which were not implemented on the standard .NET Framework the UART it is with also the same name and in the namespace, so this is problematic in case of a class reimplementation if maintaining the original namespace is desired.
+Unlike the above features which were not implemented on the standard .NET Framework, the UART (SerialPort) exists on that implementation with exactly the same name and in the namespace. This is problematic in case of a class reimplementation is needed because it is impossible to maintain the original namespace (\verb!System.IO.Ports!).
 \\
-First of all and trying to avoid a new implementation of a SerialPort the classes from the Micro Framework and the .NET Framework were compared. After doing this it was realised that the two classes were so similar that IOSharp did not require a new reimplementation. The reason of avoiding a new implementation is due to two reasons, the first one is that any reuse of code is better rather than writing again the same feature, and considering that the communications between devices must be really well done, and .NET Framework is much more stable and tested than a code written from scratch. The other reason of this choose is that although the .NET Framework class is not exactly as the Micro Framework class, it has all the required methods that are needed for HomeSense.
+First of all and trying to avoid a new implementation of a SerialPort, the classes from the Micro Framework and the .NET Framework were compared. After doing this, it was realised that the two classes were so similar that IOSharp did not require a new reimplementation. The are two reasons to avoid this reimplementation, the first one is that any reuse of code is better rather than writing again the same feature, because .NET Framework is much more stable and tested than a code written from scratch. The other reason is that, although the .NET Framework class is not exactly as the Micro Framework class, it has all the required methods that are needed for HomeSense.
 
 \begin{figure}[H]\begin{center}
  \centering
@@ -329,22 +329,22 @@ First of all and trying to avoid a new implementation of a SerialPort the classe
   \caption{UML SerialPort representation of the original .NET Framework (Left) and .NET Micro Framework (Right)\label{fig:serialport-uml}}
 \end{center}\end{figure}
 
-It is important to remark that IOSharp in Linux runs on Mono implementation of the .NET Framework classes, and in this case the SerialPort class has some disadvantages on Mono version, basically it does not support the \verb!DataReceived! or \verb!ErrorReceived! events because the functions have not been implemented on its internal runtime.
+It is important to remark that IOSharp, in Linux, runs on the Mono implementation of .NET Framework classes, and in this case the SerialPort class has some disadvantages on the Mono version, basically, it does not support the \verb!DataReceived! or \verb!ErrorReceived! events because that functions are not implemented on that virtual machine. But it is not a real problem because HomeSense does not use that events.
 
 \section{Port Mapping}\label{S:Port-Mapping}
-Although IOSharp is a cross-platform library some features require a specific configuration when deploying in different boards. Every board has its own port mapping and naming so it is necessary to have a specific library to describe that board. This is similar to the \gls{HAL} and \gls{PAL} concept:
+Although IOSharp is a cross-platform library some features require a specific configuration when deploying on different boards. Every board has its own port mapping and naming, so it is necessary to have a specific library to describe that board. This is similar to the \gls{HAL} and \gls{PAL} concept:
 \begin{itemize}
-\item \textbf{HAL:} Hardware Abstraction Layer. In this case Linux acts as a HAL offering simple APIs to use features likes the kernel driven SPI device or the GPIO exposed in the SYSFS.
-\item \textbf{PAL:} Platform Abstraction Layer. Is the library that must be implemented in order to exploit the HAL functionalities. In this case, the Raspberry Pi requires a library to remap the GPIO pins or the SPI device to the name that the HAL uses.
+\item \textbf{HAL:} Hardware Abstraction Layer. In this case Linux acts as a HAL which offers simple APIs to use features likes the kernel driven SPI device or the GPIO exposed in the SYSFS.
+\item \textbf{PAL:} Platform Abstraction Layer. It is the library that must be implemented in order to exploit the HAL functionalities. In this case, the Raspberry Pi requires a library to map the GPIO pins or the SPI devices to the appropriate names for the HAL.
 \end{itemize}
 
 \subsection{HardwareProvider}\label{SS:HardwareProvider}
-In fact, the original Micro Framework supports a hardware descriptor which represents the \gls{PAL} of the specific boards and is called \verb!HardwareProvider!. Raspberry Pi is the target platform for this project so a hardware descriptor was written, below are represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In the image are also shown where are the different pins used for the SPI and the \gls{I2C}.
+In fact, the original Micro Framework supports a hardware descriptor which represents the \gls{PAL} of the specific boards and is called \verb!HardwareProvider!. Raspberry Pi is the target platform for this project so a hardware descriptor was written. Below are represented the pins of the Raspberry Pi, on the left the revision 1.0 and on the right the revision 2.0. In the image are also shown where are the different pins used for the SPI and the \gls{I2C}.
 
 \begin{figure}[H]\begin{center}
  \centering
   \captionsetup{justification=centering}
   \includegraphics[scale=0.30]{pictures/iosharp/mapping-raspberrypi}
-  \caption{Raspberry Pi pin mapping according to the GPIO\label{fig:mapping-rpi}}
+  \caption{Raspberry Pi pin mapping\label{fig:mapping-rpi}}
 \end{center}\end{figure}
-The mapping is divided into two different classes, the first one gives the Pin names that must be used on Linux to control the I/O ports. The second one, is related to the required pins to use a specific protocol. For example, it configures the pins for the SPI or the UART. In Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory. Raspberry Pi SPI device can have two slaves by using the \verb!spidev0.0! and \verb!spidev0.1!. This indicates that there is one device capable of having two slaves. The MISO, MOSI and SCLK pins are shared whereas each slave has its own chip select. In case of the UART it is also represented as a device and is named \verb!/dev/ttyAMA0! on the Raspberry Pi.
+The mapping is divided into two different classes, the first one gives the Pin names that must be used on Linux to control the I/O ports. The second one, is related to the required pins to use a specific protocol. For example, it configures the pins for the SPI or the UART. In Linux the SPI and UART are known as devices so they are located under \verb!/dev/! directory.

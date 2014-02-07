@@ -23,7 +23,7 @@ In general, there are three types of operating system architectures for embedded
 
 \item \textbf{Modular:} The OS is running as a standalone program in the processor and has the ability of loading programs as modules. In terms of the development, it's possible to develop applications without writing in the core of the OS. Normally using modules developers can expand the capabilities of its software.
 
-\item \textbf{Virtual-Machine:} The virtual machine creates an abstraction layer of its underlying hardware. This abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. Although using virtual-machine devices simplifies the development on multiple devices, the performance of the platform normally will be reduced and in Real Time environments it isn't recommended to use it. It is interesting to remark that embedded virtual machines, differently from VMs in desktop or server environments, run on the bare metal so they also act as an operating system.
+\item \textbf{Virtual-Machine:} The virtual machine creates an abstraction layer of its underlying hardware. This abstracted layer is common in every device that implements that virtual-machine. Using this type of operating system provides a helpful tool to achieve the well known slogan \textit{write once, run anywhere}. Although using virtual-machine devices simplifies the development on multiple devices, the performance of the platform normally will be reduced and in Real Time environments it is not recommended to use it. It is interesting to remark that embedded virtual machines, differently from VMs in desktop or server environments, run on the bare metal so they also act as an operating system.
 \end{itemize}
 
 \subsection{Embedded Operating Systems}\label{SOTA-Embedded-Operating-Systems}
@@ -32,7 +32,7 @@ There is a wide range of Embedded Operating Systems each of them has strengths a
 \begin{itemize}
 \item \textbf{TinyOS} is a popular open source OS for wireless constrained devices, many of them used in wireless sensor networks. It provides software abstractions from the underlying hardware. It is focused on wireless communications offering stacks for 6LoWPAN and ZigBee. It also supports secure networking and implements a \gls{RPL} taking in mind the forthcoming routing protocol for low power and lossy networks.
 \\
-However, TinyOS changes how programs should be developed, it intended to use non-blocking programming which means that it isn't prepared for long processing functions. For example, when TinyOS called to send a message the function will return immediately and after a while the send will be processed and then, TinyOS will make a callback to a function, for example \verb!send()!'s callback will be \verb!sendDone()!.
+However, TinyOS changes how programs should be developed, it intended to use non-blocking programming which means that it is not prepared for long processing functions. For example, when TinyOS called to send a message the function will return immediately and after a while the send will be processed and then, TinyOS will make a callback to a function, for example \verb!send()!'s callback will be \verb!sendDone()!.
 
 \item \textbf{FreeRTOS} is a free real-time OS that supports over 34 architectures and it is being developed by professionals under strict quality controls and robustness. It is used from toys to aircraft navigation and it is interesting for its real-time qualities. It has a very small memory footprint (RAM usage) and very fast execution, based on hard real-time interrupts performed by queues and semaphores. Apart from this, there are not constraints on the maximum number of tasks neither the priority levels that can be used on tasks. 
 
@@ -57,7 +57,7 @@ In 2008 the production of SPOT watches was discontinued, and in 2009 Microsoft r
 \end{center}\end{figure}
 
 \subsection{Devices using Micro Framework}\label{SS:SOTA-MicroFramework-Devices}
-Since Microsoft released the Micro Framework source code, different companies had created different devices supporting .NET code and this stack.
+Since Microsoft released the Micro Framework source code, companies had created different devices supporting .NET code and this stack.
 \\
 There are two major vendors producing chips and development kits for this software. Secret Labs produces the netduino family, which consists of the standard netduino, a netduino plus which is an enriched version. This one has better processor and memory, it includes an ethernet port and uses micro sd cards to provide storage. One of the interesting things of this two boards is that the layout is compatible with the arduino shields.
 Secret Labs has another board called netduino go, which is similar to netduino plus but without storage and ethernet, and it does not use the typical arduino layout, so a globus module is required to use arduino shields. They also have another board called netduino mini whose size is similar to a rubber.
@@ -74,7 +74,7 @@ In addition to the mentioned manufacturers, Microsoft Research in Cambridge has 
 \end{center}\end{figure}
 
 \subsection{NETMF on Linux}\label{SS:SOTA-NETMF-Linux}
-After doing some research about implementations of Micro Framework on other devices, or running on top of other operating systems such as Linux, it was found a project that is currently porting NETMF to Linux, but for a very specific device called Eddy. This is a complete port of the virtual Machine so it has the original CLR interpreter and some of the functions working.
+After doing some research about implementations of Micro Framework on other devices, or running on top of other operating systems such as Linux, it was found a project that is currently porting NETMF to Linux, but for a very specific device called Eddy. This is a complete port of the virtual Machine so it has the original CLR interpreter.
 \\
 Eddy is an ARM embedded device board that uses Linux. The port named above has been made as a demonstration of writing NETMF applications using a port on top of other operating systems. One of the majors problems of this port is that some drivers are not working at all, for example UART, SPI and \gls{I2C} which are 3 I/O protocols and ports used in HomeSense.
 \\
@@ -83,7 +83,7 @@ Although this port is for the Eddy board, it can be ported to other devices usin
 \subsection{NETMF on RaspberryPi}\label{SS:SOTA-NETMF-RPI}
 If it is hard to find an implementation of NETMF in Linux, it will be harder to find an implementation for Raspberry Pi. In other words, people in GHI forums are asking for NETMF ports for the Raspberry Pi but no one exists. At time of writing this thesis, a small port was uploaded to Codeplex \url{http://raspberrypinetmf.codeplex.com/} and uses the bcm2835 library to implement the Micro Framework functions.
 \\
-Leaving aside the NETMF implementations for the Raspberry Pi, a search on existing libraries to control the features of the board was done. There are existing libraries for many languages including C and C++, Python, Java, Ruby and .NET. The interesting ones are the C and .NET implementations, the first one because can be used in conjunction with .NET code via Platform Invocation Services. The second one is interesting for how has been done the implementation of the bcm2835 in this language, but after analysing it the conclusion was that there is a lack of libraries written in .NET.
+Leaving aside the NETMF implementations for the Raspberry Pi, a search on existing libraries to control the features of the board was done. There are existing libraries for many languages including C and C++, Python, Java, Ruby and .NET. The interesting ones are the C and .NET implementations, the first one because can be used in conjunction with .NET code via Platform Invocation Services. The second one is interesting for how has been done the implementation of the bcm2835 in this language, but after analysing it, the conclusion was that there is a lack of libraries written in .NET.
 
 \section{Conclusions}\label{S:SOTA-Conclusions}
-There is not any real implementation of .NET Micro Framework for Linux. If IOSharp succeeds on implementing a library with the same methods of the framework it will become the first library to execute Micro Framework programs on any standard computer that runs Linux. In other words, this library will make easier the interaction between .NET programs and the underlying hardware.
+There is not any real implementation of .NET Micro Framework for Linux. If IOSharp succeeds on implementing a library with the same methods of the framework it will become the first library to execute Micro Framework programs on any standard computer that runs Linux. In other words, this library will make easier the interaction between .NET programs and the underlying hardware and I/O ports.

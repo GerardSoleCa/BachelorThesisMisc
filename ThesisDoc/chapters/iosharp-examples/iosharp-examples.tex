@@ -106,7 +106,7 @@ With all of these devices attached to the shield used in the Raspberry Pi it wil
   \caption{Raspberry Pi with the modules needed to run HomeSense\label{fig:IOEx-HS-Stack}}
 \end{center}\end{figure}
 
-\subsection{Working}\label{SS:IOEx-HomeSense-Working}
+\subsection{Deploying on Raspberry Pi}\label{SS:IOEx-HomeSense-Working}
 As IOSharp has implemented all the features required in HomeSense, it is possible to change the project type from Micro Framework to .NET Framework and then reference this library. Finally, the ports need to be remapped according to the shield used with the Raspberry Pi. The strategy to do this mapping is include the Hardware class of the Raspberry Pi and then rename the ports to the according ones. SerialPort device also must be renamed from \verb!COM1! to \verb!/dev/ttyAMA0!. After changing the references and the port names is possible to start testing the program. So it has been really easy to migrate from the Netduino Mini board to the Raspberry Pi.
 \\
 \\

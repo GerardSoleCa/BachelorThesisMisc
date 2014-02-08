@@ -7,7 +7,7 @@ Below there are explained the different types of libraries, its characteristics 
   \\
   This kind of library is the one that is imported while compiling, and when the source code in the library is linked statically in the generated binary, the compiler takes the library functions used along the program and then they are embedded statically to the compiled binary. In this way, the functions are physically located with the program. 
 \\
-For example, imagine that you create a library with 3 functions, called \verb!get_password()!, \verb!generate_token()! and \verb!hash(char[] plain())!,  but in the current project you only use two of this functions, which are \verb!get_password()! and \verb!get_token()!. When the compiler builds the project, it code will only take the functions from the library that are currently used in the program and then insert them into the binary. At this point, deleting that library won't affect the generated binary, and it will be able to use it without any dependency problems related to missing libraries (dependencies).
+For example, imagine that you create a library with has three functions, called \verb!get_password()!, \verb!generate_token()! and \verb!hash(char[] plain())!,  but in the current project you only use two of this functions, which are \verb!get_password()! and \verb!get_token()!. When the compiler builds the project, it code will only take the functions from the library that are currently used in the program and then insert them into the binary. At this point, deleting that library won't affect the generated binary, and it will be able to use it without any dependency problems related to missing libraries (dependencies).
 \\
 The typical files for this type is .lib for Windows and .a for UNIX systems.
   
